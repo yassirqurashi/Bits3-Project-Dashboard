@@ -224,6 +224,7 @@ export default function ClientDashboardPage() {
   }
 
   const cardStyle: any = { background: cardSurface, borderRadius: 22, padding: '18px 20px', width: '100%', minWidth: 0, height: 218, boxShadow: cardShadow, border: `1px solid ${borderColor}`, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', transition: 'all 0.25s ease', cursor: 'pointer' }
+  const topButtonStyle: any = { border: isDark ? '1px solid rgba(255,255,255,0.14)' : '1px solid rgba(255,255,255,0.28)', borderRadius: 16, padding: '11px 16px', color: isDark ? '#ffffff' : headingColor, fontSize: 13, fontWeight: 900, cursor: 'pointer', background: isDark ? '#05070D' : '#ffffff', boxShadow: isDark ? '0 14px 30px rgba(0,0,0,0.32)' : '0 12px 28px rgba(21,18,54,0.14)', flexShrink: 0 }
   const labelStyle: any = { fontSize: 12, fontWeight: 900, color: mutedColor, letterSpacing: 0.7 }
   const subStyle: any = { color: mutedColor, fontSize: 13, fontWeight: 700 }
   const rowStyle: any = { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 18, alignItems: 'stretch', marginBottom: 22 }
@@ -249,11 +250,11 @@ export default function ClientDashboardPage() {
             <div style={{ position: 'absolute', right: 18, top: 16, width: 318, height: 84, background: `linear-gradient(135deg, ${client.primary_color}, ${client.secondary_color})`, borderRadius: 28, transform: 'skewX(-12deg)', boxShadow: '0 18px 42px rgba(80,65,180,0.14)' }} />
             <div style={{ position: 'absolute', right: 42, top: -40, width: 156, height: 156, borderRadius: 999, background: 'rgba(255,255,255,0.15)' }} />
             <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
-              <button onClick={toggleTheme} style={{ border: '1px solid rgba(255,255,255,0.28)', borderRadius: 16, padding: '11px 16px', color: isDark ? '#ffffff' : headingColor, fontSize: 13, fontWeight: 900, cursor: 'pointer', background: isDark ? 'rgba(255,255,255,0.16)' : '#ffffff', boxShadow: '0 12px 28px rgba(21,18,54,0.14)', flexShrink: 0 }}>
+              <button onClick={toggleTheme} style={topButtonStyle}>
                 {isDark ? 'Light' : 'Dark'}
               </button>
-              <button onClick={() => window.location.reload()} style={{ border: '1px solid rgba(255,255,255,0.28)', borderRadius: 16, padding: '11px 18px', color: isDark ? '#ffffff' : headingColor, fontSize: 13, fontWeight: 900, cursor: 'pointer', background: isDark ? 'rgba(255,255,255,0.16)' : '#ffffff', boxShadow: '0 12px 28px rgba(21,18,54,0.14)', flexShrink: 0 }}>Refresh</button>
-              <button onClick={async () => { await supabase.auth.signOut(); router.push('/client-login') }} style={{ border: '1px solid rgba(255,255,255,0.32)', borderRadius: 16, padding: '11px 18px', color: '#ffffff', fontSize: 13, fontWeight: 900, cursor: 'pointer', background: isDark ? 'rgba(255,255,255,0.16)' : 'rgba(21,24,43,0.28)', boxShadow: '0 12px 28px rgba(21,18,54,0.10)', flexShrink: 0 }}>Sign out</button>
+              <button onClick={() => window.location.reload()} style={{ ...topButtonStyle, padding: '11px 18px' }}>Refresh</button>
+              <button onClick={async () => { await supabase.auth.signOut(); router.push('/client-login') }} style={{ ...topButtonStyle, padding: '11px 18px' }}>Sign out</button>
             </div>
           </div>
 
