@@ -232,6 +232,35 @@ const styles = `
     margin-bottom: 16px;
     font-weight: 700;
   }
+  .cl-success {
+    color: #047857;
+    background: #ecfdf5;
+    border: 1px solid #bbf7d0;
+    padding: 12px;
+    border-radius: 14px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+  .cl-forgot-row {
+    display: flex;
+    justify-content: flex-end;
+    margin: -4px 0 18px;
+  }
+  .cl-forgot-button {
+    border: none;
+    background: transparent;
+    color: #6C5CE7;
+    font-size: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    padding: 0;
+  }
+  .cl-forgot-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+  }
   .cl-login-button {
     width: 100%;
     height: 56px;
@@ -268,11 +297,14 @@ export default function ClientLoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [resetLoading, setResetLoading] = useState(false)
   const [error, setError] = useState('')
+  const [resetMessage, setResetMessage] = useState('')
 
   const login = async () => {
     setLoading(true)
     setError('')
+    setResetMessage('')
 
     const { error } = await supabase.auth.signInWithPassword({ email, password })
 
@@ -284,6 +316,31 @@ export default function ClientLoginPage() {
     }
 
     router.push('/client-dashboard')
+  }
+
+  const sendPasswordReset = async () => {
+    setError('')
+    setResetMessage('')
+
+    if (!email.trim()) {
+      setError('Please enter your email first, then click Forgot password.')
+      return
+    }
+
+    setResetLoading(true)
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+      redirectTo: `${window.location.origin}/client-reset-password`,
+    })
+
+    setResetLoading(false)
+
+    if (error) {
+      setError(error.message)
+      return
+    }
+
+    setResetMessage('If this email exists, Supabase has sent a password reset link.')
   }
 
   return (
@@ -363,7 +420,14 @@ export default function ClientLoginPage() {
               />
             </div>
 
+            <div className="cl-forgot-row">
+              <button className="cl-forgot-button" disabled={resetLoading} onClick={sendPasswordReset} type="button">
+                {resetLoading ? 'Sending reset email...' : 'Forgot password?'}
+              </button>
+            </div>
+
             {error && <div className="cl-error">{error}</div>}
+            {resetMessage && <div className="cl-success">{resetMessage}</div>}
 
             <button className="cl-login-button" disabled={loading} type="submit">
               {loading ? 'Signing in...' : 'Login'}
