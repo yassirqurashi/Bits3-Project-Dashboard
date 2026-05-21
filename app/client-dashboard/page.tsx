@@ -224,7 +224,7 @@ export default function ClientDashboardPage() {
   }
 
   const cardStyle: any = { background: cardSurface, borderRadius: 22, padding: '18px 20px', width: '100%', minWidth: 0, height: 218, boxShadow: cardShadow, border: `1px solid ${borderColor}`, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', transition: 'all 0.25s ease', cursor: 'pointer' }
-  const topButtonStyle: any = { border: isDark ? '1px solid rgba(255,255,255,0.14)' : '1px solid rgba(255,255,255,0.28)', borderRadius: 16, padding: '11px 16px', color: isDark ? '#ffffff' : headingColor, fontSize: 13, fontWeight: 900, cursor: 'pointer', background: isDark ? '#05070D' : '#ffffff', boxShadow: isDark ? '0 14px 30px rgba(0,0,0,0.32)' : '0 12px 28px rgba(21,18,54,0.14)', flexShrink: 0 }
+  const topButtonStyle: any = { border: '1px solid rgba(255,255,255,0.28)', borderRadius: 16, padding: '11px 16px', color: isDark ? '#05070D' : headingColor, fontSize: 13, fontWeight: 900, cursor: 'pointer', background: isDark ? 'rgba(255,255,255,0.16)' : '#ffffff', boxShadow: '0 12px 28px rgba(21,18,54,0.14)', flexShrink: 0 }
   const labelStyle: any = { fontSize: 12, fontWeight: 900, color: mutedColor, letterSpacing: 0.7 }
   const subStyle: any = { color: mutedColor, fontSize: 13, fontWeight: 700 }
   const rowStyle: any = { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 18, alignItems: 'stretch', marginBottom: 22 }
