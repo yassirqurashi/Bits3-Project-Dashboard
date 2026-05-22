@@ -2974,17 +2974,35 @@ const createClientRequest = async () => {
   if (!selectedProject) return
   if (!paymentName.trim()) return
 
-  const { error } = await supabase.from('payments').insert([{
+  const { data: payment, error } = await supabase.from('payments').insert([{
     project_id: selectedProject.id,
     term: paymentName,
     amount: Number(paymentPercentage.replace('%', '')),
     is_paid: paymentStatus === 'Paid',
     due_upon: paymentDueUpon,
-  }])
+  }]).select().single()
 
   if (error) {
     alert(error.message)
     return
+  }
+
+  if (paymentStatus === 'Paid' && payment?.id) {
+    try {
+      const response = await fetch('/api/notify-payment-received', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ paymentId: payment.id }),
+      })
+
+      if (!response.ok) {
+        const result = await response.json().catch(() => ({}))
+        throw new Error(result.error || 'Email notification failed')
+      }
+    } catch (notificationError) {
+      console.error('Payment received notification failed', notificationError)
+      alert(`Payment saved, but the email notification could not be sent: ${notificationError instanceof Error ? notificationError.message : 'Unknown error'}`)
+    }
   }
 
   setPaymentName('')
@@ -2994,6 +3012,45 @@ const createClientRequest = async () => {
 
   await loadData()
 } 
+
+ const updatePaymentStatus = async (paymentId: string, status: string) => {
+  const existingPayment = payments.find(payment => payment.id === paymentId)
+  const wasPaid = Boolean(existingPayment?.is_paid)
+  const isPaid = status === 'Paid'
+
+  const { error } = await supabase
+    .from('payments')
+    .update({ is_paid: isPaid })
+    .eq('id', paymentId)
+
+  if (error) {
+    alert(error.message)
+    return
+  }
+
+  setPayments(prev => prev.map(payment =>
+    payment.id === paymentId ? { ...payment, is_paid: isPaid } : payment
+  ))
+
+  if (isPaid && !wasPaid) {
+    try {
+      const response = await fetch('/api/notify-payment-received', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ paymentId }),
+      })
+
+      if (!response.ok) {
+        const result = await response.json().catch(() => ({}))
+        throw new Error(result.error || 'Email notification failed')
+      }
+    } catch (notificationError) {
+      console.error('Payment received notification failed', notificationError)
+      alert(`Payment updated, but the email notification could not be sent: ${notificationError instanceof Error ? notificationError.message : 'Unknown error'}`)
+    }
+  }
+}
+
  const deleteDeliverable = async (deliverableId: string) => {
     const ok = confirm('Delete this deliverable?')
     if (!ok) return
@@ -5141,9 +5198,18 @@ if (loading) {
                   marginTop: '4px'
                 }}
               >
-                {p.amount}% • {p.is_paid ? 'Paid' : 'Pending'} • {p.due_upon}
+                {p.amount}% • {p.due_upon}
               </div>
             </div>
+            <select
+              className="pm-select"
+              style={{ width: 140, minHeight: 42, flexShrink: 0 }}
+              value={p.is_paid ? 'Paid' : 'Pending'}
+              onChange={(e) => updatePaymentStatus(p.id, e.target.value)}
+            >
+              <option value="Pending">Pending</option>
+              <option value="Paid">Paid</option>
+            </select>
           </div>
         ))}
     </div>
