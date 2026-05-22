@@ -23,6 +23,7 @@ export default function ClientDashboardPage() {
   const [meetings, setMeetings] = useState<any[]>([])
   const [selectedProject, setSelectedProject] = useState<any | null>(null)
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
+  const [now, setNow] = useState(Date.now())
 
   useEffect(() => {
     const savedTheme = window.localStorage.getItem('client-dashboard-theme')
@@ -60,6 +61,11 @@ export default function ClientDashboardPage() {
       setLoading(false)
     }
     loadClientData()
+  }, [])
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(Date.now()), 1000)
+    return () => window.clearInterval(timer)
   }, [])
 
   const toggleTheme = () => {
@@ -171,6 +177,23 @@ export default function ClientDashboardPage() {
   const displayedProgress = displayedProject ? getProjectProgress(displayedProject.id) : 0
   const dashboardTitle = displayedProject ? `${displayedProject.name} Dashboard` : `${client.name} Dashboard`
   const displayedDeliverables = displayedProject ? getProjectDeliverables(displayedProject.id) : []
+  const getDeliverableDueTime = (date?: string | null) => {
+    if (!date) return null
+    const isDateOnly = /^\d{4}-\d{2}-\d{2}$/.test(date)
+    const time = Date.parse(isDateOnly ? `${date}T23:59:59` : date)
+    return Number.isNaN(time) ? null : time
+  }
+  const latestDeliverableDue = displayedDeliverables
+    .map(deliverable => getDeliverableDueTime(deliverable.end_date))
+    .filter((time): time is number => typeof time === 'number')
+    .sort((a, b) => b - a)[0]
+  const dueDiffMs = latestDeliverableDue ? latestDeliverableDue - now : null
+  const countdownMs = dueDiffMs === null ? null : Math.abs(dueDiffMs)
+  const countdownLabel = dueDiffMs === null ? 'No due date' : dueDiffMs < 0 ? 'Overdue' : 'Due in'
+  const remainingDays = countdownMs === null ? 0 : Math.floor(countdownMs / (1000 * 60 * 60 * 24))
+  const remainingHours = countdownMs === null ? 0 : Math.floor((countdownMs / (1000 * 60 * 60)) % 24)
+  const remainingMinutes = countdownMs === null ? 0 : Math.floor((countdownMs / (1000 * 60)) % 60)
+  const remainingSeconds = countdownMs === null ? 0 : Math.floor((countdownMs / 1000) % 60)
   const completedDeliverables = displayedDeliverables.filter(d => d.status === 'Completed').length
   const deliverableProgress = displayedDeliverables.length > 0 ? Math.round((completedDeliverables / displayedDeliverables.length) * 100) : 0
   const displayedMilestones = displayedProject ? getProjectMilestones(displayedProject.id) : []
@@ -247,9 +270,29 @@ export default function ClientDashboardPage() {
                 <div style={{ marginTop: 6, fontSize: 15, fontWeight: 700, color: mutedColor }}>Designed with Love for {client.name}</div>
               </div>
             </div>
+            <div style={{ position: 'absolute', zIndex: 2, left: '50%', top: '50%', transform: 'translate(-50%, -50%)', display: 'flex', alignItems: 'center', gap: 10, border: `1px solid ${borderColor}`, borderRadius: 18, padding: '15px 18px', minHeight: 68, color: textColor, background: cardSurface, boxShadow: cardShadow, flexShrink: 0 }}>
+                <div style={{ fontSize: 10, fontWeight: 900, letterSpacing: 0.7, color: countdownLabel === 'Overdue' ? '#DC2626' : client.primary_color, textTransform: 'uppercase' }}>
+                  {countdownLabel}
+                </div>
+                {countdownMs !== null && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    {[
+                      ['D', remainingDays],
+                      ['H', remainingHours],
+                      ['M', remainingMinutes],
+                      ['S', remainingSeconds],
+                    ].map(([label, value]) => (
+                      <div key={label} style={{ minWidth: 30, textAlign: 'center' }}>
+                        <div style={{ fontSize: 15, fontWeight: 950, lineHeight: 1, color: textColor }}>{String(value).padStart(2, '0')}</div>
+                        <div style={{ marginTop: 3, fontSize: 8.5, fontWeight: 900, color: mutedColor }}>{label}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             <div style={{ position: 'absolute', right: 18, top: 16, width: 318, height: 84, background: `linear-gradient(135deg, ${client.primary_color}, ${client.secondary_color})`, borderRadius: 28, transform: 'skewX(-12deg)', boxShadow: '0 18px 42px rgba(80,65,180,0.14)' }} />
             <div style={{ position: 'absolute', right: 42, top: -40, width: 156, height: 156, borderRadius: 999, background: 'rgba(255,255,255,0.15)' }} />
-            <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+            <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 10, flexShrink: 0, flexWrap: 'wrap' }}>
               <button onClick={toggleTheme} style={topButtonStyle}>
                 {isDark ? 'Light' : 'Dark'}
               </button>
@@ -278,6 +321,9 @@ export default function ClientDashboardPage() {
                       </div>
                       <div style={{ minWidth: 0, position: 'relative', zIndex: 1 }}>
                         <div style={{ fontSize: 18, fontWeight: 900, color: textColor, lineHeight: 1.2 }}>{project.name}</div>
+                        <div style={{ marginTop: 8, fontSize: 12, fontWeight: 800, color: bodyMutedColor }}>
+                          Kickoff: {formatDate(project.start_date)}
+                        </div>
                         <div style={{ marginTop: 8, width: 42, height: 4, borderRadius: 999, background: client.primary_color }} />
                         </div>
                     </div>

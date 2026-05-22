@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { supabase } from '../../lib/supabase/client'
 import { useRouter } from 'next/navigation'
-import { ArrowRight, Lock, Mail, Sparkles } from 'lucide-react'
+import { ArrowRight, Eye, EyeOff, Lock, Mail, Sparkles } from 'lucide-react'
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap');
@@ -218,9 +218,24 @@ const styles = `
     outline: none;
     background: transparent;
     width: 100%;
-    font-size: 15px;
+    font-size: 14px;
     color: #151236;
-    font-weight: 700;
+    font-weight: 500;
+  }
+  .cl-password-toggle {
+    border: none;
+    background: transparent;
+    color: #7C4DFF;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .cl-password-toggle:hover {
+    background: #f3f0ff;
   }
   .cl-error {
     color: #d63031;
@@ -296,6 +311,7 @@ export default function ClientLoginPage() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [resetLoading, setResetLoading] = useState(false)
   const [error, setError] = useState('')
@@ -306,15 +322,28 @@ export default function ClientLoginPage() {
     setError('')
     setResetMessage('')
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
-
-    setLoading(false)
+    const { data: loginData, error } = await supabase.auth.signInWithPassword({ email, password })
 
     if (error) {
+      setLoading(false)
       setError(error.message)
       return
     }
 
+    const { data: client, error: clientError } = await supabase
+      .from('clients')
+      .select('id')
+      .eq('user_id', loginData.user.id)
+      .single()
+
+    if (clientError || !client) {
+      await supabase.auth.signOut()
+      setLoading(false)
+      setError('This account does not have access to the client dashboard.')
+      return
+    }
+
+    setLoading(false)
     router.push('/client-dashboard')
   }
 
@@ -416,8 +445,16 @@ export default function ClientLoginPage() {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
               />
+              <button
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                className="cl-password-toggle"
+                onClick={() => setShowPassword(value => !value)}
+                type="button"
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
             </div>
 
             <div className="cl-forgot-row">

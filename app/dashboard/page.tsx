@@ -481,6 +481,1001 @@ const styles = `
   .pm-hours-fill { height: 100%; border-radius: 999px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
   .pm-work-log { padding: 14px; border: 1px solid var(--gray-200); border-radius: 16px; background: #fbfaff; display: grid; gap: 8px; margin-bottom: 10px; }
 
+  .pm-root {
+    --black: #1f1f28;
+    --gray-50: #f7f8fb;
+    --gray-100: #edf0f4;
+    --gray-200: #dde2e8;
+    --gray-400: #9aa1ad;
+    --gray-600: #5f6470;
+    --gray-800: #2b2d35;
+    --accent: #7047f6;
+    --accent-2: #5f39df;
+    --accent-light: #f0edff;
+    --radius: 14px;
+    --radius-lg: 18px;
+    --shadow-sm: 0 10px 24px rgba(23, 28, 45, 0.04);
+    --shadow-md: 0 16px 34px rgba(23, 28, 45, 0.08);
+    --shadow-lg: 0 22px 48px rgba(23, 28, 45, 0.10);
+    background: #f4f6f9;
+  }
+
+  .pm-layout {
+    max-width: 1920px;
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: inset 0 0 0 1px rgba(17, 24, 39, 0.04);
+  }
+
+  .pm-sidebar {
+    width: 268px;
+    background: #ffffff;
+    border-right: 1px solid #e7e9ee;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  .pm-logo {
+    min-height: 82px;
+    padding: 22px 24px;
+    border-bottom: 1px solid #e9ebf0;
+  }
+
+  .pm-logo-title {
+    color: #181922;
+    font-size: 18px;
+    letter-spacing: -0.03em;
+    gap: 12px;
+  }
+
+  .pm-logo-title::before {
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #7a52ff 0%, #5e38df 100%);
+    box-shadow: 0 10px 20px rgba(112, 71, 246, 0.24);
+  }
+
+  .pm-logo-sub {
+    display: none;
+  }
+
+  .pm-nav {
+    padding: 20px 16px;
+  }
+
+  .pm-nav-label {
+    color: #9aa1ad;
+    font-size: 10px;
+    letter-spacing: 0.13em;
+    padding: 0 10px;
+    margin: 18px 0 10px;
+  }
+
+  .pm-nav-btn {
+    min-height: 44px;
+    border-radius: 12px;
+    color: #4f535d;
+    font-size: 14px;
+    font-weight: 650;
+    padding: 11px 12px;
+  }
+
+  .pm-nav-btn:hover {
+    background: #f6f4ff;
+    color: #5f39df;
+  }
+
+  .pm-nav-btn.active {
+    background: #efedff;
+    color: #4d2fc6;
+    box-shadow: none;
+  }
+
+  .pm-nav-btn .icon {
+    width: 22px;
+    display: inline-flex;
+    justify-content: center;
+  }
+
+  .pm-sidebar-footer {
+    padding: 16px;
+    border-top: 1px solid #e9ebf0;
+  }
+
+  .pm-logout-btn {
+    border-radius: 12px;
+    border-color: #e7e9ee;
+    box-shadow: none;
+  }
+
+  .pm-main {
+    margin-left: 268px;
+    background: #fbfcfe;
+  }
+
+  .pm-topbar {
+    height: 82px;
+    padding: 0 32px;
+    background: rgba(251, 252, 254, 0.92);
+    border-bottom: 1px solid #e7e9ee;
+    backdrop-filter: blur(16px);
+  }
+
+  .pm-topbar-left {
+    min-width: 240px;
+  }
+
+  .pm-breadcrumb {
+    display: none;
+  }
+
+  .pm-topbar-title {
+    color: #181922;
+    font-size: 25px;
+    letter-spacing: -0.045em;
+  }
+
+  .pm-topbar-title::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 22px;
+    margin-right: 12px;
+    vertical-align: -4px;
+    border: 3px solid #5f39df;
+    border-radius: 3px;
+    box-shadow: inset 0 -6px 0 rgba(112, 71, 246, 0.16);
+  }
+
+  .pm-topbar-actions {
+    flex: 1;
+    justify-content: center;
+    position: relative;
+  }
+
+  .pm-search {
+    width: min(520px, 42vw);
+    height: 46px;
+    border-radius: 15px;
+    background: #eef1f5;
+    border: 1px solid transparent;
+    text-align: center;
+    color: #30333b;
+    font-size: 14px;
+  }
+
+  .pm-search:focus {
+    border-color: #d7d2fb;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(112, 71, 246, 0.08);
+  }
+
+  .pm-topbar-badge {
+    position: absolute;
+    right: 0;
+    background: #eef1f5;
+    color: #292c35;
+    border-radius: 999px;
+    box-shadow: none;
+    padding: 9px 13px;
+  }
+
+  .pm-content {
+    padding: 30px 34px 44px;
+  }
+
+  .pm-hero-banner {
+    color: #1f1f28;
+    border-radius: 18px;
+    padding: 20px 22px;
+    background: #ffffff;
+    border: 1px solid #e7e9ee;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pm-hero-banner::after {
+    display: none;
+  }
+
+  .pm-hero-title {
+    color: #181922;
+    font-size: 22px;
+    letter-spacing: -0.04em;
+  }
+
+  .pm-hero-sub {
+    color: #626774;
+    opacity: 1;
+  }
+
+  .pm-hero-pill,
+  button.pm-hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    background: linear-gradient(145deg, #774cf7, #5f39df);
+    border: 1px solid rgba(95, 57, 223, 0.16);
+    border-radius: 13px;
+    box-shadow: 0 10px 22px rgba(112, 71, 246, 0.20);
+  }
+
+  .pm-stats-grid,
+  .pm-support-grid {
+    gap: 14px;
+  }
+
+  .pm-stat-card,
+  .pm-section,
+  .pm-project-card,
+  .pm-milestone-card,
+  .pm-client-card,
+  .pm-progress-card,
+  .pm-support-card,
+  .pm-task-card {
+    background: #ffffff;
+    border: 1px solid #e7e9ee;
+    border-radius: 18px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pm-stat-card {
+    padding: 18px;
+  }
+
+  .pm-stat-card::after {
+    display: none;
+  }
+
+  .pm-stat-icon,
+  .pm-section-icon {
+    border-radius: 12px;
+    background: #efedff;
+    color: #5f39df;
+    box-shadow: none;
+  }
+
+  .pm-stat-label {
+    color: #747986;
+    font-size: 12px;
+    font-weight: 750;
+  }
+
+  .pm-stat-value {
+    color: #171922;
+    font-size: 28px;
+    letter-spacing: -0.04em;
+  }
+
+  .pm-stat-foot,
+  .pm-card-client,
+  .pm-task-meta,
+  .pm-task-date,
+  .pm-progress-sub {
+    color: #777c88;
+  }
+
+  .pm-section {
+    overflow: clip;
+  }
+
+  .pm-section-header {
+    min-height: 68px;
+    padding: 16px 22px;
+    background: #ffffff;
+    border-bottom: 1px solid #e9ebf0;
+  }
+
+  .pm-section-title,
+  .pm-card-name,
+  .pm-client-name,
+  .pm-milestone-title,
+  .pm-task-title,
+  .pm-detail-title {
+    color: #181922;
+    letter-spacing: -0.025em;
+  }
+
+  .pm-section-body {
+    padding: 22px;
+  }
+
+  .pm-input,
+  .pm-select {
+    min-height: 44px;
+    border: 1px solid #dde2e8;
+    border-radius: 13px;
+    background-color: #ffffff;
+    color: #252832;
+    box-shadow: none;
+  }
+
+  .pm-input:focus,
+  .pm-select:focus {
+    border-color: #a999ff;
+    box-shadow: 0 0 0 4px rgba(112, 71, 246, 0.10);
+  }
+
+  .pm-label {
+    color: #7c818d;
+    letter-spacing: 0.075em;
+  }
+
+  .pm-btn,
+  .pm-action-btn,
+  .pm-back-btn {
+    border-radius: 13px;
+  }
+
+  .pm-btn-primary {
+    background: linear-gradient(145deg, #774cf7, #5f39df);
+    box-shadow: 0 11px 22px rgba(112, 71, 246, 0.20);
+  }
+
+  .pm-btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 26px rgba(112, 71, 246, 0.26);
+  }
+
+  .pm-action-btn,
+  .pm-btn-outline,
+  .pm-back-btn {
+    border-color: #dfe3ea;
+    background: #ffffff;
+    color: #333742;
+  }
+
+  .pm-action-btn:hover,
+  .pm-btn-outline:hover,
+  .pm-back-btn:hover {
+    border-color: #bfb4ff;
+    background: #f7f5ff;
+    color: #5f39df;
+  }
+
+  .pm-project-card {
+    padding: 20px;
+  }
+
+  .pm-project-card::before {
+    height: 3px;
+    background: #7047f6;
+  }
+
+  .pm-project-card:hover,
+  .pm-support-card:hover,
+  .pm-task-card:hover,
+  .pm-client-card:hover,
+  .pm-milestone-card:hover {
+    border-color: #d7d2fb;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .pm-card-meta,
+  .pm-milestone-header {
+    border-color: #e9ebf0;
+  }
+
+  .pm-milestone-header,
+  .pm-deliverable-item,
+  .pm-check-pill,
+  .pm-work-log {
+    background: #fbfcfe;
+  }
+
+  .pm-status-pill {
+    border-radius: 9px;
+    padding: 6px 10px;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .pm-divider-line {
+    background: #e7e9ee;
+  }
+
+  .pm-divider-text {
+    color: #8c929e;
+  }
+
+  .pm-task-card {
+    gap: 12px;
+  }
+
+  .pm-hours-bar {
+    background: #edf0f4;
+  }
+
+  .pm-taskboard-shell {
+    background: #ffffff;
+    border: 1px solid #e7e9ee;
+    border-radius: 18px;
+    box-shadow: var(--shadow-sm);
+    padding: 26px 28px;
+    margin-bottom: 22px;
+  }
+
+  .pm-board-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e9ebf0;
+  }
+
+  .pm-board-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .pm-board-icon {
+    width: 22px;
+    height: 22px;
+    color: #5f39df;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pm-board-title {
+    font-size: 27px;
+    font-weight: 850;
+    letter-spacing: -0.055em;
+    color: #181922;
+  }
+
+  .pm-board-sub {
+    color: #6f7480;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 7px;
+  }
+
+  .pm-board-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .pm-avatar-stack {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+  }
+
+  .pm-mini-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #dfe7ff;
+    color: #4d2fc6;
+    font-size: 11px;
+    font-weight: 850;
+    margin-left: -8px;
+    box-shadow: 0 6px 16px rgba(23, 28, 45, 0.10);
+  }
+
+  .pm-mini-avatar:first-child {
+    margin-left: 0;
+  }
+
+  .pm-view-tabs {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding-top: 18px;
+  }
+
+  .pm-view-tab {
+    border: 0;
+    background: transparent;
+    color: #3f424b;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 0 14px;
+    cursor: default;
+    position: relative;
+  }
+
+  .pm-view-tab.active {
+    color: #5f39df;
+  }
+
+  .pm-view-tab.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 3px;
+    border-radius: 999px;
+    background: #7047f6;
+  }
+
+  .pm-filter-row {
+    display: grid;
+    grid-template-columns: minmax(150px, 1fr) minmax(180px, 1.1fr) auto;
+    gap: 12px;
+    align-items: end;
+    margin: 20px 0 0;
+  }
+
+  .pm-filter-row .pm-field {
+    margin-bottom: 0;
+  }
+
+  .pm-project-list {
+    background: #ffffff;
+    border: 1px solid #e7e9ee;
+    border-radius: 18px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .pm-list-group {
+    padding: 20px 24px 18px;
+  }
+
+  .pm-list-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #3f424b;
+    background: #eef1f3;
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 18px;
+  }
+
+  .pm-list-status::before {
+    content: '';
+    width: 13px;
+    height: 13px;
+    border-radius: 999px;
+    border: 2px solid #727985;
+    background: #fff;
+  }
+
+  .pm-list-table {
+    display: grid;
+    gap: 0;
+  }
+
+  .pm-list-row {
+    display: grid;
+    grid-template-columns: 34px minmax(120px, 1.25fr) minmax(105px, 0.9fr) minmax(120px, 0.9fr) minmax(110px, 0.8fr) minmax(100px, 0.65fr) minmax(132px, auto);
+    gap: 12px;
+    align-items: center;
+    min-height: 62px;
+    border-bottom: 1px solid #eceef2;
+  }
+
+  .pm-list-row:last-child {
+    border-bottom: 0;
+  }
+
+  .pm-list-row.head {
+    min-height: 34px;
+    color: #7e8490;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .pm-list-row.item {
+    cursor: pointer;
+    transition: background 0.18s ease, transform 0.18s ease;
+  }
+
+  .pm-list-row.item:hover {
+    background: #fbfaff;
+  }
+
+  .pm-list-check {
+    width: 21px;
+    height: 21px;
+    border-radius: 999px;
+    border: 2px solid #e1e5ea;
+    display: inline-block;
+  }
+
+  .pm-list-name {
+    color: #20222a;
+    font-size: 15px;
+    font-weight: 750;
+  }
+
+  .pm-list-muted {
+    color: #747986;
+    font-size: 13px;
+    font-weight: 650;
+  }
+
+  .pm-list-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .pm-list-bar {
+    flex: 1;
+    min-width: 70px;
+    height: 7px;
+    background: #edf0f4;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .pm-list-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: #7047f6;
+  }
+
+  .pm-list-percent {
+    color: #20222a;
+    font-size: 12px;
+    font-weight: 850;
+    min-width: 32px;
+    text-align: right;
+  }
+
+  .pm-list-add {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    border: 0;
+    background: transparent;
+    color: #5f39df;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .pm-compact-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin: 18px 0 0;
+  }
+
+  @media (max-width: 1180px) {
+    .pm-content {
+      padding: 24px 22px 38px;
+    }
+
+    .pm-taskboard-shell {
+      padding: 22px;
+    }
+
+    .pm-board-actions .pm-btn {
+      padding: 10px 13px;
+    }
+
+    .pm-list-row {
+      grid-template-columns: 30px minmax(120px, 1.2fr) minmax(100px, 0.9fr) minmax(110px, 0.9fr) minmax(90px, 0.7fr) minmax(118px, auto);
+      gap: 10px;
+    }
+  }
+
+  .pm-compact-stat {
+    border: 1px solid #e9ebf0;
+    border-radius: 14px;
+    background: #fbfcfe;
+    padding: 13px 14px;
+  }
+
+  .pm-compact-stat span {
+    display: block;
+    color: #7e8490;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .pm-compact-stat strong {
+    display: block;
+    color: #181922;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    margin-top: 5px;
+  }
+
+  .pm-root {
+    background:
+      linear-gradient(180deg, #f7f8fb 0%, #f3f5f9 100%);
+  }
+
+  .pm-main {
+    background:
+      radial-gradient(circle at 78% 4%, rgba(112, 71, 246, 0.055), transparent 28%),
+      #f7f8fb;
+  }
+
+  .pm-topbar {
+    height: 88px;
+    background: rgba(247, 248, 251, 0.96);
+  }
+
+  .pm-topbar-title {
+    font-size: 28px;
+  }
+
+  .pm-content {
+    padding: 34px 38px 52px;
+  }
+
+  .pm-sidebar {
+    background: linear-gradient(180deg, #ffffff 0%, #fbfbfe 100%);
+  }
+
+  .pm-nav {
+    padding-top: 24px;
+  }
+
+  .pm-nav-btn {
+    min-height: 50px;
+    padding: 13px 14px;
+    margin-bottom: 5px;
+  }
+
+  .pm-nav-btn.active {
+    background: linear-gradient(135deg, #f0edff 0%, #f8f7ff 100%);
+    box-shadow: inset 4px 0 0 #7047f6;
+  }
+
+  .pm-taskboard-shell {
+    border-radius: 24px;
+    padding: 30px;
+    margin-bottom: 26px;
+    border-color: rgba(220, 224, 232, 0.95);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(253,253,255,0.96) 100%);
+    box-shadow: 0 24px 70px rgba(31, 35, 50, 0.08);
+  }
+
+  .pm-compact-stats {
+    gap: 18px;
+    margin: 0 0 26px;
+  }
+
+  .pm-compact-stat {
+    min-height: 126px;
+    border-radius: 22px;
+    padding: 24px 24px 22px;
+    background:
+      radial-gradient(circle at 86% 18%, rgba(112, 71, 246, 0.10), transparent 34%),
+      #ffffff;
+    border-color: #e4e7ee;
+    box-shadow: 0 15px 34px rgba(23, 28, 45, 0.055);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .pm-compact-icon {
+    position: absolute;
+    right: 20px;
+    top: 22px;
+    width: 28px;
+    height: 28px;
+    border-radius: 0;
+    background: transparent;
+    color: #7047f6;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pm-compact-stat:hover {
+    transform: translateY(-3px);
+    border-color: #d6d0ff;
+    box-shadow: 0 22px 46px rgba(112, 71, 246, 0.11);
+  }
+
+  .pm-compact-stat span {
+    color: #7a808c;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+  }
+
+  .pm-compact-stat strong {
+    font-size: 38px;
+    line-height: 1;
+    margin-top: 16px;
+  }
+
+  .pm-filter-row {
+    grid-template-columns: minmax(210px, 1fr) minmax(280px, 1.1fr) minmax(170px, 0.7fr) 136px;
+    gap: 18px;
+    padding-top: 4px;
+  }
+
+  .pm-filter-row .pm-label {
+    margin-bottom: 10px;
+  }
+
+  .pm-filter-row .pm-input,
+  .pm-filter-row .pm-select {
+    min-height: 58px;
+    border-radius: 18px;
+    font-size: 15px;
+    padding-left: 18px;
+    background-color: #ffffff;
+  }
+
+  .pm-filter-row .pm-btn {
+    min-height: 58px;
+    justify-content: center;
+    border-radius: 18px;
+    font-size: 14px;
+  }
+
+  .pm-project-list {
+    border-radius: 24px;
+    border-color: rgba(220, 224, 232, 0.95);
+    box-shadow: 0 24px 70px rgba(31, 35, 50, 0.075);
+    background: #ffffff;
+  }
+
+  .pm-list-group {
+    padding: 30px;
+  }
+
+  .pm-list-status {
+    padding: 10px 14px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    background: #f1f3f6;
+    color: #292d36;
+  }
+
+  .pm-list-row {
+    grid-template-columns: 42px minmax(150px, 1.1fr) minmax(120px, 0.85fr) minmax(152px, 0.9fr) minmax(160px, 1fr) minmax(116px, 0.7fr) minmax(150px, auto);
+    gap: 18px;
+    min-height: 82px;
+  }
+
+  .pm-list-row.head {
+    min-height: 42px;
+    font-size: 12px;
+  }
+
+  .pm-list-row.item {
+    border-radius: 16px;
+    padding: 0 10px;
+    margin: 0 -10px;
+  }
+
+  .pm-list-row.item:hover {
+    background: linear-gradient(90deg, #fbfaff 0%, #ffffff 100%);
+    transform: translateX(3px);
+  }
+
+  .pm-list-check {
+    width: 24px;
+    height: 24px;
+    border-width: 2.5px;
+    background: #fff;
+  }
+
+  .pm-list-name {
+    font-size: 17px;
+    font-weight: 850;
+    letter-spacing: -0.025em;
+  }
+
+  .pm-list-muted {
+    font-size: 14px;
+    color: #6e7480;
+  }
+
+  .pm-list-bar {
+    height: 9px;
+    background: #eef0f5;
+    box-shadow: inset 0 0 0 1px rgba(112, 71, 246, 0.02);
+  }
+
+  .pm-list-fill {
+    display: block;
+    min-width: 4px;
+    background: linear-gradient(90deg, #7047f6 0%, #9a7bff 100%);
+    box-shadow: 0 5px 14px rgba(112, 71, 246, 0.28);
+    transition: width 0.35s ease;
+  }
+
+  .pm-list-percent {
+    font-size: 13px;
+    min-width: 38px;
+  }
+
+  .pm-list-add {
+    margin-top: 24px;
+    font-size: 15px;
+    padding: 10px 2px 0;
+  }
+
+  .pm-list-date-input {
+    width: 100%;
+    min-height: 38px;
+    border: 1px solid #dfe3ea;
+    border-radius: 12px;
+    background: #fff;
+    color: #20222a;
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    font-weight: 750;
+    padding: 8px 10px;
+    outline: none;
+  }
+
+  .pm-list-date-input:focus {
+    border-color: #a999ff;
+    box-shadow: 0 0 0 4px rgba(112, 71, 246, 0.10);
+  }
+
+  .pm-action-btn {
+    min-height: 38px;
+    padding: 9px 13px;
+  }
+
+  @media (max-width: 1320px) {
+    .pm-content {
+      padding: 30px 24px 46px;
+    }
+
+    .pm-taskboard-shell,
+    .pm-project-list {
+      border-radius: 22px;
+    }
+
+    .pm-taskboard-shell {
+      padding: 28px;
+    }
+
+    .pm-compact-stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pm-filter-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pm-filter-row .pm-btn {
+      grid-column: auto;
+      justify-self: start;
+      width: 170px;
+    }
+
+    .pm-list-row {
+      grid-template-columns: 34px minmax(110px, 1fr) minmax(95px, 0.8fr) minmax(130px, 0.9fr) minmax(150px, 1fr) minmax(90px, 0.65fr) auto;
+      gap: 12px;
+    }
+
+    .pm-list-group {
+      padding: 26px;
+    }
+  }
+
   @media (max-width: 980px) {
     .pm-sidebar { width: 82px; }
     .pm-logo-sub, .pm-nav-btn:not(.active) span + text { display: none; }
@@ -497,6 +1492,436 @@ const styles = `
     .pm-form-row, .pm-color-row { flex-direction: column; align-items: stretch; }
     .pm-stats-grid { grid-template-columns: 1fr; }
     .pm-hero-banner { flex-direction: column; align-items: flex-start; }
+  }
+
+  .pm-root {
+    --black: #171821;
+    --gray-50: #f7f8fb;
+    --gray-100: #eef1f5;
+    --gray-200: #e1e5ec;
+    --gray-400: #9aa3af;
+    --gray-600: #667085;
+    --gray-800: #2f3440;
+    --accent: #6d4aff;
+    --accent-2: #5135d8;
+    --accent-light: #f3f0ff;
+    --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.04), 0 8px 24px rgba(16, 24, 40, 0.04);
+    --shadow-md: 0 18px 42px rgba(16, 24, 40, 0.08);
+    background: #f6f7fb;
+  }
+
+  .pm-layout {
+    background: #f6f7fb;
+    box-shadow: none;
+  }
+
+  .pm-sidebar {
+    width: 256px;
+    background: #ffffff;
+    border-right: 1px solid #e8ebf0;
+  }
+
+  .pm-logo {
+    min-height: 76px;
+    padding: 20px 22px;
+  }
+
+  .pm-logo-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: #151821;
+    line-height: 1.05;
+  }
+
+  .pm-logo-title::before {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    box-shadow: 0 10px 22px rgba(109, 74, 255, 0.22);
+  }
+
+  .pm-nav {
+    padding: 18px 12px 22px;
+  }
+
+  .pm-nav-label {
+    margin: 20px 0 8px;
+    padding: 0 12px;
+    color: #a5adba;
+    font-size: 9.5px;
+    font-weight: 750;
+    letter-spacing: 0.12em;
+  }
+
+  .pm-nav-btn {
+    min-height: 40px;
+    border-radius: 10px;
+    padding: 9px 12px;
+    margin-bottom: 3px;
+    color: #606b7c;
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+
+  .pm-nav-btn:hover {
+    background: #f7f6ff;
+    color: var(--accent);
+  }
+
+  .pm-nav-btn.active {
+    background: #f0edff;
+    color: #4f35d3;
+    font-weight: 700;
+    box-shadow: inset 3px 0 0 var(--accent);
+  }
+
+  .pm-nav-btn .icon {
+    width: 18px;
+    color: currentColor;
+  }
+
+  .pm-sidebar-footer {
+    padding: 14px;
+  }
+
+  .pm-logout-btn {
+    min-height: 40px;
+    border-radius: 10px;
+    color: #8a2b2b;
+    background: #fff;
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+
+  .pm-main {
+    margin-left: 256px;
+    background:
+      radial-gradient(circle at 88% -5%, rgba(109, 74, 255, 0.08), transparent 28%),
+      #f6f7fb;
+  }
+
+  .pm-topbar {
+    height: 76px;
+    padding: 0 36px;
+    background: rgba(246, 247, 251, 0.88);
+    border-bottom: 1px solid rgba(225, 229, 236, 0.9);
+    backdrop-filter: blur(18px);
+  }
+
+  .pm-topbar-left {
+    min-width: 0;
+  }
+
+  .pm-topbar-title {
+    font-size: 27px;
+    font-weight: 900;
+    color: #171821;
+    letter-spacing: -0.05em;
+  }
+
+  .pm-topbar-title::before {
+    width: 16px;
+    height: 20px;
+    border-width: 2.5px;
+    border-color: var(--accent);
+    box-shadow: inset 0 -6px 0 rgba(109, 74, 255, 0.12);
+  }
+
+  .pm-content {
+    padding: 34px 40px 56px;
+  }
+
+  .pm-section,
+  .pm-taskboard-shell,
+  .pm-project-list,
+  .pm-stat-card,
+  .pm-client-card,
+  .pm-support-card,
+  .pm-task-card,
+  .pm-milestone-card,
+  .pm-progress-card {
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid #e5e8ef;
+    border-radius: 18px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pm-section {
+    margin-bottom: 22px;
+  }
+
+  .pm-section-header {
+    min-height: 64px;
+    padding: 16px 22px;
+    background: #ffffff;
+    border-bottom: 1px solid #edf0f4;
+  }
+
+  .pm-section-icon,
+  .pm-stat-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: #f1eeff;
+    color: var(--accent);
+  }
+
+  .pm-section-title {
+    font-size: 14px;
+    font-weight: 850;
+  }
+
+  .pm-section-body {
+    padding: 22px;
+  }
+
+  .pm-input,
+  .pm-select,
+  .pm-list-date-input {
+    min-height: 46px;
+    border-radius: 12px;
+    border-color: #dde3ec;
+    background-color: #ffffff;
+    color: #1f2430;
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+
+  .pm-input:focus,
+  .pm-select:focus,
+  .pm-list-date-input:focus {
+    border-color: #9b8aff;
+    box-shadow: 0 0 0 4px rgba(109, 74, 255, 0.10);
+  }
+
+  .pm-label {
+    color: #7a8494;
+    font-size: 10.5px;
+    font-weight: 850;
+    letter-spacing: 0.075em;
+  }
+
+  .pm-btn,
+  .pm-action-btn,
+  .pm-back-btn {
+    border-radius: 11px;
+  }
+
+  .pm-btn-primary {
+    background: #6d4aff;
+    box-shadow: 0 10px 24px rgba(109, 74, 255, 0.24);
+  }
+
+  .pm-btn-primary:hover {
+    background: #5f3ff0;
+    box-shadow: 0 16px 32px rgba(109, 74, 255, 0.26);
+  }
+
+  .pm-action-btn,
+  .pm-btn-outline,
+  .pm-back-btn {
+    border-color: #dfe4ec;
+    background: #fff;
+    color: #344054;
+  }
+
+  .pm-taskboard-shell {
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 14px 38px rgba(16, 24, 40, 0.06);
+  }
+
+  .pm-compact-stats {
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .pm-compact-stat {
+    min-height: 118px;
+    border-radius: 18px;
+    padding: 22px;
+    background: #ffffff;
+    border-color: #e5e8ef;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pm-compact-stat::after {
+    content: '';
+    position: absolute;
+    inset: auto 18px 16px 18px;
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(109, 74, 255, 0.24), rgba(109, 74, 255, 0));
+  }
+
+  .pm-compact-stat span {
+    color: #7a8494;
+    font-size: 11px;
+    font-weight: 850;
+  }
+
+  .pm-compact-stat strong {
+    margin-top: 18px;
+    color: #111827;
+    font-size: 36px;
+    font-weight: 900;
+  }
+
+  .pm-compact-icon {
+    right: 20px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    color: var(--accent);
+  }
+
+  .pm-filter-row {
+    gap: 14px;
+    align-items: end;
+  }
+
+  .pm-filter-row .pm-input,
+  .pm-filter-row .pm-select,
+  .pm-filter-row .pm-btn {
+    min-height: 52px;
+    border-radius: 14px;
+  }
+
+  .pm-project-list {
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 14px 38px rgba(16, 24, 40, 0.055);
+  }
+
+  .pm-list-group {
+    padding: 26px;
+  }
+
+  .pm-list-status {
+    padding: 8px 12px;
+    margin-bottom: 18px;
+    border-radius: 999px;
+    background: #f2f4f7;
+    color: #344054;
+    font-size: 12px;
+  }
+
+  .pm-list-status::before {
+    width: 10px;
+    height: 10px;
+    border: 0;
+    background: #f59e0b;
+  }
+
+  .pm-list-row {
+    min-height: 72px;
+    gap: 16px;
+    border-bottom-color: #edf0f4;
+  }
+
+  .pm-list-row.head {
+    min-height: 38px;
+    color: #8a93a3;
+    font-size: 11.5px;
+    font-weight: 800;
+  }
+
+  .pm-list-row.item {
+    border-radius: 12px;
+  }
+
+  .pm-list-row.item:hover {
+    background: #faf9ff;
+    transform: translateX(2px);
+  }
+
+  .pm-list-check {
+    width: 20px;
+    height: 20px;
+    border-color: #d8dde6;
+  }
+
+  .pm-list-name {
+    color: #171821;
+    font-size: 15.5px;
+    font-weight: 850;
+  }
+
+  .pm-list-muted {
+    color: #667085;
+    font-size: 13px;
+    font-weight: 650;
+  }
+
+  .pm-list-bar {
+    height: 8px;
+    background: #eef1f5;
+  }
+
+  .pm-list-fill {
+    background: linear-gradient(90deg, #6d4aff, #9d8cff);
+    box-shadow: none;
+  }
+
+  .pm-list-percent {
+    color: #1f2430;
+    font-size: 12px;
+  }
+
+  .pm-client-grid,
+  .pm-task-grid,
+  .pm-grid {
+    gap: 18px;
+  }
+
+  .pm-client-card,
+  .pm-task-card,
+  .pm-support-card,
+  .pm-project-card,
+  .pm-milestone-card {
+    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .pm-client-card:hover,
+  .pm-task-card:hover,
+  .pm-support-card:hover,
+  .pm-project-card:hover,
+  .pm-milestone-card:hover {
+    transform: translateY(-2px);
+    border-color: #d7d0ff;
+    box-shadow: var(--shadow-md);
+  }
+
+  .pm-status-pill {
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-size: 10.5px;
+    font-weight: 850;
+  }
+
+  .pm-file-upload,
+  .pm-check-pill,
+  .pm-deliverable-item,
+  .pm-work-log {
+    background: #fafbfc;
+    border-color: #e4e8ef;
+  }
+
+  .pm-empty {
+    background: #fff;
+    border: 1px dashed #d8dde6;
+    border-radius: 18px;
+  }
+
+  @media (max-width: 980px) {
+    .pm-sidebar { width: 82px; }
+    .pm-main { margin-left: 82px; }
+  }
+
+  @media (max-width: 720px) {
+    .pm-main { margin-left: 0; }
+    .pm-content { padding: 18px; }
+    .pm-compact-stats { grid-template-columns: 1fr; }
   }
 `
 
@@ -562,9 +1987,16 @@ const [requestFilter, setRequestFilter] = useState<'Open' | 'Closed'>('Open')
   const [teamPassword, setTeamPassword] = useState('')
   const [teamPictureUrl, setTeamPictureUrl] = useState('')
   const [teamUploadedFileName, setTeamUploadedFileName] = useState('')
+  const [editingTeamMember, setEditingTeamMember] = useState<any | null>(null)
+  const [teamEditName, setTeamEditName] = useState('')
+  const [teamEditUsername, setTeamEditUsername] = useState('')
+  const [teamEditPassword, setTeamEditPassword] = useState('')
+  const [teamEditPictureUrl, setTeamEditPictureUrl] = useState('')
+  const [teamSession, setTeamSession] = useState<any | null>(null)
   // PROJECT
   const [projectName, setProjectName] = useState('')
   const [projectClientId, setProjectClientId] = useState('')
+  const [projectKickoffDate, setProjectKickoffDate] = useState('')
 
   // MILESTONE
   const [milestoneTitle, setMilestoneTitle] = useState('')
@@ -625,8 +2057,40 @@ setClientRequestMessages(crm || [])
 
   useEffect(() => {
     const init = async () => {
+      const savedTeamMemberId = window.localStorage.getItem('pm-team-member-id')
+      if (savedTeamMemberId) {
+        const { data: savedTeamMember } = await supabase
+          .from('team_members')
+          .select('*')
+          .eq('id', savedTeamMemberId)
+          .single()
+
+        if (savedTeamMember) {
+          setTeamSession(savedTeamMember)
+          setActiveNav('projects')
+          await loadData()
+          setLoading(false)
+          return
+        }
+
+        window.localStorage.removeItem('pm-team-member-id')
+      }
+
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) return router.push('/login')
+
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single()
+
+      if (profileError || profile?.role !== 'pm') {
+        await supabase.auth.signOut()
+        router.push('/client-login')
+        return
+      }
+
       await loadData()
       setLoading(false)
     }
@@ -645,16 +2109,25 @@ setClientRequestMessages(crm || [])
     return () => window.clearTimeout(timeoutId)
   }, [])
 
+  useEffect(() => {
+    if (teamSession && activeNav !== 'projects') {
+      setActiveNav('projects')
+      setSelectedProject(null)
+      setSelectedRequest(null)
+      setSelectedSupportContract(null)
+    }
+  }, [teamSession, activeNav])
+
 const createTeamMember = async () => {
   if (!teamName.trim()) return
   if (!teamUsername.trim()) return
   if (!teamPassword.trim()) return
 
   const { error } = await supabase.from('team_members').insert([{
-    name: teamName,
-    username: teamUsername,
-    password: teamPassword,
-    picture_url: teamPictureUrl,
+    name: teamName.trim(),
+    username: teamUsername.trim(),
+    password: teamPassword.trim(),
+    picture_url: teamPictureUrl.trim(),
   }])
 
   if (error) {
@@ -710,26 +2183,41 @@ const createTeamMember = async () => {
     alert('Saved successfully')
   }
 
-const editTeamMember = async (member: any) => {
-  const name = prompt('Partner name', member.name || '')
-  if (!name?.trim()) return
+const openTeamMemberEditor = (member: any) => {
+  setEditingTeamMember(member)
+  setTeamEditName(member.name || '')
+  setTeamEditUsername(member.username || '')
+  setTeamEditPassword(member.password || '')
+  setTeamEditPictureUrl(member.picture_url || '')
+}
 
-  const username = prompt('Username', member.username || '') || ''
-  const password = prompt('Password', member.password || '') || ''
-  const pictureUrl = prompt('Picture URL', member.picture_url || '') || ''
+const closeTeamMemberEditor = () => {
+  setEditingTeamMember(null)
+  setTeamEditName('')
+  setTeamEditUsername('')
+  setTeamEditPassword('')
+  setTeamEditPictureUrl('')
+}
+
+const saveTeamMember = async () => {
+  if (!editingTeamMember) return
+  if (!teamEditName.trim()) return
+  if (!teamEditUsername.trim()) return
+  if (!teamEditPassword.trim()) return
 
   const { error } = await supabase.from('team_members').update({
-    name,
-    username,
-    password,
-    picture_url: pictureUrl,
-  }).eq('id', member.id)
+    name: teamEditName.trim(),
+    username: teamEditUsername.trim(),
+    password: teamEditPassword.trim(),
+    picture_url: teamEditPictureUrl.trim(),
+  }).eq('id', editingTeamMember.id)
 
   if (error) {
     alert(error.message)
     return
   }
 
+  closeTeamMemberEditor()
   await loadData()
 }
 
@@ -803,9 +2291,10 @@ const editTeamMember = async (member: any) => {
 
   const createProject = async () => {
     if (!projectName.trim() || !projectClientId) return
-    await supabase.from('projects').insert([{ name: projectName, client_id: projectClientId }])
+    await supabase.from('projects').insert([{ name: projectName, client_id: projectClientId, start_date: projectKickoffDate || null }])
     setProjectName('')
     setProjectClientId('')
+    setProjectKickoffDate('')
     await loadData()
   }
 
@@ -813,12 +2302,33 @@ const editTeamMember = async (member: any) => {
   const editProject = async (project: any) => {
     const name = prompt('Project name', project.name)
     if (!name?.trim()) return
+    const kickoffDate = prompt('Project kickoff date (YYYY-MM-DD)', project.start_date || '') || ''
 
-    await supabase.from('projects').update({ name }).eq('id', project.id)
+    await supabase.from('projects').update({ name, start_date: kickoffDate || null }).eq('id', project.id)
     if (selectedProject?.id === project.id) {
-      setSelectedProject({ ...selectedProject, name })
+      setSelectedProject({ ...selectedProject, name, start_date: kickoffDate || null })
     }
     await loadData()
+  }
+
+  const updateProjectKickoffDate = async (projectId: string, kickoffDate: string) => {
+    const { error } = await supabase
+      .from('projects')
+      .update({ start_date: kickoffDate || null })
+      .eq('id', projectId)
+
+    if (error) {
+      alert(error.message)
+      return
+    }
+
+    setProjects(prev => prev.map(project =>
+      project.id === projectId ? { ...project, start_date: kickoffDate || null } : project
+    ))
+
+    if (selectedProject?.id === projectId) {
+      setSelectedProject({ ...selectedProject, start_date: kickoffDate || null })
+    }
   }
 
   const deleteProject = async (projectId: string) => {
@@ -885,6 +2395,26 @@ const editTeamMember = async (member: any) => {
 
 
   const updateDeliverableField = async (deliverableId: string, field: 'start_date' | 'end_date' | 'status', value: string) => {
+    const currentDeliverable = deliverables.find(item => item.id === deliverableId)
+    const previousStatus = currentDeliverable?.status
+
+    if (teamSession && field !== 'status') {
+      alert('Team members can only update deliverable status.')
+      return
+    }
+
+    if (teamSession) {
+      const milestone = milestones.find(item => item.id === currentDeliverable?.milestone_id)
+      const isAssigned = projectTeamMembers.some(assignment =>
+        assignment.team_member_id === teamSession.id && assignment.project_id === milestone?.project_id
+      )
+
+      if (!isAssigned) {
+        alert('This project is not assigned to you.')
+        return
+      }
+    }
+
     const { error } = await supabase
       .from('deliverables')
       .update({ [field]: value || null })
@@ -900,6 +2430,24 @@ const editTeamMember = async (member: any) => {
         ? { ...deliverable, [field]: value || null }
         : deliverable
     ))
+
+    if (field === 'status' && value === 'Completed' && previousStatus !== 'Completed') {
+      try {
+        const response = await fetch('/api/notify-deliverable-completed', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ deliverableId }),
+        })
+
+        if (!response.ok) {
+          const result = await response.json().catch(() => ({}))
+          throw new Error(result.error || 'Email notification failed')
+        }
+      } catch (notificationError) {
+        console.error('Deliverable completion notification failed', notificationError)
+        alert('Deliverable updated, but the email notification could not be sent.')
+      }
+    }
   }
 
   const createExternalLink = async () => {
@@ -1405,6 +2953,23 @@ const createClientRequest = async () => {
 
   await loadData()
 }
+
+  const removeProjectTeamMember = async (assignmentId: string) => {
+  const ok = confirm('Remove this team member from this project?')
+  if (!ok) return
+
+  const { error } = await supabase
+    .from('project_team_members')
+    .delete()
+    .eq('id', assignmentId)
+
+  if (error) {
+    alert(error.message)
+    return
+  }
+
+  await loadData()
+}
   const createPayment = async () => {
   if (!selectedProject) return
   if (!paymentName.trim()) return
@@ -1449,6 +3014,33 @@ if (loading) {
       position: 'relative',
       overflow: 'hidden',
     }}>
+      <style>{`
+        @keyframes pmLoaderFloatOne {
+          0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.78; }
+          50% { transform: translate3d(28px, 22px, 0) scale(1.08); opacity: 1; }
+        }
+        @keyframes pmLoaderFloatTwo {
+          0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.72; }
+          50% { transform: translate3d(-32px, -20px, 0) scale(1.06); opacity: 1; }
+        }
+        @keyframes pmLoaderCardIn {
+          from { transform: translateY(18px) scale(0.97); opacity: 0; }
+          to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        @keyframes pmLoaderIconPulse {
+          0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 16px 35px rgba(108,92,231,0.32); }
+          50% { transform: translateY(-4px) scale(1.06); box-shadow: 0 22px 46px rgba(108,92,231,0.42); }
+        }
+        @keyframes pmLoaderCheck {
+          0%, 100% { transform: rotate(-8deg) scale(1); opacity: 0.92; }
+          50% { transform: rotate(0deg) scale(1.12); opacity: 1; }
+        }
+        @keyframes pmLoaderBar {
+          0% { transform: translateX(-115%); }
+          55% { transform: translateX(45%); }
+          100% { transform: translateX(125%); }
+        }
+      `}</style>
       <div style={{
         position: 'absolute',
         width: 360,
@@ -1458,6 +3050,7 @@ if (loading) {
         top: -120,
         left: -100,
         filter: 'blur(10px)',
+        animation: 'pmLoaderFloatOne 4.8s ease-in-out infinite',
       }} />
 
       <div style={{
@@ -1469,6 +3062,7 @@ if (loading) {
         bottom: -160,
         right: -120,
         filter: 'blur(10px)',
+        animation: 'pmLoaderFloatTwo 5.4s ease-in-out infinite',
       }} />
 
       <div style={{
@@ -1481,6 +3075,7 @@ if (loading) {
         border: '1px solid rgba(120,100,220,0.16)',
         textAlign: 'center',
         zIndex: 2,
+        animation: 'pmLoaderCardIn 0.55s ease-out both',
       }}>
         <div style={{
           width: 64,
@@ -1495,8 +3090,9 @@ if (loading) {
           fontSize: 30,
           fontWeight: 800,
           boxShadow: '0 16px 35px rgba(108,92,231,0.32)',
+          animation: 'pmLoaderIconPulse 1.8s ease-in-out infinite',
         }}>
-          ✓
+          <span style={{ display: 'inline-block', animation: 'pmLoaderCheck 1.8s ease-in-out infinite' }}>✓</span>
         </div>
 
         <div style={{
@@ -1521,12 +3117,14 @@ if (loading) {
           background: '#eeeaff',
           borderRadius: 999,
           overflow: 'hidden',
+          position: 'relative',
         }}>
           <div style={{
             height: '100%',
-            width: '55%',
+            width: '48%',
             borderRadius: 999,
             background: 'linear-gradient(135deg, #6C5CE7, #8E6CFF)',
+            animation: 'pmLoaderBar 1.45s ease-in-out infinite',
           }} />
         </div>
       </div>
@@ -1598,6 +3196,23 @@ if (loading) {
       .sort((a, b) => Date.parse(b.renewal_date || b.created_at || '') - Date.parse(a.renewal_date || a.created_at || ''))
     : []
   const selectedSupportHours = selectedSupportContract ? getSupportHourSummary(selectedSupportContract) : null
+  const isTeamMemberMode = Boolean(teamSession)
+  const assignedProjectIds = isTeamMemberMode
+    ? projectTeamMembers
+      .filter(assignment => assignment.team_member_id === teamSession?.id)
+      .map(assignment => assignment.project_id)
+    : []
+  const visibleProjects = isTeamMemberMode
+    ? projects.filter(project => assignedProjectIds.includes(project.id))
+    : projects
+  const visibleProjectIds = visibleProjects.map(project => project.id)
+  const visibleMilestones = isTeamMemberMode
+    ? milestones.filter(milestone => visibleProjectIds.includes(milestone.project_id))
+    : milestones
+  const visibleMilestoneIds = visibleMilestones.map(milestone => milestone.id)
+  const visibleDeliverables = isTeamMemberMode
+    ? deliverables.filter(deliverable => visibleMilestoneIds.includes(deliverable.milestone_id))
+    : deliverables
 
   return (
     <div className="pm-root">
@@ -1608,18 +3223,20 @@ if (loading) {
         <aside className="pm-sidebar">
           <div className="pm-logo">
             <div className="pm-logo-title">Project<br />Manager</div>
-            <div className="pm-logo-sub">Admin Dashboard</div>
+            <div className="pm-logo-sub">{isTeamMemberMode ? teamSession?.name || 'Team Member' : 'Admin Dashboard'}</div>
           </div>
 
           <nav className="pm-nav">
             <div className="pm-nav-label">Workspace</div>
-            <button
-              className={`pm-nav-btn ${activeNav === 'clients' ? 'active' : ''}`}
-              onClick={() => { setActiveNav('clients'); setSelectedProject(null); setSelectedSupportContract(null) }}
-            >
-              <span className="icon">{Icons.client}</span>
-              Clients
-            </button>
+            {!isTeamMemberMode && (
+              <button
+                className={`pm-nav-btn ${activeNav === 'clients' ? 'active' : ''}`}
+                onClick={() => { setActiveNav('clients'); setSelectedProject(null); setSelectedSupportContract(null) }}
+              >
+                <span className="icon">{Icons.client}</span>
+                Clients
+              </button>
+            )}
             <button
               className={`pm-nav-btn ${activeNav === 'projects' ? 'active' : ''}`}
               onClick={() => { setActiveNav('projects'); setSelectedProject(null); setSelectedSupportContract(null) }}
@@ -1627,6 +3244,8 @@ if (loading) {
               <span className="icon">{Icons.project}</span>
               Projects
             </button>
+{!isTeamMemberMode && (
+<>
 <button
   className={`pm-nav-btn ${activeNav === 'teams' ? 'active' : ''}`}
   onClick={() => {
@@ -1697,12 +3316,15 @@ if (loading) {
   <span className="icon">{Icons.folder}</span>
   Artifacts
 </button>
+</>
+)}
             </nav>
 
           <div className="pm-sidebar-footer">
             <button
               className="pm-logout-btn"
               onClick={async () => {
+                window.localStorage.removeItem('pm-team-member-id')
                 await supabase.auth.signOut()
                 router.push('/login')
               }}
@@ -1742,22 +3364,6 @@ if (loading) {
               </span>
             </div>
             <div className="pm-topbar-actions">
-              <input className="pm-search" placeholder="Search clients, projects, milestones…" readOnly />
-              <span className="pm-topbar-badge">
-                {selectedProject
-                  ? `${projectMilestones.length} milestone${projectMilestones.length !== 1 ? 's' : ''}`
-                  : activeNav === 'projects'
-                  ? `${projects.length} total`
-                  : activeNav === 'support'
-                  ? `${supportContracts.length} contracts`
-                  : activeNav === 'client-tasks'
-                  ? `${clientTasks.length} tasks`
-                  : activeNav === 'meetings'
-                  ? `${meetings.length} meetings`
-                  : activeNav === 'artifacts'
-                  ? `${artifacts.length} artifacts`
-                  : `${clients.length} total`}
-              </span>
             </div>
           </div>
 
@@ -1923,7 +3529,7 @@ if (loading) {
         </div>
 
         <div className="pm-field">
-          <label className="pm-label">Username</label>
+          <label className="pm-label">Email / Username</label>
           <input className="pm-input" value={teamUsername} onChange={e => setTeamUsername(e.target.value)} />
         </div>
 
@@ -1937,6 +3543,68 @@ if (loading) {
         </button>
       </div>
     </div>
+
+    {editingTeamMember && (
+      <div className="pm-section">
+        <div className="pm-section-header">
+          <div className="pm-section-icon">{Icons.client}</div>
+          <span className="pm-section-title">Edit Team Member</span>
+        </div>
+
+        <div className="pm-section-body">
+          <div className="pm-form-row">
+            <div className="pm-field">
+              <label className="pm-label">Member Name</label>
+              <input
+                className="pm-input"
+                value={teamEditName}
+                onChange={e => setTeamEditName(e.target.value)}
+              />
+            </div>
+
+            <div className="pm-field">
+              <label className="pm-label">Email / Username</label>
+              <input
+                className="pm-input"
+                value={teamEditUsername}
+                onChange={e => setTeamEditUsername(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="pm-form-row" style={{ marginTop: 12 }}>
+            <div className="pm-field">
+              <label className="pm-label">Password</label>
+              <input
+                type="text"
+                className="pm-input"
+                value={teamEditPassword}
+                onChange={e => setTeamEditPassword(e.target.value)}
+              />
+            </div>
+
+            <div className="pm-field">
+              <label className="pm-label">Picture URL</label>
+              <input
+                className="pm-input"
+                value={teamEditPictureUrl}
+                onChange={e => setTeamEditPictureUrl(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: 10, marginTop: 16, flexWrap: 'wrap' }}>
+            <button className="pm-btn pm-btn-primary" onClick={saveTeamMember}>
+              Save Changes
+            </button>
+            <button className="pm-btn pm-btn-outline" onClick={closeTeamMemberEditor}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+
   <div className="pm-divider">
   <div className="pm-divider-line" />
   <span className="pm-divider-text">All Team Members</span>
@@ -1945,7 +3613,12 @@ if (loading) {
 
 <div className="pm-client-grid">
   {teamMembers.map(member => (
-    <div key={member.id} className="pm-client-card">
+    <div
+      key={member.id}
+      className="pm-client-card"
+      onClick={() => openTeamMemberEditor(member)}
+      style={{ cursor: 'pointer' }}
+    >
       {member.picture_url ? (
         <img src={member.picture_url} alt={member.name} className="pm-client-logo" />
       ) : (
@@ -1962,7 +3635,15 @@ if (loading) {
           </div>
 
           <div className="pm-client-actions">
-            <button className="pm-action-btn" onClick={() => editTeamMember(member)}>Edit</button>
+            <button
+              className="pm-action-btn"
+              onClick={(e) => {
+                e.stopPropagation()
+                openTeamMemberEditor(member)
+              }}
+            >
+              Edit
+            </button>
           </div>
         </div>
       </div>
@@ -3089,133 +4770,133 @@ if (loading) {
 {/* ═══════════ PROJECTS VIEW ═══════════ */}
             {activeNav === 'projects' && !selectedProject && (
               <>
-                <div className="pm-hero-banner">
-                  <div>
-                    <div className="pm-hero-title">Project Management Overview</div>
-                    <div className="pm-hero-sub">Track clients, projects, milestones, and deliverables from one clean workspace.</div>
+                <div className="pm-taskboard-shell">
+                  <div className="pm-compact-stats">
+                    <div className="pm-compact-stat">
+                      <span>Clients</span>
+                      <strong>{isTeamMemberMode ? new Set(visibleProjects.map(project => project.client_id)).size : clients.length}</strong>
+                      <span className="pm-compact-icon">{Icons.client}</span>
+                    </div>
+                    <div className="pm-compact-stat">
+                      <span>Projects</span>
+                      <strong>{visibleProjects.length}</strong>
+                      <span className="pm-compact-icon">{Icons.project}</span>
+                    </div>
+                    <div className="pm-compact-stat">
+                      <span>Milestones</span>
+                      <strong>{visibleMilestones.length}</strong>
+                      <span className="pm-compact-icon">{Icons.milestone}</span>
+                    </div>
+                    <div className="pm-compact-stat">
+                      <span>Deliverables</span>
+                      <strong>{visibleDeliverables.length}</strong>
+                      <span className="pm-compact-icon">{Icons.deliverable}</span>
+                    </div>
                   </div>
-                  <div className="pm-hero-pill">Admin Dashboard</div>
+
+                  {!isTeamMemberMode && (
+                  <div className="pm-filter-row">
+                    <div className="pm-field">
+                      <label className="pm-label">Client</label>
+                      <select className="pm-select" onChange={e => setProjectClientId(e.target.value)} value={projectClientId}>
+                        <option value="">Select a client…</option>
+                        {clients.map(c => (
+                          <option key={c.id} value={c.id}>{c.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="pm-field">
+                      <label className="pm-label">Project Name</label>
+                      <input
+                        className="pm-input"
+                        placeholder="Website Redesign"
+                        value={projectName}
+                        onChange={e => setProjectName(e.target.value)}
+                        onKeyDown={e => { if (e.key === 'Enter') createProject() }}
+                      />
+                    </div>
+                    <div className="pm-field" style={{ maxWidth: 190 }}>
+                      <label className="pm-label">Kickoff Date</label>
+                      <input
+                        type="date"
+                        className="pm-input"
+                        value={projectKickoffDate}
+                        onChange={e => setProjectKickoffDate(e.target.value)}
+                        onKeyDown={e => { if (e.key === 'Enter') createProject() }}
+                      />
+                    </div>
+                    <button className="pm-btn pm-btn-primary" style={{ flexShrink: 0 }} onClick={createProject}>
+                      {Icons.plus} Add New
+                    </button>
+                  </div>
+                  )}
                 </div>
 
-                <div className="pm-stats-grid">
-                  <div className="pm-stat-card">
-                    <div className="pm-stat-top">
-                      <div className="pm-stat-label">Clients</div>
-                      <div className="pm-stat-icon">{Icons.client}</div>
-                    </div>
-                    <div className="pm-stat-value">{clients.length}</div>
-                    <div className="pm-stat-foot">Active workspace</div>
-                  </div>
-                  <div className="pm-stat-card">
-                    <div className="pm-stat-top">
-                      <div className="pm-stat-label">Projects</div>
-                      <div className="pm-stat-icon">{Icons.project}</div>
-                    </div>
-                    <div className="pm-stat-value">{projects.length}</div>
-                    <div className="pm-stat-foot">Total projects</div>
-                  </div>
-                  <div className="pm-stat-card">
-                    <div className="pm-stat-top">
-                      <div className="pm-stat-label">Milestones</div>
-                      <div className="pm-stat-icon">{Icons.milestone}</div>
-                    </div>
-                    <div className="pm-stat-value">{milestones.length}</div>
-                    <div className="pm-stat-foot">Project phases</div>
-                  </div>
-                  <div className="pm-stat-card">
-                    <div className="pm-stat-top">
-                      <div className="pm-stat-label">Deliverables</div>
-                      <div className="pm-stat-icon">{Icons.deliverable}</div>
-                    </div>
-                    <div className="pm-stat-value">{deliverables.length}</div>
-                    <div className="pm-stat-foot">Work items</div>
-                  </div>
-                </div>
-
-                {/* Create Project */}
-                <div className="pm-section">
-                  <div className="pm-section-header">
-                    <div className="pm-section-icon">{Icons.project}</div>
-                    <span className="pm-section-title">New Project</span>
-                  </div>
-                  <div className="pm-section-body">
-                    <div className="pm-form-row">
-                      <div className="pm-field">
-                        <label className="pm-label">Client</label>
-                        <select className="pm-select" onChange={e => setProjectClientId(e.target.value)} value={projectClientId}>
-                          <option value="">Select a client…</option>
-                          {clients.map(c => (
-                            <option key={c.id} value={c.id}>{c.name}</option>
-                          ))}
-                        </select>
-                      </div>
-                      <div className="pm-field">
-                        <label className="pm-label">Project Name</label>
-                        <input
-                          className="pm-input"
-                          placeholder="Website Redesign"
-                          value={projectName}
-                          onChange={e => setProjectName(e.target.value)}
-                          onKeyDown={e => { if (e.key === 'Enter') createProject() }}
-                        />
-                      </div>
-                      <button className="pm-btn pm-btn-primary" style={{ flexShrink: 0 }} onClick={createProject}>
-                        {Icons.plus} Create
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Projects Grid */}
-                <div className="pm-divider">
-                  <div className="pm-divider-line" />
-                  <span className="pm-divider-text">All Projects</span>
-                  <div className="pm-divider-line" />
-                </div>
-
-                {projects.length === 0 ? (
+                {visibleProjects.length === 0 ? (
                   <div className="pm-empty">
                     <div className="pm-empty-icon">{Icons.folder}</div>
-                    <p className="pm-empty-text">No projects yet. Create your first project above.</p>
+                    <p className="pm-empty-text">{isTeamMemberMode ? 'No projects are assigned to you yet.' : 'No projects yet. Create your first project above.'}</p>
                   </div>
                 ) : (
-                  <div className="pm-grid">
-                    {projects.map(p => (
-                      <div key={p.id} className="pm-project-card" onClick={() => setSelectedProject(p)}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '10px' }}>
-                          <div className="pm-card-icon">{Icons.folder}</div>
-                          <div className="pm-actions" onClick={e => e.stopPropagation()}>
-                            <button className="pm-action-btn" onClick={() => editProject(p)}>Edit</button>
-                            <button className="pm-action-btn danger" onClick={() => deleteProject(p.id)}>Delete</button>
-                          </div>
+                  <div className="pm-project-list">
+                    <div className="pm-list-group">
+                      <div className="pm-list-status">Active Projects</div>
+                      <div className="pm-list-table">
+                        <div className="pm-list-row head">
+                          <span />
+                          <span>Name</span>
+                          <span>Client</span>
+                          <span>Kickoff</span>
+                          <span>Progress</span>
+                          <span>Milestones</span>
+                          <span />
                         </div>
-                        <div className="pm-card-name">{p.name}</div>
-                        <div className="pm-card-client">{p.clients?.name}</div>
-                        {(() => {
+                        {visibleProjects.map(p => {
                           const stats = getProjectProgress(p.id)
+                          const milestoneCount = milestones.filter(m => m.project_id === p.id).length
                           return (
-                            <div style={{ marginBottom: '14px' }}>
-                              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#5a5a5a', marginBottom: '6px' }}>
-                                <span>Progress</span>
-                                <strong style={{ color: '#0a0a0a' }}>{stats.progress}%</strong>
-                              </div>
-                              <div style={{ height: '6px', background: '#efefef', borderRadius: '20px', overflow: 'hidden' }}>
-                                <div style={{ width: `${stats.progress}%`, height: '100%', background: '#0a0a0a', borderRadius: '20px' }} />
-                              </div>
-                              <div style={{ fontSize: '11px', color: '#9e9e9e', marginTop: '5px' }}>
-                                {stats.completed} completed out of {stats.total}
-                              </div>
+                            <div key={p.id} className="pm-list-row item" onClick={() => setSelectedProject(p)}>
+                              <span className="pm-list-check" />
+                              <span className="pm-list-name">{p.name}</span>
+                              <span className="pm-list-muted">{p.clients?.name || 'No client'}</span>
+                              <span onClick={e => e.stopPropagation()}>
+                                {isTeamMemberMode ? (
+                                  <span className="pm-list-muted">{p.start_date || 'No date'}</span>
+                                ) : (
+                                  <input
+                                    type="date"
+                                    className="pm-list-date-input"
+                                    value={p.start_date || ''}
+                                    onChange={e => updateProjectKickoffDate(p.id, e.target.value)}
+                                  />
+                                )}
+                              </span>
+                              <span className="pm-list-progress">
+                                <span className="pm-list-bar">
+                                  <span className="pm-list-fill" style={{ width: `${stats.progress}%` }} />
+                                </span>
+                                <span className="pm-list-percent">{stats.progress}%</span>
+                              </span>
+                              <span className="pm-list-muted">{milestoneCount} milestone{milestoneCount !== 1 ? 's' : ''}</span>
+                              {!isTeamMemberMode && (
+                                <span className="pm-actions" onClick={e => e.stopPropagation()}>
+                                  <button className="pm-action-btn" onClick={() => editProject(p)}>Edit</button>
+                                  <button className="pm-action-btn danger" onClick={() => deleteProject(p.id)}>Delete</button>
+                                </span>
+                              )}
                             </div>
                           )
-                        })()}
-                        <div className="pm-card-meta">
-                          <span className="pm-card-stat">
-                            <strong>{milestones.filter(m => m.project_id === p.id).length}</strong> milestone{milestones.filter(m => m.project_id === p.id).length !== 1 ? 's' : ''}
-                          </span>
-                          <span className="pm-card-arrow">{Icons.chevronRight}</span>
-                        </div>
+                        })}
                       </div>
-                    ))}
+                      {!isTeamMemberMode && (
+                        <button className="pm-list-add" onClick={() => {
+                          const input = document.querySelector<HTMLInputElement>('input[placeholder="Website Redesign"]')
+                          input?.focus()
+                        }}>
+                          {Icons.plus} Add Project
+                        </button>
+                      )}
+                    </div>
                   </div>
                 )}
               </>
@@ -3235,6 +4916,7 @@ if (loading) {
                   </div>
                 </div>
 
+                {!isTeamMemberMode && (
                 <div className="pm-progress-card">
                   <div className="pm-gauge" aria-label={`Project progress ${projectProgress}%`}>
                     <div className="pm-gauge-track" style={{ ['--progress' as any]: projectProgress }} />
@@ -3248,9 +4930,10 @@ if (loading) {
                     </div>
                   </div>
                 </div>
+                )}
 
                 {/* Add Milestone */}
-                <div className="pm-section" style={{ marginBottom: '24px' }}>
+                <div className="pm-section" style={{ marginBottom: '24px', display: isTeamMemberMode ? 'none' : undefined }}>
                   <div className="pm-section-header">
                     <div className="pm-section-icon">{Icons.milestone}</div>
                     <span className="pm-section-title">Add Milestone</span>
@@ -3272,7 +4955,7 @@ if (loading) {
                   </div>
                 </div>
 {/* Assigned Teams */}
-<div className="pm-section" style={{ marginBottom: '24px' }}>
+<div className="pm-section" style={{ marginBottom: '24px', display: isTeamMemberMode ? 'none' : undefined }}>
   <div className="pm-section-header">
     <div className="pm-section-icon">{Icons.client}</div>
     <span className="pm-section-title">Assigned Teams</span>
@@ -3328,12 +5011,25 @@ if (loading) {
               </div>
 
               <div className="pm-client-info">
-                <div className="pm-client-name">
-                  {member.name}
-                </div>
+                <div className="pm-client-top">
+                  <div style={{ minWidth: 0 }}>
+                    <div className="pm-client-name">
+                      {member.name}
+                    </div>
 
-                <div className="pm-client-projects">
-                  {member.username}
+                    <div className="pm-client-projects">
+                      {member.username}
+                    </div>
+                  </div>
+
+                  <div className="pm-client-actions">
+                    <button
+                      className="pm-action-btn danger"
+                      onClick={() => removeProjectTeamMember(ptm.id)}
+                    >
+                      Remove
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -3345,7 +5041,7 @@ if (loading) {
 </div>
 
 {/* Payments */}
-<div className="pm-section" style={{ marginBottom: '24px' }}>
+<div className="pm-section" style={{ marginBottom: '24px', display: isTeamMemberMode ? 'none' : undefined }}>
   <div className="pm-section-header">
     <div className="pm-section-icon">{Icons.project}</div>
     <span className="pm-section-title">Payments</span>
@@ -3456,7 +5152,7 @@ if (loading) {
 </div>
 
                 {/* External Cards */}
-                <div className="pm-section" style={{ marginBottom: '24px' }}>
+                <div className="pm-section" style={{ marginBottom: '24px', display: isTeamMemberMode ? 'none' : undefined }}>
                   <div className="pm-section-header">
                     <div className="pm-section-icon">{Icons.project}</div>
                     <span className="pm-section-title">External Cards</span>
@@ -3522,7 +5218,7 @@ if (loading) {
                   </div>
                 </div>
 
-                {externalLinks.filter(link => link.project_id === selectedProject.id).length > 0 && (
+                {!isTeamMemberMode && externalLinks.filter(link => link.project_id === selectedProject.id).length > 0 && (
                   <div className="pm-section" style={{ marginBottom: '24px' }}>
                     <div className="pm-section-header">
                       <div className="pm-section-icon">{Icons.project}</div>
@@ -3591,10 +5287,12 @@ if (loading) {
                         <div className="pm-milestone-header">
                           <span className="pm-milestone-icon">{Icons.milestone}</span>
                           <span className="pm-milestone-title">{m.title}</span>
-                          <div className="pm-actions">
-                            <button className="pm-action-btn" onClick={() => editMilestone(m)}>Edit</button>
-                            <button className="pm-action-btn danger" onClick={() => deleteMilestone(m.id)}>Delete</button>
-                          </div>
+                          {!isTeamMemberMode && (
+                            <div className="pm-actions">
+                              <button className="pm-action-btn" onClick={() => editMilestone(m)}>Edit</button>
+                              <button className="pm-action-btn danger" onClick={() => deleteMilestone(m.id)}>Delete</button>
+                            </div>
+                          )}
                           <span style={{ fontSize: '12px', color: '#9e9e9e' }}>
                             {mDeliverables.length} deliverable{mDeliverables.length !== 1 ? 's' : ''}
                           </span>
@@ -3616,6 +5314,7 @@ if (loading) {
                                 marginLeft: 'auto',
                                 flexWrap: 'wrap'
                               }}>
+                                {!isTeamMemberMode && (
                                 <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#f3f0ff', color: '#5b4bff', padding: '4px 8px', borderRadius: '999px', fontSize: '11px', fontWeight: 800, whiteSpace: 'nowrap' }}>
                                   Start
                                   <input
@@ -3625,7 +5324,9 @@ if (loading) {
                                     style={{ border: 'none', background: 'transparent', color: '#5b4bff', fontSize: '11px', fontWeight: 800, outline: 'none', cursor: 'pointer', width: 104 }}
                                   />
                                 </label>
+                                )}
 
+                                {!isTeamMemberMode && (
                                 <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#eef7ff', color: '#2563eb', padding: '4px 8px', borderRadius: '999px', fontSize: '11px', fontWeight: 800, whiteSpace: 'nowrap' }}>
                                   End
                                   <input
@@ -3635,6 +5336,7 @@ if (loading) {
                                     style={{ border: 'none', background: 'transparent', color: '#2563eb', fontSize: '11px', fontWeight: 800, outline: 'none', cursor: 'pointer', width: 104 }}
                                   />
                                 </label>
+                                )}
 
                                 <select
                                   value={d.status || 'Not started'}
@@ -3658,13 +5360,16 @@ if (loading) {
                                 </select>
                               </div>
 
-                              <div className="pm-actions">
-                                <button className="pm-action-btn danger" onClick={() => deleteDeliverable(d.id)}>Delete</button>
-                              </div>
+                              {!isTeamMemberMode && (
+                                <div className="pm-actions">
+                                  <button className="pm-action-btn danger" onClick={() => deleteDeliverable(d.id)}>Delete</button>
+                                </div>
+                              )}
                             </div>
                           ))}
 
                           {/* Add deliverable */}
+                          {!isTeamMemberMode && (
                           <div className="pm-inline-form" style={{ flexWrap: 'wrap' }}>
                             <input
                               className="pm-input"
@@ -3728,6 +5433,7 @@ if (loading) {
                               {Icons.plus} Add
                             </button>
                           </div>
+                          )}
                         </div>
                       </div>
                     )

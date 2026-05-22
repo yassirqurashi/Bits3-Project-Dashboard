@@ -283,6 +283,18 @@ export default function EditClientPage() {
         return
       }
 
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single()
+
+      if (profileError || profile?.role !== 'pm') {
+        await supabase.auth.signOut()
+        router.push('/client-login')
+        return
+      }
+
       const { data, error: fetchError } = await supabase
         .from('clients')
         .select('*')
