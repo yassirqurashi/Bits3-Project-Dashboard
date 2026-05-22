@@ -2445,7 +2445,7 @@ const saveTeamMember = async () => {
         }
       } catch (notificationError) {
         console.error('Deliverable completion notification failed', notificationError)
-        alert('Deliverable updated, but the email notification could not be sent.')
+        alert(`Deliverable updated, but the email notification could not be sent: ${notificationError instanceof Error ? notificationError.message : 'Unknown error'}`)
       }
     }
   }
