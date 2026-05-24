@@ -139,6 +139,18 @@ const supportIncludedScopeOptions = [
   'Others',
 ]
 
+const isHexColor = (value: string) => /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(value.trim())
+
+const normalizeHexColor = (value: string, fallback: string) => {
+  if (!isHexColor(value)) return fallback
+  const hex = value.trim().replace('#', '')
+  const normalized = hex.length === 3
+    ? hex.split('').map(character => `${character}${character}`).join('')
+    : hex
+
+  return `#${normalized.toLowerCase()}`
+}
+
 const emptySupportContractForm: SupportContractForm = {
   client_id: '',
   project_id: '',
@@ -442,6 +454,18 @@ const styles = `
   .pm-client-actions { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
   .pm-client-colors { display: flex; align-items: center; gap: 6px; margin-top: 12px; }
   .pm-color-dot { width: 13px; height: 13px; border-radius: 999px; border: 1px solid rgba(0,0,0,0.08); }
+  .pm-color-code-input {
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #3f3a52;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 850;
+    min-width: 86px;
+    width: 100%;
+  }
+  .pm-color-code-input::placeholder { color: #aaa4bc; }
 
   .pm-progress-card { background: rgba(255,255,255,0.92); border: 1px solid rgba(230,226,245,0.95); border-radius: 20px; padding: 24px; margin-bottom: 24px; display: flex; align-items: center; gap: 28px; box-shadow: var(--shadow-sm); }
   .pm-gauge { width: 180px; height: 96px; position: relative; overflow: hidden; flex-shrink: 0; }
@@ -2333,8 +2357,8 @@ const saveTeamMember = async () => {
         email: clientEmail,
         password: clientPassword,
         logo_url: logoUrl,
-        primary_color: primaryColor,
-        secondary_color: secondaryColor,
+        primary_color: normalizeHexColor(primaryColor, '#0a0a0a'),
+        secondary_color: normalizeHexColor(secondaryColor, '#c8a96e'),
       }),
     })
 
@@ -3705,12 +3729,34 @@ if (loading) {
                       <label className="pm-label">Brand Colors</label>
                       <div className="pm-color-row">
                         <div className="pm-color-field">
-                          <input type="color" className="pm-color-input" value={primaryColor} onChange={e => setPrimaryColor(e.target.value)} />
-                          <span className="pm-color-label">Primary · {primaryColor}</span>
+                          <input
+                            type="color"
+                            className="pm-color-input"
+                            value={normalizeHexColor(primaryColor, '#0a0a0a')}
+                            onChange={e => setPrimaryColor(e.target.value)}
+                          />
+                          <input
+                            className="pm-color-code-input"
+                            placeholder="#0a0a0a"
+                            value={primaryColor}
+                            onBlur={() => setPrimaryColor(normalizeHexColor(primaryColor, '#0a0a0a'))}
+                            onChange={e => setPrimaryColor(e.target.value)}
+                          />
                         </div>
                         <div className="pm-color-field">
-                          <input type="color" className="pm-color-input" value={secondaryColor} onChange={e => setSecondaryColor(e.target.value)} />
-                          <span className="pm-color-label">Secondary · {secondaryColor}</span>
+                          <input
+                            type="color"
+                            className="pm-color-input"
+                            value={normalizeHexColor(secondaryColor, '#c8a96e')}
+                            onChange={e => setSecondaryColor(e.target.value)}
+                          />
+                          <input
+                            className="pm-color-code-input"
+                            placeholder="#c8a96e"
+                            value={secondaryColor}
+                            onBlur={() => setSecondaryColor(normalizeHexColor(secondaryColor, '#c8a96e'))}
+                            onChange={e => setSecondaryColor(e.target.value)}
+                          />
                         </div>
                       </div>
                     </div>
