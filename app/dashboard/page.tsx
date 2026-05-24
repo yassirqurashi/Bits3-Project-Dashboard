@@ -1892,6 +1892,94 @@ const styles = `
     box-shadow: var(--shadow-md);
   }
 
+  .pm-client-card {
+    align-items: flex-start;
+    border-radius: 22px;
+    padding: 18px;
+    background:
+      radial-gradient(circle at 92% 6%, rgba(112, 71, 246, 0.08), transparent 30%),
+      #ffffff;
+  }
+
+  .pm-client-logo,
+  .pm-client-avatar {
+    width: 54px;
+    height: 54px;
+    border-radius: 17px;
+  }
+
+  .pm-client-welcome {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #eceef5;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .pm-client-welcome-note {
+    grid-column: 1 / -1;
+    color: #858b98;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .pm-client-welcome-error {
+    grid-column: 1 / -1;
+    color: #b42318;
+    background: #fff1f1;
+    border: 1px solid #ffd8d8;
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .pm-client-welcome-input {
+    min-height: 40px;
+    border: 1px solid #dfe3ea;
+    border-radius: 13px;
+    background: #fbfcfe;
+    color: #20222a;
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    font-weight: 650;
+    padding: 0 12px;
+    outline: none;
+    min-width: 0;
+  }
+
+  .pm-client-welcome-input:focus {
+    border-color: #a999ff;
+    box-shadow: 0 0 0 4px rgba(112, 71, 246, 0.10);
+    background: #fff;
+  }
+
+  .pm-welcome-btn {
+    min-height: 40px;
+    border-radius: 13px;
+    border: 1px solid #d8d2ff;
+    background: #f4f1ff;
+    color: #5534ce;
+    font-size: 12px;
+    font-weight: 850;
+    padding: 0 12px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .pm-welcome-btn:hover {
+    background: #ede8ff;
+    border-color: #bfb4ff;
+  }
+
+  .pm-welcome-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+  }
+
   .pm-status-pill {
     border-radius: 999px;
     padding: 6px 10px;
@@ -1978,6 +2066,9 @@ const [requestFilter, setRequestFilter] = useState<'Open' | 'Closed'>('Open')
   const [clientName, setClientName] = useState('')
   const [clientEmail, setClientEmail] = useState('')
   const [clientPassword, setClientPassword] = useState('')
+  const [welcomeEmailPasswords, setWelcomeEmailPasswords] = useState<Record<string, string>>({})
+  const [welcomeEmailErrors, setWelcomeEmailErrors] = useState<Record<string, string>>({})
+  const [sendingWelcomeClientId, setSendingWelcomeClientId] = useState('')
   const [logoUrl, setLogoUrl] = useState('')
   const [primaryColor, setPrimaryColor] = useState('#0a0a0a')
   const [secondaryColor, setSecondaryColor] = useState('#c8a96e')
@@ -2267,6 +2358,44 @@ const saveTeamMember = async () => {
     router.push(`/dashboard/clients/${client.id}/edit`)
   }
 
+  const sendClientWelcomeEmail = async (clientId: string) => {
+    const password = welcomeEmailPasswords[clientId]?.trim()
+
+    if (!password) {
+      setWelcomeEmailErrors(prev => ({
+        ...prev,
+        [clientId]: 'Enter the client password in this card before sending.',
+      }))
+      return
+    }
+
+    setWelcomeEmailErrors(prev => ({ ...prev, [clientId]: '' }))
+
+    setSendingWelcomeClientId(clientId)
+
+    try {
+      const response = await fetch('/api/send-client-welcome-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ clientId, password }),
+      })
+      const result = await response.json().catch(() => ({}))
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Unable to send welcome email')
+      }
+
+      setWelcomeEmailPasswords(prev => ({ ...prev, [clientId]: '' }))
+      setWelcomeEmailErrors(prev => ({ ...prev, [clientId]: '' }))
+      alert('Welcome email sent successfully.')
+    } catch (error) {
+      console.error('Client welcome email failed', error)
+      alert(`Welcome email could not be sent: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    } finally {
+      setSendingWelcomeClientId('')
+    }
+  }
+
   const deleteClient = async (clientId: string) => {
     const ok = confirm('Delete this client and all related projects, milestones, and deliverables?')
     if (!ok) return
@@ -2535,18 +2664,36 @@ const createClientRequest = async () => {
   if (!requestProjectId) return alert('Please select a project')
   if (!requestSubject.trim()) return alert('Please enter a subject')
 
-  const { error } = await supabase.from('client_requests').insert([{
+  const { data: createdRequest, error } = await supabase.from('client_requests').insert([{
     client_id: requestClientId,
     project_id: requestProjectId,
     subject: requestSubject,
     description: requestDescription,
     status: 'Open',
     created_by: 'admin',
-  }])
+  }]).select().single()
 
   if (error) {
     alert(error.message)
     return
+  }
+
+  if (createdRequest?.id) {
+    try {
+      const response = await fetch('/api/notify-client-chat-opened', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ requestId: createdRequest.id }),
+      })
+
+      if (!response.ok) {
+        const result = await response.json().catch(() => ({}))
+        throw new Error(result.error || 'Email notification failed')
+      }
+    } catch (notificationError) {
+      console.error('Client chat notification failed', notificationError)
+      alert(`Chat created, but the email notification could not be sent: ${notificationError instanceof Error ? notificationError.message : 'Unknown error'}`)
+    }
   }
 
   setRequestClientId('')
@@ -2713,6 +2860,24 @@ const createClientRequest = async () => {
       return
     }
 
+    if (!editingSupportContract && data?.id) {
+      try {
+        const response = await fetch('/api/notify-support-contract-pending', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contractId: data.id }),
+        })
+
+        if (!response.ok) {
+          const result = await response.json().catch(() => ({}))
+          throw new Error(result.error || 'Email notification failed')
+        }
+      } catch (notificationError) {
+        console.error('Support contract notification failed', notificationError)
+        alert(`Support contract saved, but the email notification could not be sent: ${notificationError instanceof Error ? notificationError.message : 'Unknown error'}`)
+      }
+    }
+
     resetSupportForm()
     await loadData()
     setSelectedSupportContract(data)
@@ -2840,7 +3005,7 @@ const createClientRequest = async () => {
     if (!artifactName.trim()) return alert('Please enter the artifact name')
     if (!artifactFileUrl) return alert('Please upload a file')
 
-    const { error } = await supabase.from('artifacts').insert([{
+    const { data: createdArtifact, error } = await supabase.from('artifacts').insert([{
       client_id: artifactClientId,
       project_id: artifactProjectId,
       name: artifactName,
@@ -2849,11 +3014,29 @@ const createClientRequest = async () => {
       file_url: artifactFileUrl,
       file_name: artifactFileName,
       approval_status: 'Pending Approval',
-    }])
+    }]).select().single()
 
     if (error) {
       alert(error.message)
       return
+    }
+
+    if (createdArtifact?.id) {
+      try {
+        const response = await fetch('/api/notify-artifact-pending-approval', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ artifactId: createdArtifact.id }),
+        })
+
+        if (!response.ok) {
+          const result = await response.json().catch(() => ({}))
+          throw new Error(result.error || 'Email notification failed')
+        }
+      } catch (notificationError) {
+        console.error('Artifact notification failed', notificationError)
+        alert(`Artifact saved, but the email notification could not be sent: ${notificationError instanceof Error ? notificationError.message : 'Unknown error'}`)
+      }
     }
 
     resetArtifactForm()
@@ -2869,18 +3052,36 @@ const createClientRequest = async () => {
     if (!clientTaskForm.client_id) return alert('Please select a client')
     if (!clientTaskForm.title.trim()) return alert('Please enter a task title')
 
-    const { error } = await supabase.from('client_tasks').insert([{
+    const { data: createdTask, error } = await supabase.from('client_tasks').insert([{
       client_id: clientTaskForm.client_id,
       project_id: clientTaskForm.project_id || null,
       title: clientTaskForm.title,
       creation_date: clientTaskForm.creation_date || null,
       due_date: clientTaskForm.due_date || null,
       status: clientTaskForm.status,
-    }])
+    }]).select().single()
 
     if (error) {
       alert(error.message)
       return
+    }
+
+    if (createdTask?.id) {
+      try {
+        const response = await fetch('/api/notify-client-task-created', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ taskId: createdTask.id }),
+        })
+
+        if (!response.ok) {
+          const result = await response.json().catch(() => ({}))
+          throw new Error(result.error || 'Email notification failed')
+        }
+      } catch (notificationError) {
+        console.error('Client task notification failed', notificationError)
+        alert(`Client task saved, but the email notification could not be sent: ${notificationError instanceof Error ? notificationError.message : 'Unknown error'}`)
+      }
     }
 
     resetClientTaskForm()
@@ -3562,6 +3763,33 @@ if (loading) {
                           <div className="pm-client-colors">
                             <span className="pm-color-dot" style={{ background: c.primary_color || '#0a0a0a' }} />
                             <span className="pm-color-dot" style={{ background: c.secondary_color || '#c8a96e' }} />
+                          </div>
+
+                          <div className="pm-client-welcome">
+                            <div className="pm-client-welcome-note">
+                              Enter this client password here, then send the welcome email.
+                            </div>
+                            <input
+                              className="pm-client-welcome-input"
+                              placeholder="Client password"
+                              type="password"
+                              value={welcomeEmailPasswords[c.id] || ''}
+                              onChange={e => {
+                                setWelcomeEmailPasswords(prev => ({ ...prev, [c.id]: e.target.value }))
+                                setWelcomeEmailErrors(prev => ({ ...prev, [c.id]: '' }))
+                              }}
+                            />
+                            <button
+                              className="pm-welcome-btn"
+                              disabled={sendingWelcomeClientId === c.id}
+                              onClick={() => sendClientWelcomeEmail(c.id)}
+                              type="button"
+                            >
+                              {sendingWelcomeClientId === c.id ? 'Sending...' : 'Send welcoming email'}
+                            </button>
+                            {welcomeEmailErrors[c.id] && (
+                              <div className="pm-client-welcome-error">{welcomeEmailErrors[c.id]}</div>
+                            )}
                           </div>
                         </div>
                       </div>

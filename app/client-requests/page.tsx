@@ -221,18 +221,36 @@ export default function ClientRequestsPage() {
     if (!newProjectId) return alert('Please select a project')
     if (!newSubject.trim()) return alert('Please add a subject')
 
-    const { error } = await supabase.from('client_requests').insert([{
+    const { data: createdRequest, error } = await supabase.from('client_requests').insert([{
       client_id: client.id,
       project_id: newProjectId,
       subject: newSubject,
       description: newDescription,
       status: 'Open',
       created_by: 'client',
-    }])
+    }]).select().single()
 
     if (error) {
       alert(error.message)
       return
+    }
+
+    if (createdRequest?.id) {
+      try {
+        const response = await fetch('/api/notify-client-chat-opened', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ requestId: createdRequest.id }),
+        })
+
+        if (!response.ok) {
+          const result = await response.json().catch(() => ({}))
+          throw new Error(result.error || 'Email notification failed')
+        }
+      } catch (notificationError) {
+        console.error('Client chat notification failed', notificationError)
+        alert(`Chat created, but the email notification could not be sent: ${notificationError instanceof Error ? notificationError.message : 'Unknown error'}`)
+      }
     }
 
     setNewProjectId('')
