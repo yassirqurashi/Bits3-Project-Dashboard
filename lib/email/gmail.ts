@@ -4,11 +4,11 @@ type GmailSendInput = {
   body: string
 }
 
-const getRequiredEnv = (name: string) => {
-  const value = process.env[name]
+const getRequiredEnv = (name: string, fallbackName?: string) => {
+  const value = process.env[name] || (fallbackName ? process.env[fallbackName] : '')
 
   if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`)
+    throw new Error(`Missing required environment variable: ${name}${fallbackName ? ` or ${fallbackName}` : ''}`)
   }
 
   return value
@@ -29,9 +29,9 @@ const getGmailAccessToken = async () => {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: new URLSearchParams({
-      client_id: getRequiredEnv('GMAIL_CLIENT_ID'),
-      client_secret: getRequiredEnv('GMAIL_CLIENT_SECRET'),
-      refresh_token: getRequiredEnv('GMAIL_REFRESH_TOKEN'),
+      client_id: getRequiredEnv('GMAIL_CLIENT_ID', 'GOOGLE_CLIENT_ID'),
+      client_secret: getRequiredEnv('GMAIL_CLIENT_SECRET', 'GOOGLE_CLIENT_SECRET'),
+      refresh_token: getRequiredEnv('GMAIL_REFRESH_TOKEN', 'GOOGLE_REFRESH_TOKEN'),
       grant_type: 'refresh_token',
     }),
   })
