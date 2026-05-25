@@ -27,9 +27,29 @@ const Icons = {
       <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
     </svg>
   ),
+  team: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="8" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2.5 20a5.5 5.5 0 0 1 11 0"/><path d="M14.5 18.5a4 4 0 0 1 7 1.5"/>
+    </svg>
+  ),
   project: (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+    </svg>
+  ),
+  chat: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 12a8 8 0 0 1-8 8H7l-4 3v-6.2A8 8 0 1 1 21 12Z"/><path d="M8 10h8M8 14h5"/>
+    </svg>
+  ),
+  support: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3 4.5 6v5.5c0 4.6 3.1 7.9 7.5 9.5 4.4-1.6 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="M9.5 12.5 11 14l3.7-4"/>
+    </svg>
+  ),
+  task: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="3" width="16" height="18" rx="3"/><path d="m8 9 1.5 1.5L12 8"/><path d="M14 10h2.5"/><path d="m8 15 1.5 1.5L12 14"/><path d="M14 16h2.5"/>
     </svg>
   ),
   milestone: (
@@ -43,8 +63,13 @@ const Icons = {
     </svg>
   ),
   folder: (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+    </svg>
+  ),
+  artifact: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H7a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8Z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/>
     </svg>
   ),
   upload: (
@@ -1932,6 +1957,208 @@ const styles = `
     border-radius: 17px;
   }
 
+  .pm-member-avatar {
+    background:
+      radial-gradient(circle at 30% 20%, rgba(0,163,255,0.34), transparent 34%),
+      linear-gradient(145deg, rgba(18,61,255,0.88), rgba(0,163,255,0.24));
+    border: 1px solid rgba(142,170,255,0.34);
+    color: #ffffff;
+    box-shadow:
+      0 16px 34px rgba(18,61,255,0.22),
+      inset 0 1px 0 rgba(255,255,255,0.18);
+  }
+
+  .pm-member-logo {
+    background: rgba(255,255,255,0.060);
+    border: 1px solid rgba(142,170,255,0.28);
+    box-shadow:
+      0 16px 34px rgba(18,61,255,0.16),
+      inset 0 1px 0 rgba(255,255,255,0.10);
+  }
+
+  .pm-chat-card {
+    min-height: 168px;
+    display: grid;
+    align-content: space-between;
+    gap: 16px;
+    background:
+      radial-gradient(circle at 88% 10%, rgba(0,163,255,0.16), transparent 32%),
+      linear-gradient(145deg, rgba(255,255,255,0.095), rgba(255,255,255,0.038)),
+      rgba(4,8,20,0.50);
+  }
+
+  .pm-chat-card-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .pm-chat-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    background: linear-gradient(135deg, rgba(18,61,255,0.92), rgba(0,163,255,0.70));
+    box-shadow: 0 16px 34px rgba(18,61,255,0.24);
+    flex-shrink: 0;
+  }
+
+  .pm-chat-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pm-chat-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.070);
+    border: 1px solid rgba(142,170,255,0.16);
+    color: rgba(226,232,255,0.70);
+    font-size: 11px;
+    font-weight: 850;
+  }
+
+  .pm-chat-description,
+  .pm-chat-panel {
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.080), rgba(255,255,255,0.030)),
+      rgba(4,8,20,0.42);
+    border: 1px solid rgba(142,170,255,0.16);
+    color: rgba(226,232,255,0.72);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+
+  .pm-chat-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .pm-chat-detail-item {
+    padding: 14px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.055);
+    border: 1px solid rgba(142,170,255,0.14);
+  }
+
+  .pm-chat-detail-label {
+    color: rgba(226,232,255,0.48);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .pm-chat-detail-value {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 850;
+  }
+
+  .pm-chat-bubble {
+    padding: 13px 15px;
+    border-radius: 18px;
+    max-width: 75%;
+    line-height: 1.55;
+    font-size: 13px;
+    font-weight: 650;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .pm-chat-bubble.admin {
+    align-self: flex-end;
+    color: #ffffff;
+    background: linear-gradient(135deg, #123dff, #0076ff);
+    box-shadow: 0 14px 32px rgba(18,61,255,0.22);
+  }
+
+  .pm-chat-bubble.client {
+    align-self: flex-start;
+    color: rgba(226,232,255,0.84);
+    background: rgba(255,255,255,0.075);
+  }
+
+  .pm-artifact-card {
+    min-height: 230px;
+    display: grid;
+    align-content: space-between;
+    gap: 16px;
+    background:
+      radial-gradient(circle at 88% 10%, rgba(0,163,255,0.16), transparent 32%),
+      linear-gradient(145deg, rgba(255,255,255,0.095), rgba(255,255,255,0.038)),
+      rgba(4,8,20,0.50);
+  }
+
+  .pm-artifact-card .pm-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+  }
+
+  .pm-artifact-card .pm-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    background: linear-gradient(135deg, rgba(18,61,255,0.92), rgba(0,163,255,0.70));
+    box-shadow: 0 16px 34px rgba(18,61,255,0.24);
+    margin-bottom: 0;
+  }
+
+  .pm-artifact-description {
+    color: rgba(226,232,255,0.70);
+    font-size: 13px;
+    line-height: 1.55;
+    margin-bottom: 2px;
+    padding: 12px 13px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.055);
+    border: 1px solid rgba(142,170,255,0.14);
+  }
+
+  .pm-artifact-card .pm-card-meta {
+    color: rgba(226,232,255,0.66);
+  }
+
+  .pm-artifact-file-state {
+    margin-top: 8px;
+    margin-bottom: 0;
+    padding: 10px 12px;
+    border-radius: 14px;
+    color: rgba(226,232,255,0.72);
+    background: rgba(255,255,255,0.055);
+    border: 1px solid rgba(142,170,255,0.14);
+  }
+
+  .pm-support-card [style*="color: #15113b"],
+  .pm-support-layout [style*="color: #15113b"],
+  .pm-support-layout [style*="color: '#15113b'"],
+  .pm-section [style*="color: #15113b"] {
+    color: #ffffff !important;
+  }
+
+  .pm-support-card [style*="color: #6d6883"],
+  .pm-support-layout [style*="color: #6d6883"],
+  .pm-support-layout [style*="color: '#6d6883'"],
+  .pm-support-layout [style*="color: #4f4a63"],
+  .pm-support-layout [style*="color: '#4f4a63'"] {
+    color: rgba(226,232,255,0.70) !important;
+  }
+
   .pm-client-welcome {
     margin-top: 14px;
     padding-top: 14px;
@@ -2034,6 +2261,525 @@ const styles = `
     .pm-main { margin-left: 0; }
     .pm-content { padding: 18px; }
     .pm-compact-stats { grid-template-columns: 1fr; }
+  }
+
+  .pm-root {
+    --black: #f8fbff;
+    --white: #ffffff;
+    --gray-50: rgba(255,255,255,0.055);
+    --gray-100: rgba(255,255,255,0.08);
+    --gray-200: rgba(142,170,255,0.18);
+    --gray-400: #7f8baa;
+    --gray-600: #a6b0cc;
+    --gray-800: #e8efff;
+    --accent: #123dff;
+    --accent-2: #00a3ff;
+    --accent-light: rgba(18,61,255,0.14);
+    --success: #39d98a;
+    --danger: #ff5d73;
+    --warning: #ffc857;
+    --shadow-sm: 0 18px 46px rgba(0,0,0,0.22);
+    --shadow-md: 0 24px 70px rgba(18,61,255,0.18);
+    --shadow-lg: 0 34px 95px rgba(0,0,0,0.34);
+    background:
+      radial-gradient(circle at 17% 6%, rgba(18,61,255,0.28), transparent 28%),
+      radial-gradient(circle at 85% 8%, rgba(0,163,255,0.18), transparent 30%),
+      radial-gradient(circle at 62% 100%, rgba(18,61,255,0.14), transparent 34%),
+      linear-gradient(135deg, #02040a 0%, #050814 48%, #02040a 100%);
+    color: #f8fbff;
+  }
+
+  .pm-root::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 58px 58px;
+    mask-image: radial-gradient(circle at 50% 24%, black, transparent 74%);
+    opacity: 0.5;
+    z-index: 0;
+  }
+
+  .pm-layout {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .pm-sidebar {
+    width: 270px;
+    background:
+      linear-gradient(180deg, rgba(9,14,30,0.92), rgba(3,7,17,0.96)),
+      rgba(5,8,18,0.88);
+    border-right: 1px solid rgba(108,141,255,0.20);
+    box-shadow: 18px 0 60px rgba(0,0,0,0.28);
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+  }
+
+  .pm-logo {
+    min-height: 98px;
+    padding: 24px 22px;
+    border-bottom: 1px solid rgba(142,170,255,0.15);
+  }
+
+  .pm-logo-title {
+    gap: 13px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+
+  .pm-logo-title::before {
+    display: none;
+  }
+
+  .pm-logo-mark {
+    width: 96px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 0 22px rgba(18,61,255,0.44));
+  }
+
+  .pm-logo-text {
+    display: grid;
+    gap: 4px;
+  }
+
+  .pm-logo-name {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 900;
+    line-height: 1.1;
+  }
+
+  .pm-logo-role {
+    color: rgba(226,232,255,0.56);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .pm-logo-sub {
+    display: none;
+  }
+
+  .pm-nav {
+    padding: 22px 14px;
+  }
+
+  .pm-nav-label {
+    color: rgba(226,232,255,0.34);
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    font-weight: 900;
+  }
+
+  .pm-nav-btn {
+    min-height: 46px;
+    border-radius: 15px;
+    padding: 12px 13px;
+    color: rgba(226,232,255,0.66);
+    font-size: 12.5px;
+    font-weight: 750;
+    margin-bottom: 6px;
+  }
+
+  .pm-nav-btn:hover {
+    color: #ffffff;
+    background: rgba(255,255,255,0.075);
+  }
+
+  .pm-nav-btn.active {
+    color: #ffffff;
+    background:
+      linear-gradient(135deg, rgba(18,61,255,0.34), rgba(0,163,255,0.16));
+    box-shadow:
+      inset 3px 0 0 #00a3ff,
+      0 16px 36px rgba(18,61,255,0.18);
+  }
+
+  .pm-sidebar-footer {
+    border-top: 1px solid rgba(142,170,255,0.15);
+    padding: 16px 14px;
+  }
+
+  .pm-logout-btn {
+    min-height: 44px;
+    background: rgba(255,255,255,0.055);
+    border-color: rgba(255,255,255,0.10);
+    color: #ff9daa;
+  }
+
+  .pm-logout-btn:hover {
+    background: rgba(255,93,115,0.12);
+    border-color: rgba(255,93,115,0.28);
+  }
+
+  .pm-main {
+    margin-left: 270px;
+    background:
+      radial-gradient(circle at 92% 0%, rgba(0,163,255,0.10), transparent 30%),
+      transparent;
+  }
+
+  .pm-topbar {
+    height: 84px;
+    padding: 0 38px;
+    background: rgba(5,9,20,0.70);
+    border-bottom: 1px solid rgba(142,170,255,0.16);
+    backdrop-filter: blur(20px) saturate(145%);
+    -webkit-backdrop-filter: blur(20px) saturate(145%);
+  }
+
+  .pm-topbar-title {
+    color: #ffffff;
+    font-size: 27px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+  }
+
+  .pm-topbar-title::before {
+    border-color: #123dff;
+    box-shadow:
+      inset 0 -6px 0 rgba(0,163,255,0.18),
+      0 0 26px rgba(18,61,255,0.30);
+  }
+
+  .pm-content {
+    padding: 34px 40px 56px;
+  }
+
+  .pm-section,
+  .pm-taskboard-shell,
+  .pm-project-list,
+  .pm-stat-card,
+  .pm-client-card,
+  .pm-support-card,
+  .pm-task-card,
+  .pm-milestone-card,
+  .pm-progress-card,
+  .pm-compact-stat {
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.095), rgba(255,255,255,0.038)),
+      rgba(4,8,20,0.50);
+    border: 1px solid rgba(142,170,255,0.18);
+    box-shadow:
+      0 24px 70px rgba(0,0,0,0.24),
+      inset 0 1px 0 rgba(255,255,255,0.10);
+    backdrop-filter: blur(20px) saturate(136%);
+    -webkit-backdrop-filter: blur(20px) saturate(136%);
+  }
+
+  .pm-section,
+  .pm-taskboard-shell,
+  .pm-project-list {
+    border-radius: 26px;
+  }
+
+  .pm-project-card::before {
+    background: linear-gradient(90deg, #123dff, #00a3ff);
+  }
+
+  .pm-section-header,
+  .pm-milestone-header {
+    background: rgba(255,255,255,0.035);
+    border-bottom: 1px solid rgba(142,170,255,0.14);
+  }
+
+  .pm-section-icon,
+  .pm-stat-icon {
+    background: linear-gradient(135deg, rgba(18,61,255,0.92), rgba(0,163,255,0.82));
+    color: #ffffff;
+    box-shadow: 0 16px 34px rgba(18,61,255,0.26);
+  }
+
+  .pm-section-title,
+  .pm-card-name,
+  .pm-client-name,
+  .pm-milestone-title,
+  .pm-task-title,
+  .pm-detail-title,
+  .pm-board-title,
+  .pm-list-name,
+  .pm-stat-value,
+  .pm-compact-stat strong,
+  .pm-progress-value {
+    color: #ffffff;
+  }
+
+  .pm-card-client,
+  .pm-task-meta,
+  .pm-task-date,
+  .pm-progress-sub,
+  .pm-board-sub,
+  .pm-list-muted,
+  .pm-stat-label,
+  .pm-label,
+  .pm-divider-text,
+  .pm-client-projects {
+    color: rgba(226,232,255,0.62);
+  }
+
+  .pm-input,
+  .pm-select,
+  .pm-list-date-input,
+  .pm-client-welcome-input,
+  .pm-color-field,
+  .pm-file-upload,
+  .pm-check-pill,
+  .pm-deliverable-item,
+  .pm-work-log {
+    background-color: rgba(255,255,255,0.060);
+    border-color: rgba(142,170,255,0.20);
+    color: #ffffff;
+  }
+
+  .pm-filter-row .pm-input,
+  .pm-filter-row .pm-select,
+  .pm-filter-row .pm-btn,
+  .pm-list-date-input {
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.085), rgba(255,255,255,0.035)),
+      rgba(4,8,20,0.48);
+    border: 1px solid rgba(142,170,255,0.24);
+    color: #ffffff;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.08),
+      0 14px 34px rgba(0,0,0,0.16);
+    backdrop-filter: blur(16px) saturate(130%);
+    -webkit-backdrop-filter: blur(16px) saturate(130%);
+  }
+
+  .pm-filter-row .pm-input::placeholder {
+    color: rgba(226,232,255,0.36);
+  }
+
+  .pm-filter-row .pm-input:focus,
+  .pm-filter-row .pm-select:focus,
+  .pm-list-date-input:focus {
+    border-color: rgba(0,163,255,0.72);
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.11), rgba(255,255,255,0.050)),
+      rgba(4,8,20,0.58);
+    box-shadow:
+      0 0 0 4px rgba(18,61,255,0.16),
+      0 18px 42px rgba(18,61,255,0.12);
+  }
+
+  .pm-input::placeholder,
+  .pm-client-welcome-input::placeholder,
+  .pm-color-code-input::placeholder {
+    color: rgba(226,232,255,0.36);
+  }
+
+  .pm-input:focus,
+  .pm-select:focus,
+  .pm-list-date-input:focus,
+  .pm-client-welcome-input:focus {
+    border-color: rgba(0,163,255,0.72);
+    background-color: rgba(255,255,255,0.085);
+    box-shadow: 0 0 0 4px rgba(18,61,255,0.16);
+  }
+
+  .pm-select option {
+    background: #071022;
+    color: #ffffff;
+  }
+
+  .pm-color-code-input {
+    color: #ffffff;
+  }
+
+  .pm-btn-primary,
+  .pm-hero-pill,
+  button.pm-hero-pill,
+  .pm-welcome-btn {
+    background: linear-gradient(135deg, #123dff, #0076ff);
+    color: #ffffff;
+    border-color: rgba(0,163,255,0.28);
+    box-shadow: 0 18px 42px rgba(18,61,255,0.28);
+  }
+
+  .pm-action-btn,
+  .pm-btn-outline,
+  .pm-back-btn {
+    background: rgba(255,255,255,0.060);
+    border-color: rgba(142,170,255,0.20);
+    color: rgba(255,255,255,0.86);
+  }
+
+  .pm-action-btn:hover,
+  .pm-btn-outline:hover,
+  .pm-back-btn:hover,
+  .pm-welcome-btn:hover {
+    background: rgba(18,61,255,0.18);
+    border-color: rgba(0,163,255,0.42);
+    color: #ffffff;
+  }
+
+  .pm-action-btn.danger {
+    color: #ff9daa;
+    border-color: rgba(255,93,115,0.28);
+  }
+
+  .pm-action-btn.danger:hover {
+    background: rgba(255,93,115,0.14);
+    border-color: rgba(255,93,115,0.44);
+  }
+
+  .pm-hero-banner {
+    background:
+      radial-gradient(circle at 92% 8%, rgba(0,163,255,0.18), transparent 32%),
+      linear-gradient(145deg, rgba(18,61,255,0.22), rgba(255,255,255,0.045)),
+      rgba(4,8,20,0.54);
+    border: 1px solid rgba(142,170,255,0.18);
+    box-shadow: var(--shadow-lg);
+    color: #ffffff;
+  }
+
+  .pm-hero-title {
+    color: #ffffff;
+  }
+
+  .pm-hero-sub {
+    color: rgba(226,232,255,0.66);
+  }
+
+  .pm-compact-stat {
+    min-height: 132px;
+  }
+
+  .pm-compact-stat::after {
+    background: linear-gradient(90deg, rgba(0,163,255,0.72), rgba(18,61,255,0));
+  }
+
+  .pm-compact-icon,
+  .pm-card-icon,
+  .pm-milestone-icon,
+  .pm-board-icon,
+  .pm-list-add,
+  .pm-card-arrow {
+    color: #7bbcff;
+  }
+
+  .pm-list-status {
+    color: #ffffff;
+    background: rgba(255,255,255,0.075);
+  }
+
+  .pm-list-row {
+    border-bottom-color: rgba(142,170,255,0.13);
+  }
+
+  .pm-list-row.head {
+    color: rgba(226,232,255,0.48);
+  }
+
+  .pm-list-row.item:hover {
+    background: rgba(18,61,255,0.11);
+  }
+
+  .pm-list-check {
+    background: rgba(255,255,255,0.060);
+    border-color: rgba(142,170,255,0.24);
+  }
+
+  .pm-list-bar,
+  .pm-hours-bar {
+    background: rgba(255,255,255,0.10);
+  }
+
+  .pm-list-fill,
+  .pm-hours-fill {
+    background: linear-gradient(90deg, #123dff, #00a3ff);
+    box-shadow: 0 8px 22px rgba(18,61,255,0.28);
+  }
+
+  .pm-list-percent,
+  .pm-progress-label,
+  .pm-card-stat,
+  .pm-card-stat strong {
+    color: rgba(255,255,255,0.86);
+  }
+
+  .pm-card-meta,
+  .pm-client-welcome,
+  .pm-board-head,
+  .pm-divider-line {
+    border-color: rgba(142,170,255,0.15);
+  }
+
+  .pm-empty {
+    background: rgba(255,255,255,0.040);
+    border-color: rgba(142,170,255,0.20);
+  }
+
+  .pm-empty-text {
+    color: rgba(226,232,255,0.62);
+  }
+
+  .pm-status-pill {
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .pm-status-pill.Active,
+  .pm-status-pill.Approved,
+  .pm-status-pill.Completed {
+    background: rgba(57,217,138,0.14);
+    color: #70f0ae;
+  }
+
+  .pm-status-pill.Expired,
+  .pm-status-pill.Suspended,
+  .pm-status-pill.Rejected {
+    background: rgba(255,93,115,0.14);
+    color: #ff9daa;
+  }
+
+  .pm-status-pill.Pending,
+  .pm-status-pill.Pending-Renewal,
+  .pm-status-pill.Not-Started {
+    background: rgba(255,200,87,0.13);
+    color: #ffe09a;
+  }
+
+  .pm-status-pill.In-Progress {
+    background: rgba(0,163,255,0.14);
+    color: #8ed1ff;
+  }
+
+  .pm-project-card:hover,
+  .pm-support-card:hover,
+  .pm-task-card:hover,
+  .pm-client-card:hover,
+  .pm-milestone-card:hover,
+  .pm-compact-stat:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0,163,255,0.38);
+    box-shadow: var(--shadow-md);
+  }
+
+  .pm-gauge-track::after {
+    background: #060b18;
+  }
+
+  @media (max-width: 980px) {
+    .pm-sidebar { width: 82px; }
+    .pm-main { margin-left: 82px; }
+    .pm-logo-mark { width: 38px; }
+    .pm-logo-text { display: none; }
+  }
+
+  @media (max-width: 720px) {
+    .pm-main { margin-left: 0; }
+    .pm-content { padding: 18px; }
   }
 `
 
@@ -3291,7 +4037,7 @@ if (loading) {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'linear-gradient(135deg, #f7f5ff 0%, #ffffff 45%, #eee9ff 100%)',
+      background: 'radial-gradient(circle at 18% 16%, rgba(18,61,255,0.28), transparent 24%), radial-gradient(circle at 78% 18%, rgba(0,163,255,0.20), transparent 28%), linear-gradient(135deg, #02040A 0%, #050814 48%, #02040A 100%)',
       fontFamily: 'Inter, Arial, sans-serif',
       position: 'relative',
       overflow: 'hidden',
@@ -3310,8 +4056,8 @@ if (loading) {
           to { transform: translateY(0) scale(1); opacity: 1; }
         }
         @keyframes pmLoaderIconPulse {
-          0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 16px 35px rgba(108,92,231,0.32); }
-          50% { transform: translateY(-4px) scale(1.06); box-shadow: 0 22px 46px rgba(108,92,231,0.42); }
+          0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 16px 35px rgba(18,61,255,0.32); }
+          50% { transform: translateY(-4px) scale(1.06); box-shadow: 0 22px 46px rgba(0,163,255,0.38); }
         }
         @keyframes pmLoaderCheck {
           0%, 100% { transform: rotate(-8deg) scale(1); opacity: 0.92; }
@@ -3328,7 +4074,7 @@ if (loading) {
         width: 360,
         height: 360,
         borderRadius: '50%',
-        background: 'rgba(124, 77, 255, 0.16)',
+        background: 'rgba(18, 61, 255, 0.20)',
         top: -120,
         left: -100,
         filter: 'blur(10px)',
@@ -3340,7 +4086,7 @@ if (loading) {
         width: 420,
         height: 420,
         borderRadius: '50%',
-        background: 'rgba(108, 92, 231, 0.14)',
+        background: 'rgba(0, 163, 255, 0.14)',
         bottom: -160,
         right: -120,
         filter: 'blur(10px)',
@@ -3351,10 +4097,10 @@ if (loading) {
         width: 420,
         padding: 38,
         borderRadius: 28,
-        background: 'rgba(255,255,255,0.82)',
-        backdropFilter: 'blur(18px)',
-        boxShadow: '0 30px 80px rgba(80, 65, 180, 0.16)',
-        border: '1px solid rgba(120,100,220,0.16)',
+        background: 'linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.035)), rgba(4,8,20,0.52)',
+        backdropFilter: 'blur(24px) saturate(140%)',
+        boxShadow: '0 30px 90px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255,255,255,0.14)',
+        border: '1px solid rgba(142,170,255,0.22)',
         textAlign: 'center',
         zIndex: 2,
         animation: 'pmLoaderCardIn 0.55s ease-out both',
@@ -3364,30 +4110,30 @@ if (loading) {
           height: 64,
           borderRadius: 20,
           margin: '0 auto 22px',
-          background: 'linear-gradient(135deg, #6C5CE7, #8E6CFF)',
+          background: 'linear-gradient(135deg, rgba(18,61,255,0.22), rgba(0,163,255,0.12))',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           color: '#fff',
           fontSize: 30,
           fontWeight: 800,
-          boxShadow: '0 16px 35px rgba(108,92,231,0.32)',
+          boxShadow: '0 16px 35px rgba(18,61,255,0.32)',
           animation: 'pmLoaderIconPulse 1.8s ease-in-out infinite',
         }}>
-          <span style={{ display: 'inline-block', animation: 'pmLoaderCheck 1.8s ease-in-out infinite' }}>✓</span>
+          <img src="/bits3-logo.png" alt="Bits3" style={{ width: 48, height: 'auto', display: 'block', filter: 'drop-shadow(0 0 18px rgba(18,61,255,0.55))' }} />
         </div>
 
         <div style={{
           fontSize: 24,
           fontWeight: 800,
-          color: '#151236',
+          color: '#ffffff',
           marginBottom: 8,
         }}>
           Project Manager
         </div>
 
         <div style={{
-          color: '#7b7894',
+          color: 'rgba(226,232,255,0.64)',
           fontSize: 15,
           marginBottom: 24,
         }}>
@@ -3396,7 +4142,7 @@ if (loading) {
 
         <div style={{
           height: 8,
-          background: '#eeeaff',
+          background: 'rgba(255,255,255,0.10)',
           borderRadius: 999,
           overflow: 'hidden',
           position: 'relative',
@@ -3405,7 +4151,7 @@ if (loading) {
             height: '100%',
             width: '48%',
             borderRadius: 999,
-            background: 'linear-gradient(135deg, #6C5CE7, #8E6CFF)',
+            background: 'linear-gradient(135deg, #123DFF, #00A3FF)',
             animation: 'pmLoaderBar 1.45s ease-in-out infinite',
           }} />
         </div>
@@ -3504,7 +4250,13 @@ if (loading) {
         {/* ── Sidebar ── */}
         <aside className="pm-sidebar">
           <div className="pm-logo">
-            <div className="pm-logo-title">Project<br />Manager</div>
+            <div className="pm-logo-title">
+              <img className="pm-logo-mark" src="/bits3-logo.png" alt="Bits3" />
+              <span className="pm-logo-text">
+                <span className="pm-logo-name">Project Manager</span>
+                <span className="pm-logo-role">{isTeamMemberMode ? teamSession?.name || 'Team Member' : 'Admin Portal'}</span>
+              </span>
+            </div>
             <div className="pm-logo-sub">{isTeamMemberMode ? teamSession?.name || 'Team Member' : 'Admin Dashboard'}</div>
           </div>
 
@@ -3536,7 +4288,7 @@ if (loading) {
     setSelectedSupportContract(null)
   }}
 >
-  <span className="icon">{Icons.client}</span>
+  <span className="icon">{Icons.team}</span>
   Teams
 </button>         
 <button
@@ -3548,7 +4300,7 @@ if (loading) {
     setSelectedSupportContract(null)
   }}
 >
-  <span className="icon">{Icons.client}</span>
+  <span className="icon">{Icons.chat}</span>
   Chats
 </button>
 <button
@@ -3559,7 +4311,7 @@ if (loading) {
     setSelectedRequest(null)
   }}
 >
-  <span className="icon">{Icons.project}</span>
+  <span className="icon">{Icons.support}</span>
   Support Contracts
 </button>
 <button
@@ -3571,7 +4323,7 @@ if (loading) {
     setSelectedSupportContract(null)
   }}
 >
-  <span className="icon">{Icons.deliverable}</span>
+  <span className="icon">{Icons.task}</span>
   Clients Task
 </button>
 <button
@@ -3595,7 +4347,7 @@ if (loading) {
     setSelectedSupportContract(null)
   }}
 >
-  <span className="icon">{Icons.folder}</span>
+  <span className="icon">{Icons.artifact}</span>
   Artifacts
 </button>
 </>
@@ -3951,9 +4703,9 @@ if (loading) {
       style={{ cursor: 'pointer' }}
     >
       {member.picture_url ? (
-        <img src={member.picture_url} alt={member.name} className="pm-client-logo" />
+        <img src={member.picture_url} alt={member.name} className="pm-client-logo pm-member-logo" />
       ) : (
-        <div className="pm-client-avatar" style={{ background: '#6d5dfc' }}>
+        <div className="pm-client-avatar pm-member-avatar">
           {member.name?.charAt(0)?.toUpperCase()}
         </div>
       )}
@@ -4307,7 +5059,7 @@ if (loading) {
                 if (file) uploadArtifactFile(file)
               }}
             />
-            <div className="pm-card-client" style={{ marginTop: 8, marginBottom: 0 }}>
+            <div className="pm-card-client pm-artifact-file-state">
               {artifactUploading ? 'Uploading file...' : artifactFileName || 'No file uploaded yet'}
             </div>
           </div>
@@ -4337,15 +5089,15 @@ if (loading) {
               const project = projects.find(item => item.id === artifact.project_id)
 
               return (
-                <div key={artifact.id} className="pm-project-card">
+                <div key={artifact.id} className="pm-project-card pm-artifact-card">
                   <div className="pm-card-header">
-                    <div className="pm-card-icon">{Icons.folder}</div>
+                    <div className="pm-card-icon">{Icons.artifact}</div>
                     <div className="pm-card-arrow">→</div>
                   </div>
                   <div className="pm-card-name">{artifact.name}</div>
                   <div className="pm-card-client">{client?.name || 'Client'} • {project?.name || 'Project'}</div>
                   {artifact.description && (
-                    <div style={{ color: '#4f4a63', fontSize: 13, lineHeight: 1.45, marginBottom: 14 }}>{artifact.description}</div>
+                    <div className="pm-artifact-description">{artifact.description}</div>
                   )}
                   <div className="pm-card-meta">
                     <span>Created {artifact.creation_date || 'Not set'}</span>
@@ -4624,14 +5376,14 @@ if (loading) {
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 12 }}>
                       <div>
                         <div className="pm-stat-label">Monthly Fee</div>
-                        <div style={{ fontSize: 18, fontWeight: 900, color: '#15113b' }}>{Number(contract.monthly_support_fee || 0).toLocaleString()}</div>
+                        <div style={{ fontSize: 18, fontWeight: 900, color: '#ffffff' }}>{Number(contract.monthly_support_fee || 0).toLocaleString()}</div>
                       </div>
                       <div>
                         <div className="pm-stat-label">Duration</div>
-                        <div style={{ fontSize: 13, fontWeight: 900, color: '#15113b' }}>{Number(contract.duration_days || 0)} days</div>
+                        <div style={{ fontSize: 13, fontWeight: 900, color: '#ffffff' }}>{Number(contract.duration_days || 0)} days</div>
                       </div>
                     </div>
-                    <div style={{ fontSize: 12, color: '#6d6883', fontWeight: 800 }}>
+                    <div style={{ fontSize: 12, color: 'rgba(226,232,255,0.70)', fontWeight: 800 }}>
                       {hours.used} used / {hours.included} included hours
                     </div>
                     <div className="pm-hours-bar">
@@ -4699,14 +5451,14 @@ if (loading) {
               </div>
 
               <div style={{ marginTop: 18, display: 'grid', gap: 8 }}>
-                <div style={{ fontSize: 12, fontWeight: 900, color: '#15113b' }}>SLA Response Times</div>
+                <div style={{ fontSize: 12, fontWeight: 900, color: '#ffffff' }}>SLA Response Times</div>
                 <div className="pm-card-client">Critical: {selectedSupportContract.critical_response_hours || 0}h{selectedSupportContract.critical_response_definition ? ` • ${selectedSupportContract.critical_response_definition}` : ''}</div>
                 <div className="pm-card-client">Normal: {selectedSupportContract.normal_response_hours || 0}h{selectedSupportContract.normal_response_definition ? ` • ${selectedSupportContract.normal_response_definition}` : ''}</div>
                 <div className="pm-card-client">Low: {selectedSupportContract.low_response_hours || 0}h{selectedSupportContract.low_response_definition ? ` • ${selectedSupportContract.low_response_definition}` : ''}</div>
               </div>
 
               <div style={{ marginTop: 18 }}>
-                <div style={{ fontSize: 12, fontWeight: 900, color: '#15113b', marginBottom: 8 }}>Included Scope</div>
+                <div style={{ fontSize: 12, fontWeight: 900, color: '#ffffff', marginBottom: 8 }}>Included Scope</div>
                 {(selectedSupportContract.included_scope || []).length === 0 ? (
                   <div className="pm-card-client">No included scope selected.</div>
                 ) : (
@@ -4720,7 +5472,7 @@ if (loading) {
 
               <div style={{ marginTop: 18 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                  <div style={{ fontSize: 12, fontWeight: 900, color: '#15113b' }}>Renewal Log</div>
+                  <div style={{ fontSize: 12, fontWeight: 900, color: '#ffffff' }}>Renewal Log</div>
                   <button className="pm-action-btn" onClick={() => renewSupportContract(selectedSupportContract)}>Renew</button>
                 </div>
                 {selectedSupportRenewals.length === 0 ? (
@@ -4801,13 +5553,13 @@ if (loading) {
               selectedSupportLogs.map(log => (
                 <div key={log.id} className="pm-work-log">
                   <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
-                    <div style={{ fontWeight: 900, color: '#15113b' }}>{log.title}</div>
+                    <div style={{ fontWeight: 900, color: '#ffffff' }}>{log.title}</div>
                     <span className={`pm-status-pill ${String(log.approval_status || 'Pending').replaceAll(' ', '-')}`}>{log.approval_status || 'Pending'}</span>
                   </div>
                   <div className="pm-card-client">
                     {log.work_date || 'No creation date'} • {Number(log.time_spent_hours || 0)}h required • {Number(log.charged_hours || 0)}h charged • {Number(log.charge_per_hour || 0).toLocaleString()} per hour • {log.priority} • {log.status}
                   </div>
-                  {log.description && <div style={{ color: '#4f4a63', fontSize: 13, lineHeight: 1.5 }}>{log.description}</div>}
+                  {log.description && <div style={{ color: 'rgba(226,232,255,0.70)', fontSize: 13, lineHeight: 1.5 }}>{log.description}</div>}
                 </div>
               ))
             )}
@@ -4822,7 +5574,7 @@ if (loading) {
   <>
     <div className="pm-section">
       <div className="pm-section-header">
-        <div className="pm-section-icon">{Icons.client}</div>
+        <div className="pm-section-icon">{Icons.chat}</div>
         <span className="pm-section-title">Chats</span>
       </div>
 
@@ -4943,17 +5695,22 @@ if (loading) {
     .map(req => (
       <div
         key={req.id}
-        className="pm-project-card"
+        className="pm-project-card pm-chat-card"
         onClick={() => setSelectedRequest(req)}
       >
-        <div className="pm-card-name">{req.subject}</div>
-
-        <div className="pm-card-client">
-          {clients.find(c => c.id === req.client_id)?.name}
+        <div className="pm-chat-card-top">
+          <div>
+            <div className="pm-card-name">{req.subject}</div>
+            <div className="pm-card-client">
+              {clients.find(c => c.id === req.client_id)?.name}
+            </div>
+          </div>
+          <span className="pm-chat-icon">{Icons.chat}</span>
         </div>
 
-        <div className="pm-card-client">
-          {projects.find(p => p.id === req.project_id)?.name}
+        <div className="pm-chat-meta">
+          <span className="pm-chat-chip">{projects.find(p => p.id === req.project_id)?.name || 'No project'}</span>
+          <span className={`pm-status-pill ${String(req.status || '').replaceAll(' ', '-')}`}>{req.status}</span>
         </div>
       </div>
     ))}
@@ -4976,7 +5733,7 @@ if (loading) {
 
     <div className="pm-section" style={{ marginBottom: '20px' }}>
       <div className="pm-section-header">
-        <div className="pm-section-icon">{Icons.client}</div>
+        <div className="pm-section-icon">{Icons.chat}</div>
 
         <span className="pm-section-title">
           {selectedRequest.subject}
@@ -4985,29 +5742,30 @@ if (loading) {
 
       <div className="pm-section-body">
 
-        <div style={{ marginBottom: '12px' }}>
-          <strong>Client:</strong>{' '}
-          {clients.find(c => c.id === selectedRequest.client_id)?.name}
-        </div>
+        <div className="pm-chat-detail-grid">
+          <div className="pm-chat-detail-item">
+            <div className="pm-chat-detail-label">Client</div>
+            <div className="pm-chat-detail-value">{clients.find(c => c.id === selectedRequest.client_id)?.name}</div>
+          </div>
 
-        <div style={{ marginBottom: '12px' }}>
-          <strong>Project:</strong>{' '}
-          {projects.find(p => p.id === selectedRequest.project_id)?.name}
-        </div>
+          <div className="pm-chat-detail-item">
+            <div className="pm-chat-detail-label">Project</div>
+            <div className="pm-chat-detail-value">{projects.find(p => p.id === selectedRequest.project_id)?.name}</div>
+          </div>
 
-        <div style={{ marginBottom: '12px' }}>
-          <strong>Status:</strong>{' '}
-          {selectedRequest.status}
+          <div className="pm-chat-detail-item">
+            <div className="pm-chat-detail-label">Status</div>
+            <div className="pm-chat-detail-value">{selectedRequest.status}</div>
+          </div>
         </div>
 
         <div>
-          <strong>Description:</strong>
+          <div className="pm-chat-detail-label">Description</div>
 
-          <div style={{
+          <div className="pm-chat-description" style={{
             marginTop: '10px',
-            background: '#f7f7f7',
             padding: '14px',
-            borderRadius: '12px'
+            borderRadius: '16px'
           }}>
             {selectedRequest.description}
           </div>
@@ -5018,7 +5776,7 @@ if (loading) {
 
     <div className="pm-section">
       <div className="pm-section-header">
-        <div className="pm-section-icon">{Icons.client}</div>
+        <div className="pm-section-icon">{Icons.chat}</div>
 
         <span className="pm-section-title">
           Conversation
@@ -5047,26 +5805,7 @@ if (loading) {
             .map(msg => (
               <div
                 key={msg.id}
-                style={{
-                  alignSelf:
-                    msg.sender === 'admin'
-                      ? 'flex-end'
-                      : 'flex-start',
-
-                  background:
-                    msg.sender === 'admin'
-                      ? '#6d5dfc'
-                      : '#f1f1f1',
-
-                  color:
-                    msg.sender === 'admin'
-                      ? '#fff'
-                      : '#111',
-
-                  padding: '12px 14px',
-                  borderRadius: '16px',
-                  maxWidth: '75%'
-                }}
+                className={`pm-chat-bubble ${msg.sender === 'admin' ? 'admin' : 'client'}`}
               >
                 {msg.message}
               </div>
@@ -5334,12 +6073,13 @@ if (loading) {
 
           return (
             <div key={ptm.id} className="pm-client-card">
-              <div
-                className="pm-client-avatar"
-                style={{ background: '#6d5dfc' }}
-              >
-                {member.name?.charAt(0)?.toUpperCase()}
-              </div>
+              {member.picture_url ? (
+                <img src={member.picture_url} alt={member.name} className="pm-client-logo pm-member-logo" />
+              ) : (
+                <div className="pm-client-avatar pm-member-avatar">
+                  {member.name?.charAt(0)?.toUpperCase()}
+                </div>
+              )}
 
               <div className="pm-client-info">
                 <div className="pm-client-top">
