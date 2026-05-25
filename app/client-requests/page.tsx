@@ -15,23 +15,26 @@ const styles = `
   }
 
   .cr-shell { max-width: 1180px; margin: 0 auto; }
-  .cr-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 18px; }
+  .cr-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 18px; background: rgba(255,255,255,0.94); border: 1px solid rgba(230,230,240,0.9); border-radius: 24px; padding: 20px 22px; box-shadow: 0 14px 38px rgba(21,18,54,0.06); position: relative; overflow: hidden; }
+  .cr-top::after { content: ''; position: absolute; right: 18px; top: 18px; width: 96px; height: 8px; border-radius: 999px; background: linear-gradient(90deg, var(--client-primary), var(--client-secondary)); opacity: 0.9; }
+  .cr-top > * { position: relative; z-index: 1; }
   .cr-title { font-size: 26px; font-weight: 900; color: #12182B; margin: 0; }
   .cr-subtitle { margin-top: 6px; color: #727789; font-size: 14px; font-weight: 700; }
   .cr-btn { border: none; border-radius: 14px; padding: 11px 16px; font-size: 13px; font-weight: 900; cursor: pointer; transition: 0.2s ease; }
   .cr-btn:hover { transform: translateY(-1px); }
-  .cr-btn-primary { color: #fff; background: var(--client-primary); box-shadow: 0 12px 28px rgba(80,65,180,0.16); }
-  .cr-btn-light { color: #151236; background: #fff; border: 1px solid rgba(230,230,240,0.95); box-shadow: 0 10px 24px rgba(21,18,54,0.06); }
+  .cr-btn-primary { color: #fff; background: linear-gradient(135deg, var(--client-primary), var(--client-secondary)); box-shadow: 0 12px 28px rgba(80,65,180,0.16); }
+  .cr-btn-light { color: var(--client-primary); background: #fff; border: 1px solid var(--client-primary-border); box-shadow: 0 10px 24px rgba(21,18,54,0.06); }
   .cr-toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
   .cr-tab { border: 1px solid rgba(230,230,240,0.95); border-radius: 999px; padding: 9px 14px; background: #fff; color: #727789; font-weight: 900; cursor: pointer; }
-  .cr-tab.active { color: #fff; background: var(--client-primary); border-color: var(--client-primary); }
+  .cr-tab.active { color: #fff; background: linear-gradient(135deg, var(--client-primary), var(--client-secondary)); border-color: var(--client-primary); }
   .cr-grid { display: grid; grid-template-columns: minmax(280px, 0.92fr) minmax(360px, 1.45fr); gap: 18px; align-items: start; }
   .cr-panel { background: rgba(255,255,255,0.94); border-radius: 24px; border: 1px solid rgba(230,230,240,0.9); box-shadow: 0 14px 38px rgba(80,65,180,0.06); overflow: hidden; }
-  .cr-panel-head { padding: 18px 20px; border-bottom: 1px solid #f0eff6; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .cr-panel-head { padding: 18px 20px; border-bottom: 1px solid #f0eff6; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #fff; }
   .cr-panel-title { font-size: 15px; font-weight: 900; }
   .cr-list { padding: 14px; display: grid; gap: 10px; max-height: 650px; overflow: auto; }
-  .cr-ticket { width: 100%; text-align: left; border: 1px solid #eeedf6; background: #fff; border-radius: 18px; padding: 14px; cursor: pointer; transition: 0.2s ease; }
-  .cr-ticket:hover, .cr-ticket.active { border-color: var(--client-primary); box-shadow: 0 14px 30px rgba(80,65,180,0.09); transform: translateY(-1px); }
+  .cr-ticket { width: 100%; text-align: left; border: 1px solid #eeedf6; background: #fff; border-radius: 18px; padding: 14px 14px 14px 18px; cursor: pointer; transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease, background 0.24s ease; position: relative; overflow: hidden; }
+  .cr-ticket::before { content: ''; position: absolute; left: 0; top: 14px; bottom: 14px; width: 5px; border-radius: 999px; background: linear-gradient(180deg, var(--client-primary), var(--client-secondary)); }
+  .cr-ticket:hover, .cr-ticket.active { border-color: var(--client-primary); box-shadow: 0 14px 30px rgba(80,65,180,0.09); transform: translateY(-4px); background: linear-gradient(135deg, #fff, var(--client-primary-soft)); }
   .cr-ticket-title { font-size: 14px; font-weight: 900; color: #151236; line-height: 1.25; }
   .cr-ticket-meta { margin-top: 7px; color: #8A86A4; font-size: 12px; font-weight: 700; }
   .cr-status { display: inline-flex; border-radius: 999px; padding: 5px 9px; font-size: 11px; font-weight: 900; margin-top: 10px; }
@@ -43,13 +46,14 @@ const styles = `
   .cr-description { background: #fff; border: 1px solid #eeedf6; border-radius: 16px; padding: 13px 14px; color: #5d6072; font-size: 13px; font-weight: 700; line-height: 1.45; margin-bottom: 8px; }
   .cr-bubble { max-width: 78%; border-radius: 18px; padding: 11px 13px; font-size: 13px; font-weight: 700; line-height: 1.45; white-space: pre-wrap; }
   .cr-bubble.admin { align-self: flex-start; background: #fff; color: #151236; border: 1px solid #eeedf6; border-top-left-radius: 6px; }
-  .cr-bubble.client { align-self: flex-end; background: var(--client-primary); color: #fff; border-top-right-radius: 6px; }
+  .cr-bubble.client { align-self: flex-end; background: linear-gradient(135deg, var(--client-primary), var(--client-secondary)); color: #fff; border-top-right-radius: 6px; }
   .cr-chat-foot { padding: 14px; border-top: 1px solid #eeedf6; background: #fff; display: flex; gap: 10px; }
   .cr-input, .cr-select, .cr-textarea { width: 100%; border: 1px solid #e6e2f5; border-radius: 14px; padding: 12px 13px; font: inherit; font-size: 13px; font-weight: 700; outline: none; background: #fff; color: #151236; }
   .cr-textarea { resize: vertical; min-height: 92px; }
   .cr-form { padding: 18px; display: grid; gap: 12px; border-top: 1px solid #f0eff6; background: #fbfbfd; }
   .cr-label { font-size: 11px; font-weight: 900; color: #8A86A4; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; display: block; }
   .cr-root.dark { background: linear-gradient(180deg, #0B1220 0%, #111827 100%); color: #F8FAFC; }
+  .cr-root.dark .cr-top { background: rgba(20,28,44,0.94); border-color: rgba(148,163,184,0.20); box-shadow: 0 16px 44px rgba(0,0,0,0.26); }
   .cr-root.dark .cr-title,
   .cr-root.dark .cr-panel-title,
   .cr-root.dark .cr-ticket-title,
@@ -79,7 +83,9 @@ const styles = `
   .cr-root.dark .cr-description { color: #CBD5E1; }
   .cr-root.dark .cr-btn-light,
   .cr-root.dark .cr-tab { color: #F8FAFC; }
-  .cr-root.dark .cr-tab.active { color: #fff; background: var(--client-primary); border-color: var(--client-primary); }
+  .cr-root.dark .cr-tab.active { color: #fff; background: linear-gradient(135deg, var(--client-primary), var(--client-secondary)); border-color: var(--client-primary); }
+  .cr-root.dark .cr-ticket:hover,
+  .cr-root.dark .cr-ticket.active { background: linear-gradient(135deg, rgba(20,28,44,0.94), var(--client-primary-soft)); }
 
   @media (max-width: 860px) {
     .cr-root { padding: 18px; }
@@ -109,6 +115,7 @@ type Client = {
   id: string
   name?: string
   primary_color?: string
+  secondary_color?: string
 }
 
 type Project = {
@@ -138,6 +145,7 @@ export default function ClientRequestsPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [loadingPrimary, setLoadingPrimary] = useState('#2386d2')
+  const [loadingSecondary, setLoadingSecondary] = useState('#8E6CFF')
   const [client, setClient] = useState<Client | null>(null)
   const [projects, setProjects] = useState<Project[]>([])
   const [requests, setRequests] = useState<ClientRequest[]>([])
@@ -152,6 +160,7 @@ export default function ClientRequestsPage() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
 
   const primary = client?.primary_color || loadingPrimary
+  const secondary = client?.secondary_color || loadingSecondary
   const isDark = theme === 'dark'
 
   const loadData = async () => {
@@ -173,6 +182,9 @@ export default function ClientRequestsPage() {
     }
 
     setLoadingPrimary(clientData.primary_color || '#2386d2')
+    setLoadingSecondary(clientData.secondary_color || '#8E6CFF')
+    window.localStorage.setItem('client-dashboard-primary-color', clientData.primary_color || '#2386d2')
+    window.localStorage.setItem('client-dashboard-secondary-color', clientData.secondary_color || '#8E6CFF')
 
     const { data: projectData } = await supabase
       .from('projects')
@@ -200,6 +212,10 @@ export default function ClientRequestsPage() {
   useEffect(() => {
     const savedTheme = window.localStorage.getItem('client-dashboard-theme')
     if (savedTheme === 'dark' || savedTheme === 'light') setTheme(savedTheme)
+    const savedPrimary = window.localStorage.getItem('client-dashboard-primary-color')
+    const savedSecondary = window.localStorage.getItem('client-dashboard-secondary-color')
+    if (savedPrimary) setLoadingPrimary(savedPrimary)
+    if (savedSecondary) setLoadingSecondary(savedSecondary)
 
     const timeoutId = window.setTimeout(() => {
       loadData()
@@ -289,8 +305,8 @@ export default function ClientRequestsPage() {
         alignItems: 'center',
         justifyContent: 'center',
         background: isDark
-          ? `radial-gradient(circle at 24% 18%, ${primary}24, transparent 28%), radial-gradient(circle at 78% 10%, ${primary}18, transparent 30%), linear-gradient(180deg, #0B1220 0%, #111827 100%)`
-          : `radial-gradient(circle at 24% 18%, ${primary}1F, transparent 28%), radial-gradient(circle at 78% 10%, ${primary}14, transparent 30%), linear-gradient(180deg, #F7F8FB 0%, #EEF1F6 100%)`,
+          ? `radial-gradient(circle at 24% 18%, ${primary}24, transparent 28%), radial-gradient(circle at 78% 10%, ${secondary}22, transparent 30%), linear-gradient(180deg, #0B1220 0%, #111827 100%)`
+          : `radial-gradient(circle at 24% 18%, ${primary}1F, transparent 28%), radial-gradient(circle at 78% 10%, ${secondary}1D, transparent 30%), linear-gradient(180deg, #F7F8FB 0%, #EEF1F6 100%)`,
         fontFamily: 'Inter, Arial, sans-serif',
         position: 'relative',
         overflow: 'hidden',
@@ -312,7 +328,7 @@ export default function ClientRequestsPage() {
             height: 86,
             borderRadius: 28,
             margin: '0 auto 22px',
-            background: primary,
+            background: `linear-gradient(135deg, ${primary}, ${secondary})`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -325,7 +341,7 @@ export default function ClientRequestsPage() {
           <div style={{ fontSize: 22, fontWeight: 900, color: isDark ? '#F8FAFC' : '#151236' }}>Loading chats...</div>
           <div style={{ marginTop: 8, color: isDark ? '#AAB3C5' : '#7b7894', fontSize: 14, fontWeight: 700 }}>Preparing your ticket center</div>
           <div style={{ marginTop: 22, height: 7, borderRadius: 999, background: isDark ? 'rgba(255,255,255,0.10)' : `${primary}18`, overflow: 'hidden' }}>
-            <div style={{ width: '55%', height: '100%', borderRadius: 999, background: primary, animation: 'clientRequestsLoaderBar 1.25s ease-in-out infinite' }} />
+            <div style={{ width: '55%', height: '100%', borderRadius: 999, background: `linear-gradient(90deg, ${primary}, ${secondary})`, animation: 'clientRequestsLoaderBar 1.25s ease-in-out infinite' }} />
           </div>
         </div>
       </main>
@@ -346,7 +362,7 @@ export default function ClientRequestsPage() {
   }
 
   return (
-    <main className={`cr-root ${theme === 'dark' ? 'dark' : ''}`} style={{ '--client-primary': primary } as CSSProperties}>
+    <main className={`cr-root ${theme === 'dark' ? 'dark' : ''}`} style={{ '--client-primary': primary, '--client-secondary': secondary, '--client-primary-soft': `${primary}14`, '--client-primary-border': `${primary}2E` } as CSSProperties}>
       <style>{styles}</style>
       <div className="cr-shell">
         <div className="cr-top">

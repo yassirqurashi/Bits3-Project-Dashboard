@@ -15,54 +15,62 @@ const styles = `
     padding: 24px 28px 44px;
   }
   .cs-shell { max-width: 1180px; margin: 0 auto; }
-  .cs-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 22px; }
+  .cs-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 22px; background: rgba(255,255,255,0.94); border: 1px solid rgba(230,230,240,0.9); border-radius: 24px; padding: 20px 22px; box-shadow: 0 14px 38px rgba(21,18,54,0.06); position: relative; overflow: hidden; }
+  .cs-top::after { content: ''; position: absolute; right: 18px; top: 18px; width: 96px; height: 8px; border-radius: 999px; background: linear-gradient(90deg, var(--client-primary), var(--client-secondary)); opacity: 0.9; }
+  .cs-top > * { position: relative; z-index: 1; }
   .cs-title { font-size: 27px; font-weight: 900; color: #12182B; margin: 0; }
   .cs-subtitle { margin-top: 6px; color: #727789; font-size: 14px; font-weight: 700; }
   .cs-btn { border: none; border-radius: 14px; padding: 11px 16px; font-size: 13px; font-weight: 900; cursor: pointer; transition: 0.2s ease; }
   .cs-btn:hover { transform: translateY(-1px); }
-  .cs-btn-primary { color: #fff; background: var(--client-primary); box-shadow: 0 12px 28px rgba(21,18,54,0.12); }
+  .cs-btn-primary { color: #fff; background: linear-gradient(135deg, var(--client-primary), var(--client-secondary)); box-shadow: 0 12px 28px rgba(21,18,54,0.12); }
   .cs-btn-danger { color: #be123c; background: #fff1f2; border: 1px solid #fecaca; }
   .cs-btn-wide { width: 100%; padding: 13px 18px; }
-  .cs-btn-light { color: #151236; background: #fff; border: 1px solid rgba(230,230,240,0.95); box-shadow: 0 10px 24px rgba(21,18,54,0.06); }
+  .cs-btn-light { color: var(--client-primary); background: #fff; border: 1px solid var(--client-primary-border); box-shadow: 0 10px 24px rgba(21,18,54,0.06); }
   .cs-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
   .cs-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 22px; }
   .cs-stat { background: rgba(255,255,255,0.94); border: 1px solid rgba(230,230,240,0.9); border-radius: 22px; padding: 18px; box-shadow: 0 14px 38px rgba(21,18,54,0.06); position: relative; overflow: hidden; transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease; }
   .cs-stat:hover { transform: translateY(-5px); border-color: var(--client-primary); box-shadow: 0 22px 54px rgba(21,18,54,0.12); }
-  .cs-stat::after { content: ''; position: absolute; width: 86px; height: 86px; right: -26px; top: -28px; border-radius: 26px; background: var(--client-primary-soft); transform: rotate(18deg); }
+  .cs-stat::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, var(--client-primary), var(--client-secondary)); }
   .cs-label { color: #8A86A4; font-size: 11px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; position: relative; z-index: 1; }
   .cs-value { color: #151236; font-size: 28px; line-height: 1; font-weight: 900; margin-top: 12px; position: relative; z-index: 1; }
   .cs-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.35fr); gap: 18px; align-items: start; }
   .cs-panel { background: rgba(255,255,255,0.94); border-radius: 24px; border: 1px solid rgba(230,230,240,0.9); box-shadow: 0 14px 38px rgba(21,18,54,0.06); overflow: hidden; }
-  .cs-panel-head { padding: 18px 20px; border-bottom: 1px solid #f0eff6; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .cs-panel-head { padding: 18px 20px; border-bottom: 1px solid #f0eff6; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #fff; }
   .cs-panel-title { font-size: 15px; font-weight: 900; }
   .cs-list { padding: 14px; display: grid; gap: 10px; }
-  .cs-contract { width: 100%; text-align: left; border: 1px solid #eeedf6; background: #fff; border-radius: 18px; padding: 14px; cursor: pointer; transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease; }
-  .cs-contract:hover, .cs-contract.active { border-color: var(--client-primary); box-shadow: 0 18px 42px rgba(21,18,54,0.12); transform: translateY(-4px); }
+  .cs-contract { width: 100%; text-align: left; border: 1px solid #eeedf6; background: #fff; border-radius: 18px; padding: 14px 14px 14px 18px; cursor: pointer; transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease, background 0.24s ease; position: relative; overflow: hidden; }
+  .cs-contract::before { content: ''; position: absolute; left: 0; top: 14px; bottom: 14px; width: 5px; border-radius: 999px; background: linear-gradient(180deg, var(--client-primary), var(--client-secondary)); }
+  .cs-contract:hover, .cs-contract.active { border-color: var(--client-primary); box-shadow: 0 18px 42px rgba(21,18,54,0.12); transform: translateY(-4px); background: linear-gradient(135deg, #fff, var(--client-primary-soft)); }
   .cs-contract-title { font-size: 14px; font-weight: 900; color: #151236; line-height: 1.25; }
   .cs-meta { margin-top: 7px; color: #8A86A4; font-size: 12px; font-weight: 700; }
-  .cs-pill { display: inline-flex; border-radius: 999px; padding: 5px 9px; font-size: 11px; font-weight: 900; margin-top: 10px; color: var(--client-primary); background: var(--client-primary-soft); }
+  .cs-pill { display: inline-flex; border-radius: 999px; padding: 5px 9px; font-size: 11px; font-weight: 900; margin-top: 10px; color: var(--client-primary); background: var(--client-primary-soft); border: 1px solid var(--client-primary-border); }
   .cs-pill-rejected { color: #be123c; background: #fff1f2; border: 1px solid #fecaca; }
   .cs-empty { padding: 34px 20px; color: #8A86A4; font-weight: 700; text-align: center; }
   .cs-detail { padding: 18px; display: grid; gap: 14px; }
   .cs-hours { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
-  .cs-hour { background: #fbfbfd; border: 1px solid #eeedf6; border-radius: 16px; padding: 13px; min-height: 104px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease, background 0.24s ease; }
+  .cs-hour { background: #fbfbfd; border: 1px solid #eeedf6; border-radius: 16px; padding: 13px; min-height: 104px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease, background 0.24s ease; position: relative; overflow: hidden; }
+  .cs-hour::before { content: ''; position: absolute; left: 0; top: 12px; bottom: 12px; width: 4px; border-radius: 999px; background: linear-gradient(180deg, var(--client-primary), var(--client-secondary)); }
   .cs-hour .cs-label { line-height: 1.25; min-height: 34px; display: flex; align-items: flex-start; }
   .cs-hour .cs-value { margin-top: 14px; color: var(--client-primary); }
   .cs-hour:hover { transform: translateY(-4px); border-color: var(--client-primary); background: #fff; box-shadow: 0 16px 34px rgba(21,18,54,0.09); }
-  .cs-section { border: 1px solid #eeedf6; border-radius: 18px; background: #fff; padding: 14px; display: grid; gap: 10px; }
+  .cs-section { border: 1px solid #eeedf6; border-radius: 18px; background: #fff; padding: 14px; display: grid; gap: 10px; position: relative; overflow: hidden; }
+  .cs-section::before { content: ''; position: absolute; left: 0; top: 14px; bottom: 14px; width: 4px; border-radius: 999px; background: linear-gradient(180deg, var(--client-primary), var(--client-secondary)); opacity: 0.85; }
+  .cs-section > * { position: relative; z-index: 1; }
   .cs-section-title { font-size: 13px; font-weight: 900; color: #151236; }
   .cs-detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .cs-info { background: #fbfbfd; border: 1px solid #eeedf6; border-radius: 15px; padding: 12px; min-width: 0; }
   .cs-info-value { margin-top: 6px; color: #151236; font-size: 15px; font-weight: 900; line-height: 1.25; overflow-wrap: anywhere; }
   .cs-scope { display: flex; flex-wrap: wrap; gap: 8px; }
   .cs-bar { height: 8px; background: #eef0f6; border-radius: 999px; overflow: hidden; }
-  .cs-fill { height: 100%; background: var(--client-primary); border-radius: 999px; }
-  .cs-log { border: 1px solid #eeedf6; border-radius: 18px; background: #fff; padding: 14px; display: grid; gap: 9px; transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease; }
-  .cs-log:hover { transform: translateY(-4px); border-color: var(--client-primary); box-shadow: 0 18px 42px rgba(21,18,54,0.10); }
+  .cs-fill { height: 100%; background: linear-gradient(90deg, var(--client-primary), var(--client-secondary)); border-radius: 999px; }
+  .cs-log { border: 1px solid #eeedf6; border-radius: 18px; background: #fff; padding: 14px 14px 14px 18px; display: grid; gap: 9px; transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease, background 0.24s ease; position: relative; overflow: hidden; }
+  .cs-log::before { content: ''; position: absolute; left: 0; top: 14px; bottom: 14px; width: 5px; border-radius: 999px; background: linear-gradient(180deg, var(--client-primary), var(--client-secondary)); }
+  .cs-log:hover { transform: translateY(-4px); border-color: var(--client-primary); box-shadow: 0 18px 42px rgba(21,18,54,0.10); background: linear-gradient(135deg, #fff, var(--client-primary-soft)); }
   .cs-log-top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
   .cs-log-title { font-size: 14px; font-weight: 900; color: #151236; }
   .cs-description { color: #5d6072; font-size: 13px; font-weight: 700; line-height: 1.45; white-space: pre-wrap; }
   .cs-root.dark { background: linear-gradient(180deg, #0B1220 0%, #111827 100%); color: #F8FAFC; }
+  .cs-root.dark .cs-top { background: rgba(20,28,44,0.94); border-color: rgba(148,163,184,0.20); box-shadow: 0 16px 44px rgba(0,0,0,0.26); }
   .cs-root.dark .cs-title,
   .cs-root.dark .cs-panel-title,
   .cs-root.dark .cs-contract-title,
@@ -89,6 +97,10 @@ const styles = `
   .cs-root.dark .cs-btn-light { color: #F8FAFC; }
   .cs-root.dark .cs-btn-danger,
   .cs-root.dark .cs-pill-rejected { color: #fecdd3; background: rgba(190,18,60,0.18); border-color: rgba(254,202,202,0.28); }
+  .cs-root.dark .cs-contract:hover,
+  .cs-root.dark .cs-contract.active,
+  .cs-root.dark .cs-hour:hover,
+  .cs-root.dark .cs-log:hover { background: linear-gradient(135deg, rgba(20,28,44,0.94), var(--client-primary-soft)); }
 
   @media (max-width: 880px) {
     .cs-root { padding: 18px; }
@@ -119,6 +131,7 @@ type Client = {
   id: string
   name?: string
   primary_color?: string
+  secondary_color?: string
 }
 
 type Project = {
@@ -130,6 +143,7 @@ export default function ClientSupportPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [loadingPrimary, setLoadingPrimary] = useState('#2386d2')
+  const [loadingSecondary, setLoadingSecondary] = useState('#8E6CFF')
   const [client, setClient] = useState<Client | null>(null)
   const [projects, setProjects] = useState<Project[]>([])
   const [contracts, setContracts] = useState<SupportContract[]>([])
@@ -140,6 +154,7 @@ export default function ClientSupportPage() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
 
   const primary = client?.primary_color || loadingPrimary
+  const secondary = client?.secondary_color || loadingSecondary
   const isDark = theme === 'dark'
 
   const loadData = async () => {
@@ -161,6 +176,9 @@ export default function ClientSupportPage() {
     }
 
     setLoadingPrimary(clientData.primary_color || '#2386d2')
+    setLoadingSecondary(clientData.secondary_color || '#8E6CFF')
+    window.localStorage.setItem('client-dashboard-primary-color', clientData.primary_color || '#2386d2')
+    window.localStorage.setItem('client-dashboard-secondary-color', clientData.secondary_color || '#8E6CFF')
 
     const { data: projectData } = await supabase
       .from('projects')
@@ -195,6 +213,10 @@ export default function ClientSupportPage() {
   useEffect(() => {
     const savedTheme = window.localStorage.getItem('client-dashboard-theme')
     if (savedTheme === 'dark' || savedTheme === 'light') setTheme(savedTheme)
+    const savedPrimary = window.localStorage.getItem('client-dashboard-primary-color')
+    const savedSecondary = window.localStorage.getItem('client-dashboard-secondary-color')
+    if (savedPrimary) setLoadingPrimary(savedPrimary)
+    if (savedSecondary) setLoadingSecondary(savedSecondary)
 
     const timeoutId = window.setTimeout(() => {
       loadData()
@@ -346,8 +368,8 @@ export default function ClientSupportPage() {
         alignItems: 'center',
         justifyContent: 'center',
         background: isDark
-          ? `radial-gradient(circle at 24% 18%, ${primary}24, transparent 28%), radial-gradient(circle at 78% 10%, ${primary}18, transparent 30%), linear-gradient(180deg, #0B1220 0%, #111827 100%)`
-          : `radial-gradient(circle at 24% 18%, ${primary}1F, transparent 28%), radial-gradient(circle at 78% 10%, ${primary}14, transparent 30%), linear-gradient(180deg, #F7F8FB 0%, #EEF1F6 100%)`,
+          ? `radial-gradient(circle at 24% 18%, ${primary}24, transparent 28%), radial-gradient(circle at 78% 10%, ${secondary}22, transparent 30%), linear-gradient(180deg, #0B1220 0%, #111827 100%)`
+          : `radial-gradient(circle at 24% 18%, ${primary}1F, transparent 28%), radial-gradient(circle at 78% 10%, ${secondary}1D, transparent 30%), linear-gradient(180deg, #F7F8FB 0%, #EEF1F6 100%)`,
         fontFamily: 'Inter, Arial, sans-serif',
         position: 'relative',
         overflow: 'hidden',
@@ -369,7 +391,7 @@ export default function ClientSupportPage() {
             height: 86,
             borderRadius: 28,
             margin: '0 auto 22px',
-            background: primary,
+            background: `linear-gradient(135deg, ${primary}, ${secondary})`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -382,7 +404,7 @@ export default function ClientSupportPage() {
           <div style={{ fontSize: 22, fontWeight: 900, color: isDark ? '#F8FAFC' : '#151236' }}>Loading support...</div>
           <div style={{ marginTop: 8, color: isDark ? '#AAB3C5' : '#7b7894', fontSize: 14, fontWeight: 700 }}>Preparing your support center</div>
           <div style={{ marginTop: 22, height: 7, borderRadius: 999, background: isDark ? 'rgba(255,255,255,0.10)' : `${primary}18`, overflow: 'hidden' }}>
-            <div style={{ width: '55%', height: '100%', borderRadius: 999, background: primary, animation: 'clientSupportLoaderBar 1.25s ease-in-out infinite' }} />
+            <div style={{ width: '55%', height: '100%', borderRadius: 999, background: `linear-gradient(90deg, ${primary}, ${secondary})`, animation: 'clientSupportLoaderBar 1.25s ease-in-out infinite' }} />
           </div>
         </div>
       </main>
@@ -403,7 +425,7 @@ export default function ClientSupportPage() {
   }
 
   return (
-    <main className={`cs-root ${theme === 'dark' ? 'dark' : ''}`} style={{ '--client-primary': primary, '--client-primary-soft': `${primary}14` } as CSSProperties}>
+    <main className={`cs-root ${theme === 'dark' ? 'dark' : ''}`} style={{ '--client-primary': primary, '--client-secondary': secondary, '--client-primary-soft': `${primary}14`, '--client-primary-border': `${primary}2E` } as CSSProperties}>
       <style>{styles}</style>
       <div className="cs-shell">
         <div className="cs-top">

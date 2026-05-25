@@ -15,39 +15,42 @@ const styles = `
     padding: 24px 28px 44px;
   }
   .cm-shell { max-width: 1180px; margin: 0 auto; }
-  .cm-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 22px; }
+  .cm-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 22px; background: rgba(255,255,255,0.94); border: 1px solid rgba(230,230,240,0.9); border-radius: 24px; padding: 20px 22px; box-shadow: 0 14px 38px rgba(21,18,54,0.06); position: relative; overflow: hidden; }
+  .cm-top::after { content: ''; position: absolute; right: 18px; top: 18px; width: 96px; height: 8px; border-radius: 999px; background: linear-gradient(90deg, var(--client-primary), var(--client-secondary)); opacity: 0.9; }
+  .cm-top > * { position: relative; z-index: 1; }
   .cm-title { font-size: 27px; font-weight: 900; color: #12182B; margin: 0; }
   .cm-subtitle { margin-top: 6px; color: #727789; font-size: 14px; font-weight: 700; }
   .cm-btn { border: none; border-radius: 14px; padding: 11px 16px; font-size: 13px; font-weight: 900; cursor: pointer; transition: 0.2s ease; }
   .cm-btn:hover { transform: translateY(-1px); }
-  .cm-btn-light { color: #151236; background: #fff; border: 1px solid rgba(230,230,240,0.95); box-shadow: 0 10px 24px rgba(21,18,54,0.06); }
+  .cm-btn-light { color: var(--client-primary); background: #fff; border: 1px solid var(--client-primary-border); box-shadow: 0 10px 24px rgba(21,18,54,0.06); }
   .cm-layout { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(340px, 1.1fr); gap: 18px; align-items: start; }
   .cm-panel { background: rgba(255,255,255,0.94); border-radius: 24px; border: 1px solid rgba(230,230,240,0.9); box-shadow: 0 14px 38px rgba(21,18,54,0.06); overflow: hidden; transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease; }
   .cm-panel:hover { transform: translateY(-3px); border-color: var(--client-primary); box-shadow: 0 22px 54px rgba(21,18,54,0.12); }
-  .cm-panel-head { padding: 18px 20px; border-bottom: 1px solid #f0eff6; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .cm-panel-head { padding: 18px 20px; border-bottom: 1px solid #f0eff6; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #fff; }
   .cm-panel-title { font-size: 15px; font-weight: 900; }
   .cm-list { padding: 14px; display: grid; gap: 12px; }
-  .cm-card { border: 1px solid #eeedf6; border-radius: 18px; background: #fff; padding: 16px; display: grid; gap: 12px; cursor: pointer; text-align: left; transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease, background 0.24s ease; position: relative; overflow: hidden; }
-  .cm-card::after { content: ''; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--client-primary); opacity: 0; transform: scaleY(0.45); transition: opacity 0.24s ease, transform 0.24s ease; }
+  .cm-card { border: 1px solid #eeedf6; border-radius: 18px; background: #fff; padding: 16px 16px 16px 20px; display: grid; gap: 12px; cursor: pointer; text-align: left; transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease, background 0.24s ease; position: relative; overflow: hidden; }
+  .cm-card::after { content: ''; position: absolute; left: 0; top: 14px; bottom: 14px; width: 5px; border-radius: 999px; background: linear-gradient(180deg, var(--client-primary), var(--client-secondary)); opacity: 1; transform: none; transition: opacity 0.24s ease, transform 0.24s ease; }
   .cm-card:hover,
   .cm-card.active { transform: translateY(-4px); border-color: var(--client-primary); box-shadow: 0 18px 42px rgba(21,18,54,0.10); background: linear-gradient(135deg, #ffffff, var(--client-primary-soft)); }
-  .cm-card:hover::after,
-  .cm-card.active::after { opacity: 1; transform: scaleY(1); }
   .cm-card-top { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; }
   .cm-name { font-size: 16px; font-weight: 900; color: #151236; line-height: 1.25; }
   .cm-meta { color: #8A86A4; font-size: 12px; font-weight: 700; line-height: 1.45; }
-  .cm-pill { display: inline-flex; border-radius: 999px; padding: 6px 10px; font-size: 11px; font-weight: 900; color: var(--client-primary); background: var(--client-primary-soft); white-space: nowrap; }
+  .cm-pill { display: inline-flex; border-radius: 999px; padding: 6px 10px; font-size: 11px; font-weight: 900; color: var(--client-primary); background: var(--client-primary-soft); white-space: nowrap; border: 1px solid var(--client-primary-border); }
   .cm-detail { padding: 22px; display: grid; gap: 18px; }
   .cm-detail-title { font-size: 22px; font-weight: 900; line-height: 1.2; color: #151236; }
   .cm-detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-  .cm-detail-item { border-radius: 16px; background: #F8F8FD; padding: 14px; transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease; }
+  .cm-detail-item { border-radius: 16px; background: #F8F8FD; padding: 14px 14px 14px 18px; transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease; position: relative; overflow: hidden; }
+  .cm-detail-item::before { content: ''; position: absolute; left: 0; top: 12px; bottom: 12px; width: 4px; border-radius: 999px; background: linear-gradient(180deg, var(--client-primary), var(--client-secondary)); }
   .cm-detail-item:hover { transform: translateY(-3px); background: var(--client-primary-soft); box-shadow: 0 14px 30px rgba(21,18,54,0.08); }
   .cm-label { color: #8A86A4; font-size: 11px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
   .cm-value { color: #151236; font-size: 15px; font-weight: 900; margin-top: 7px; }
-  .cm-moms { white-space: pre-wrap; color: #4B4F63; font-size: 14px; font-weight: 700; line-height: 1.7; background: #F8F8FD; border-radius: 18px; padding: 18px; border: 1px solid #eeedf6; transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease; }
+  .cm-moms { white-space: pre-wrap; color: #4B4F63; font-size: 14px; font-weight: 700; line-height: 1.7; background: #F8F8FD; border-radius: 18px; padding: 18px 18px 18px 22px; border: 1px solid #eeedf6; transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease; position: relative; overflow: hidden; }
+  .cm-moms::before { content: ''; position: absolute; left: 0; top: 14px; bottom: 14px; width: 5px; border-radius: 999px; background: linear-gradient(180deg, var(--client-primary), var(--client-secondary)); }
   .cm-moms:hover { transform: translateY(-3px); border-color: var(--client-primary); box-shadow: 0 16px 34px rgba(21,18,54,0.09); }
   .cm-empty { padding: 34px 20px; color: #8A86A4; font-weight: 700; text-align: center; }
   .cm-root.dark { background: linear-gradient(180deg, #0B1220 0%, #111827 100%); color: #F8FAFC; }
+  .cm-root.dark .cm-top { background: rgba(20,28,44,0.94); border-color: rgba(148,163,184,0.20); box-shadow: 0 16px 44px rgba(0,0,0,0.26); }
   .cm-root.dark .cm-title,
   .cm-root.dark .cm-panel-title,
   .cm-root.dark .cm-name,
@@ -95,6 +98,7 @@ type Client = {
   id: string
   name?: string
   primary_color?: string
+  secondary_color?: string
 }
 
 type Project = {
@@ -106,6 +110,7 @@ export default function ClientMeetingsPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [loadingPrimary, setLoadingPrimary] = useState('#2386d2')
+  const [loadingSecondary, setLoadingSecondary] = useState('#8E6CFF')
   const [client, setClient] = useState<Client | null>(null)
   const [projects, setProjects] = useState<Project[]>([])
   const [meetings, setMeetings] = useState<Meeting[]>([])
@@ -117,6 +122,7 @@ export default function ClientMeetingsPage() {
   })
 
   const primary = client?.primary_color || loadingPrimary
+  const secondary = client?.secondary_color || loadingSecondary
   const isDark = theme === 'dark'
 
   const loadData = useCallback(async () => {
@@ -138,6 +144,9 @@ export default function ClientMeetingsPage() {
     }
 
     setLoadingPrimary(clientData.primary_color || '#2386d2')
+    setLoadingSecondary(clientData.secondary_color || '#8E6CFF')
+    window.localStorage.setItem('client-dashboard-primary-color', clientData.primary_color || '#2386d2')
+    window.localStorage.setItem('client-dashboard-secondary-color', clientData.secondary_color || '#8E6CFF')
 
     const { data: projectData } = await supabase
       .from('projects')
@@ -160,6 +169,11 @@ export default function ClientMeetingsPage() {
   }, [router])
 
   useEffect(() => {
+    const savedPrimary = window.localStorage.getItem('client-dashboard-primary-color')
+    const savedSecondary = window.localStorage.getItem('client-dashboard-secondary-color')
+    if (savedPrimary) setLoadingPrimary(savedPrimary)
+    if (savedSecondary) setLoadingSecondary(savedSecondary)
+
     const timeoutId = window.setTimeout(() => {
       loadData()
     }, 0)
@@ -179,8 +193,8 @@ export default function ClientMeetingsPage() {
         alignItems: 'center',
         justifyContent: 'center',
         background: isDark
-          ? `radial-gradient(circle at 24% 18%, ${primary}24, transparent 28%), radial-gradient(circle at 78% 10%, ${primary}18, transparent 30%), linear-gradient(180deg, #0B1220 0%, #111827 100%)`
-          : `radial-gradient(circle at 24% 18%, ${primary}1F, transparent 28%), radial-gradient(circle at 78% 10%, ${primary}14, transparent 30%), linear-gradient(180deg, #F7F8FB 0%, #EEF1F6 100%)`,
+          ? `radial-gradient(circle at 24% 18%, ${primary}24, transparent 28%), radial-gradient(circle at 78% 10%, ${secondary}22, transparent 30%), linear-gradient(180deg, #0B1220 0%, #111827 100%)`
+          : `radial-gradient(circle at 24% 18%, ${primary}1F, transparent 28%), radial-gradient(circle at 78% 10%, ${secondary}1D, transparent 30%), linear-gradient(180deg, #F7F8FB 0%, #EEF1F6 100%)`,
         fontFamily: 'Inter, Arial, sans-serif',
         position: 'relative',
         overflow: 'hidden',
@@ -202,7 +216,7 @@ export default function ClientMeetingsPage() {
             height: 86,
             borderRadius: 28,
             margin: '0 auto 22px',
-            background: primary,
+            background: `linear-gradient(135deg, ${primary}, ${secondary})`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -215,7 +229,7 @@ export default function ClientMeetingsPage() {
           <div style={{ fontSize: 22, fontWeight: 900, color: isDark ? '#F8FAFC' : '#151236' }}>Loading meetings...</div>
           <div style={{ marginTop: 8, color: isDark ? '#AAB3C5' : '#7b7894', fontSize: 14, fontWeight: 700 }}>Preparing meeting logs</div>
           <div style={{ marginTop: 22, height: 7, borderRadius: 999, background: isDark ? 'rgba(255,255,255,0.10)' : `${primary}18`, overflow: 'hidden' }}>
-            <div style={{ width: '55%', height: '100%', borderRadius: 999, background: primary, animation: 'clientMeetingsLoaderBar 1.25s ease-in-out infinite' }} />
+            <div style={{ width: '55%', height: '100%', borderRadius: 999, background: `linear-gradient(90deg, ${primary}, ${secondary})`, animation: 'clientMeetingsLoaderBar 1.25s ease-in-out infinite' }} />
           </div>
         </div>
       </main>
@@ -236,7 +250,7 @@ export default function ClientMeetingsPage() {
   }
 
   return (
-    <main className={`cm-root ${theme === 'dark' ? 'dark' : ''}`} style={{ '--client-primary': primary, '--client-primary-soft': `${primary}14` } as CSSProperties}>
+    <main className={`cm-root ${theme === 'dark' ? 'dark' : ''}`} style={{ '--client-primary': primary, '--client-secondary': secondary, '--client-primary-soft': `${primary}14`, '--client-primary-border': `${primary}2E` } as CSSProperties}>
       <style>{styles}</style>
       <div className="cm-shell">
         <div className="cm-top">

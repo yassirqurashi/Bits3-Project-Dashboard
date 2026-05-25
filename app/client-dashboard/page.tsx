@@ -10,6 +10,7 @@ export default function ClientDashboardPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [loadingPrimary, setLoadingPrimary] = useState('#2386d2')
+  const [loadingSecondary, setLoadingSecondary] = useState('#8E6CFF')
   const [client, setClient] = useState<any>(null)
   const [projects, setProjects] = useState<any[]>([])
   const [milestones, setMilestones] = useState<any[]>([])
@@ -28,6 +29,10 @@ export default function ClientDashboardPage() {
   useEffect(() => {
     const savedTheme = window.localStorage.getItem('client-dashboard-theme')
     if (savedTheme === 'dark' || savedTheme === 'light') setTheme(savedTheme)
+    const savedPrimary = window.localStorage.getItem('client-dashboard-primary-color')
+    const savedSecondary = window.localStorage.getItem('client-dashboard-secondary-color')
+    if (savedPrimary) setLoadingPrimary(savedPrimary)
+    if (savedSecondary) setLoadingSecondary(savedSecondary)
 
     const loadClientData = async () => {
       const { data: { user } } = await supabase.auth.getUser()
@@ -35,6 +40,9 @@ export default function ClientDashboardPage() {
       const { data: clientData, error: clientError } = await supabase.from('clients').select('*').eq('user_id', user.id).single()
       if (clientError || !clientData) { setLoading(false); return }
       setLoadingPrimary(clientData.primary_color || '#2386d2')
+      setLoadingSecondary(clientData.secondary_color || '#8E6CFF')
+      window.localStorage.setItem('client-dashboard-primary-color', clientData.primary_color || '#2386d2')
+      window.localStorage.setItem('client-dashboard-secondary-color', clientData.secondary_color || '#8E6CFF')
       setClient(clientData)
       const { data: projectData } = await supabase.from('projects').select('*, clients(*)').eq('client_id', clientData.id)
       const projectIds = (projectData || []).map(p => p.id)
@@ -75,7 +83,7 @@ export default function ClientDashboardPage() {
   }
 
   const primary = client?.primary_color || loadingPrimary
-  const secondary = client?.secondary_color || '#8E6CFF'
+  const secondary = client?.secondary_color || loadingSecondary
   const loadingStyles = `
     @keyframes clientLoaderSpin {
       to { transform: rotate(360deg); }
@@ -105,8 +113,8 @@ export default function ClientDashboardPage() {
   const hoverShadow = isDark ? '0 25px 60px rgba(0,0,0,0.34)' : '0 25px 60px rgba(80,65,180,0.18)'
   const trackColor = isDark ? 'rgba(255,255,255,0.10)' : '#F1F0F7'
   const loaderBackground = isDark
-    ? `radial-gradient(circle at 24% 18%, ${primary}24, transparent 28%), radial-gradient(circle at 78% 10%, ${primary}18, transparent 30%), linear-gradient(180deg, #0B1220 0%, #111827 100%)`
-    : `radial-gradient(circle at 24% 18%, ${primary}1F, transparent 28%), radial-gradient(circle at 78% 10%, ${primary}14, transparent 30%), linear-gradient(180deg, #F7F8FB 0%, #EEF1F6 100%)`
+    ? `radial-gradient(circle at 24% 18%, ${primary}24, transparent 28%), radial-gradient(circle at 78% 10%, ${secondary}22, transparent 30%), linear-gradient(180deg, #0B1220 0%, #111827 100%)`
+    : `radial-gradient(circle at 24% 18%, ${primary}1F, transparent 28%), radial-gradient(circle at 78% 10%, ${secondary}1D, transparent 30%), linear-gradient(180deg, #F7F8FB 0%, #EEF1F6 100%)`
   const loaderPanel = isDark ? 'rgba(20,28,44,0.86)' : 'rgba(255,255,255,0.84)'
   const loaderBorder = isDark ? '1px solid rgba(148,163,184,0.22)' : '1px solid rgba(255,255,255,0.72)'
   const loaderMuted = isDark ? '#AAB3C5' : '#7b7894'
@@ -142,14 +150,14 @@ export default function ClientDashboardPage() {
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: loaderBackground, fontFamily: 'Inter, Arial, sans-serif', position: 'relative', overflow: 'hidden', padding: 24 }}>
         <style>{loadingStyles}</style>
         <div style={{ width: 360, background: loaderPanel, backdropFilter: 'blur(18px)', padding: 34, borderRadius: 30, boxShadow: loaderShadow, textAlign: 'center', border: loaderBorder }}>
-          <div style={{ width: 86, height: 86, borderRadius: 28, margin: '0 auto 22px', background: primary, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `0 18px 42px ${primary}33`, position: 'relative' }}>
+          <div style={{ width: 86, height: 86, borderRadius: 28, margin: '0 auto 22px', background: `linear-gradient(135deg, ${primary}, ${secondary})`, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `0 18px 42px ${primary}33`, position: 'relative' }}>
             <div style={{ position: 'absolute', inset: -8, borderRadius: 34, border: `3px solid ${primary}22`, borderTopColor: primary, animation: 'clientLoaderSpin 1s linear infinite' }} />
             <div style={{ width: 22, height: 22, borderRadius: 999, background: loaderDot, animation: 'clientLoaderPulse 1.2s ease-in-out infinite' }} />
           </div>
           <div style={{ fontSize: 22, fontWeight: 900, color: textColor }}>Loading workspace...</div>
           <div style={{ marginTop: 8, color: loaderMuted, fontSize: 14, fontWeight: 700 }}>Preparing your client dashboard</div>
           <div style={{ marginTop: 22, height: 7, borderRadius: 999, background: loaderTrack, overflow: 'hidden' }}>
-            <div style={{ width: '55%', height: '100%', borderRadius: 999, background: primary, animation: 'clientLoaderBar 1.25s ease-in-out infinite' }} />
+            <div style={{ width: '55%', height: '100%', borderRadius: 999, background: `linear-gradient(90deg, ${primary}, ${secondary})`, animation: 'clientLoaderBar 1.25s ease-in-out infinite' }} />
           </div>
         </div>
       </div>
@@ -189,7 +197,7 @@ export default function ClientDashboardPage() {
     .sort((a, b) => b - a)[0]
   const dueDiffMs = latestDeliverableDue ? latestDeliverableDue - now : null
   const countdownMs = dueDiffMs === null ? null : Math.abs(dueDiffMs)
-  const countdownLabel = dueDiffMs === null ? 'No due date' : dueDiffMs < 0 ? 'Overdue' : 'Due in'
+  const countdownLabel = dueDiffMs === null ? 'No due date' : dueDiffMs < 0 ? 'Overdue' : 'Project due in'
   const remainingDays = countdownMs === null ? 0 : Math.floor(countdownMs / (1000 * 60 * 60 * 24))
   const remainingHours = countdownMs === null ? 0 : Math.floor((countdownMs / (1000 * 60 * 60)) % 24)
   const remainingMinutes = countdownMs === null ? 0 : Math.floor((countdownMs / (1000 * 60)) % 60)
@@ -252,9 +260,21 @@ export default function ClientDashboardPage() {
   const subStyle: any = { color: mutedColor, fontSize: 13, fontWeight: 700 }
   const rowStyle: any = { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 18, alignItems: 'stretch', marginBottom: 22 }
   const sectionTitleStyle: any = { fontSize: 15, fontWeight: 900, color: textColor, marginBottom: 12, letterSpacing: 0.1 }
+  const countdownItems = [
+    ['D', remainingDays],
+    ['H', remainingHours],
+    ['M', remainingMinutes],
+    ['S', remainingSeconds],
+  ]
 
   return (
     <main style={{ minHeight: '100vh', background: pageBackground, fontFamily: 'Inter, Arial, sans-serif', color: textColor, display: 'flex', transition: 'background 0.25s ease, color 0.25s ease' }}>
+      <style>{`
+        @keyframes clientCountdownFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-7px); }
+        }
+      `}</style>
       <div style={{ flex: 1, padding: '24px 28px 40px' }}>
         <section style={{ padding: 0, background: 'transparent', minHeight: '100vh', maxWidth: 1180, margin: '0 auto' }}>
 
@@ -270,28 +290,7 @@ export default function ClientDashboardPage() {
                 <div style={{ marginTop: 6, fontSize: 15, fontWeight: 700, color: mutedColor }}>Designed with Love for {client.name}</div>
               </div>
             </div>
-            <div style={{ position: 'absolute', zIndex: 2, left: '50%', top: '50%', transform: 'translate(-50%, -50%)', display: 'flex', alignItems: 'center', gap: 10, border: `1px solid ${borderColor}`, borderRadius: 18, padding: '15px 18px', minHeight: 68, color: textColor, background: cardSurface, boxShadow: cardShadow, flexShrink: 0 }}>
-                <div style={{ fontSize: 10, fontWeight: 900, letterSpacing: 0.7, color: countdownLabel === 'Overdue' ? '#DC2626' : client.primary_color, textTransform: 'uppercase' }}>
-                  {countdownLabel}
-                </div>
-                {countdownMs !== null && (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    {[
-                      ['D', remainingDays],
-                      ['H', remainingHours],
-                      ['M', remainingMinutes],
-                      ['S', remainingSeconds],
-                    ].map(([label, value]) => (
-                      <div key={label} style={{ minWidth: 30, textAlign: 'center' }}>
-                        <div style={{ fontSize: 15, fontWeight: 950, lineHeight: 1, color: textColor }}>{String(value).padStart(2, '0')}</div>
-                        <div style={{ marginTop: 3, fontSize: 8.5, fontWeight: 900, color: mutedColor }}>{label}</div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
             <div style={{ position: 'absolute', right: 18, top: 16, width: 318, height: 84, background: `linear-gradient(135deg, ${client.primary_color}, ${client.secondary_color})`, borderRadius: 28, transform: 'skewX(-12deg)', boxShadow: '0 18px 42px rgba(80,65,180,0.14)' }} />
-            <div style={{ position: 'absolute', right: 42, top: -40, width: 156, height: 156, borderRadius: 999, background: 'rgba(255,255,255,0.15)' }} />
             <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 10, flexShrink: 0, flexWrap: 'wrap' }}>
               <button onClick={toggleTheme} style={topButtonStyle}>
                 {isDark ? 'Light' : 'Dark'}
@@ -301,17 +300,37 @@ export default function ClientDashboardPage() {
             </div>
           </div>
 
+          <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '-16px 0 10px', position: 'relative', zIndex: 2 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, flexWrap: 'wrap', background: cardSurface, border: `1px solid ${borderColor}`, borderRadius: 24, padding: '12px 16px', boxShadow: cardShadow }}>
+              <div style={{ fontSize: 11, fontWeight: 950, letterSpacing: 0.8, color: countdownLabel === 'Overdue' ? '#DC2626' : client.primary_color, textTransform: 'uppercase', borderRadius: 999, padding: '9px 12px', background: countdownLabel === 'Overdue' ? 'rgba(220,38,38,0.10)' : `${client.primary_color}14` }}>
+                {countdownLabel}
+              </div>
+              {countdownMs !== null && (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, flexWrap: 'wrap' }}>
+                  {countdownItems.map(([label, value]) => {
+                    const shouldFloat = label === 'S'
+                    return (
+                      <div key={label} style={{ minWidth: 48, textAlign: 'center', borderRadius: 16, padding: '9px 10px', background: isDark ? 'rgba(255,255,255,0.06)' : '#FFFFFF', border: `1px solid ${borderColor}`, animation: shouldFloat ? `clientCountdownFloat ${label === 'S' ? '1.15s' : '1.65s'} ease-in-out infinite` : undefined }}>
+                        <div style={{ fontSize: 19, fontWeight: 950, lineHeight: 1, color: textColor }}>{String(value).padStart(2, '0')}</div>
+                        <div style={{ marginTop: 4, fontSize: 9, fontWeight: 900, color: mutedColor }}>{label}</div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
+
           {!activeProject && (
             <>
               <div style={sectionTitleStyle}>Your Projects</div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 18, alignItems: 'stretch', marginBottom: 26 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 18, alignItems: 'stretch', marginBottom: 18 }}>
                 {projects.map(project => {
                   return (
                     <div key={project.id} onClick={() => setSelectedProject(project)}
                       onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = '0 22px 54px rgba(80,65,180,0.15)' }}
                       onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0px)'; e.currentTarget.style.boxShadow = '0 10px 34px rgba(80,65,180,0.07)' }}
                       style={{ background: `linear-gradient(135deg, rgba(255,255,255,0.98), ${client.primary_color}0D)`, width: '100%', height: 186, borderRadius: 22, padding: 20, cursor: 'pointer', border: '1px solid rgba(230,230,240,0.9)', boxShadow: '0 12px 34px rgba(80,65,180,0.07)', transition: 'all 0.25s ease', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', gap: 16 }}>
-                      <div style={{ position: 'absolute', right: -34, top: -38, width: 118, height: 118, borderRadius: 999, background: `${client.primary_color}12` }} />
                       <div style={{ width: 58, height: 58, borderRadius: 18, background: '#ffffff', boxShadow: '0 12px 30px rgba(80,65,180,0.10)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, position: 'relative', zIndex: 1 }}>
                         <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
                           <rect x="3" y="4" width="18" height="16" rx="3" stroke={client.primary_color} strokeWidth="2.2" />
@@ -535,12 +554,12 @@ export default function ClientDashboardPage() {
           </div>
 
           <div style={sectionTitleStyle}>External Links</div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 18, alignItems: 'stretch', marginBottom: 26 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 260px))', gap: 18, alignItems: 'stretch', justifyContent: 'start', marginBottom: 26 }}>
             {displayedExternalLinks.length > 0 ? displayedExternalLinks.map(link => (
               <a key={link.id} href={getExternalUrl(link.url)} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = hoverShadow }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0px)'; e.currentTarget.style.boxShadow = cardShadow }} style={{ minHeight: 154, background: cardSurface, borderRadius: 22, border: `1px solid ${borderColor}`, boxShadow: cardShadow, textDecoration: 'none', color: textColor, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: 18, cursor: 'pointer', transition: 'all 0.25s ease' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
                   {link.icon_url ? (
-                    <img src={link.icon_url} alt={link.title} style={{ width: 48, height: 48, borderRadius: 14, objectFit: 'cover', flexShrink: 0 }} />
+                    <img src={link.icon_url} alt={link.title} style={{ width: 48, height: 48, borderRadius: 14, objectFit: 'contain', flexShrink: 0, background: isDark ? 'rgba(255,255,255,0.08)' : '#FFFFFF' }} />
                   ) : (
                     <div style={{ width: 48, height: 48, borderRadius: 14, background: `${client.primary_color}14`, color: client.primary_color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, fontWeight: 900, flexShrink: 0 }}>
                       {link.title?.slice(0, 1)?.toUpperCase() || 'L'}
@@ -622,11 +641,11 @@ export default function ClientDashboardPage() {
               {activeExternalLinks.length > 0 && (
                 <div style={{ background: surface, borderRadius: 26, padding: 26, marginBottom: 24, border: `1px solid ${borderColor}`, boxShadow: cardShadow }}>
                   <div style={{ fontSize: 20, fontWeight: 900, marginBottom: 18, color: textColor }}>External Links</div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 260px))', gap: 16, justifyContent: 'start' }}>
                     {activeExternalLinks.map(link => (
                       <a key={link.id} href={link.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: textColor, background: softSurface, borderRadius: 20, padding: 18, border: `1px solid ${borderColor}`, fontWeight: 800 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                          {link.icon_url && <img src={link.icon_url} alt={link.title} style={{ width: 42, height: 42, borderRadius: 12, objectFit: 'cover' }} />}
+                          {link.icon_url && <img src={link.icon_url} alt={link.title} style={{ width: 42, height: 42, borderRadius: 12, objectFit: 'contain', background: isDark ? 'rgba(255,255,255,0.08)' : '#FFFFFF' }} />}
                           <span>{link.title}</span>
                         </div>
                       </a>
