@@ -493,9 +493,9 @@ const styles = `
   .pm-color-code-input::placeholder { color: #aaa4bc; }
 
   .pm-progress-card { background: rgba(255,255,255,0.92); border: 1px solid rgba(230,226,245,0.95); border-radius: 20px; padding: 24px; margin-bottom: 24px; display: flex; align-items: center; gap: 28px; box-shadow: var(--shadow-sm); }
-  .pm-gauge { width: 180px; height: 96px; position: relative; overflow: hidden; flex-shrink: 0; }
-  .pm-gauge-track { position: absolute; inset: 0 0 auto 0; width: 180px; height: 180px; border-radius: 50%; background: conic-gradient(from 270deg, var(--accent) calc(var(--progress) * 1.8deg), #e6e4ee 0deg); }
-  .pm-gauge-track::after { content: ''; position: absolute; left: 22px; top: 22px; width: 136px; height: 136px; border-radius: 50%; background: #fff; }
+  .pm-gauge { width: 190px; height: 112px; position: relative; flex-shrink: 0; }
+  .pm-gauge-track { position: absolute; inset: 0; }
+  .pm-gauge-track::after { content: none; }
   .pm-progress-value { font-size: 36px; font-weight: 900; letter-spacing: -0.05em; line-height: 1; color: #15113b; font-family: 'Inter', sans-serif; }
   .pm-progress-label { font-size: 14px; color: #4f4a63; font-weight: 800; margin-top: 8px; }
   .pm-progress-sub { font-size: 12px; color: #9a96ad; margin-top: 6px; font-weight: 600; }
@@ -2144,6 +2144,80 @@ const styles = `
     border: 1px solid rgba(142,170,255,0.14);
   }
 
+  .pm-progress-card {
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .pm-gauge {
+    display: block;
+  }
+
+  .pm-gauge::after {
+    content: attr(aria-label);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 2px;
+    color: rgba(226,232,255,0.62);
+    font-size: 10px;
+    font-weight: 850;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+
+  .pm-project-value-box {
+    margin-left: auto;
+    min-width: 280px;
+    padding: 10px;
+    border-radius: 18px;
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.035)),
+      rgba(4,8,20,0.42);
+    border: 1px solid rgba(142,170,255,0.20);
+    box-shadow:
+      0 14px 34px rgba(0,0,0,0.16),
+      inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+
+  .pm-project-value-label {
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: rgba(226,232,255,0.58);
+    margin-bottom: 7px;
+  }
+
+  .pm-external-card {
+    min-height: 178px;
+    display: grid;
+    align-content: space-between;
+    gap: 14px;
+    background:
+      radial-gradient(circle at 88% 10%, rgba(0,163,255,0.16), transparent 32%),
+      linear-gradient(145deg, rgba(255,255,255,0.095), rgba(255,255,255,0.038)),
+      rgba(4,8,20,0.50);
+  }
+
+  .pm-external-thumb,
+  .pm-external-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 16px;
+    object-fit: cover;
+    border: 1px solid rgba(142,170,255,0.24);
+    box-shadow: 0 16px 34px rgba(18,61,255,0.18);
+  }
+
+  .pm-external-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    background: linear-gradient(135deg, rgba(18,61,255,0.92), rgba(0,163,255,0.70));
+  }
+
   .pm-support-card [style*="color: #15113b"],
   .pm-support-layout [style*="color: #15113b"],
   .pm-support-layout [style*="color: '#15113b'"],
@@ -2764,10 +2838,6 @@ const styles = `
     transform: translateY(-4px);
     border-color: rgba(0,163,255,0.38);
     box-shadow: var(--shadow-md);
-  }
-
-  .pm-gauge-track::after {
-    background: #060b18;
   }
 
   @media (max-width: 980px) {
@@ -4056,8 +4126,8 @@ if (loading) {
           to { transform: translateY(0) scale(1); opacity: 1; }
         }
         @keyframes pmLoaderIconPulse {
-          0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 16px 35px rgba(18,61,255,0.32); }
-          50% { transform: translateY(-4px) scale(1.06); box-shadow: 0 22px 46px rgba(0,163,255,0.38); }
+          0%, 100% { transform: translateY(0) rotate(-1deg) scale(1); filter: drop-shadow(0 24px 52px rgba(18,61,255,0.42)); }
+          50% { transform: translateY(-14px) rotate(1.5deg) scale(1.04); filter: drop-shadow(0 34px 70px rgba(0,163,255,0.42)); }
         }
         @keyframes pmLoaderCheck {
           0%, 100% { transform: rotate(-8deg) scale(1); opacity: 0.92; }
@@ -4106,21 +4176,15 @@ if (loading) {
         animation: 'pmLoaderCardIn 0.55s ease-out both',
       }}>
         <div style={{
-          width: 64,
-          height: 64,
-          borderRadius: 20,
-          margin: '0 auto 22px',
-          background: 'linear-gradient(135deg, rgba(18,61,255,0.22), rgba(0,163,255,0.12))',
+          width: 190,
+          height: 150,
+          margin: '0 auto 18px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: '#fff',
-          fontSize: 30,
-          fontWeight: 800,
-          boxShadow: '0 16px 35px rgba(18,61,255,0.32)',
-          animation: 'pmLoaderIconPulse 1.8s ease-in-out infinite',
+          animation: 'pmLoaderIconPulse 2.8s ease-in-out infinite',
         }}>
-          <img src="/bits3-logo.png" alt="Bits3" style={{ width: 48, height: 'auto', display: 'block', filter: 'drop-shadow(0 0 18px rgba(18,61,255,0.55))' }} />
+          <img src="/bits3-login-cube.png" alt="Bits3 cube" style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} />
         </div>
 
         <div style={{
@@ -5989,7 +6053,25 @@ if (loading) {
                 {!isTeamMemberMode && (
                 <div className="pm-progress-card">
                   <div className="pm-gauge" aria-label={`Project progress ${projectProgress}%`}>
-                    <div className="pm-gauge-track" style={{ ['--progress' as any]: projectProgress }} />
+                    <svg className="pm-gauge-track" viewBox="0 0 190 112" role="presentation" aria-hidden="true">
+                      <path d="M24 96 A71 71 0 0 1 166 96" fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth="22" strokeLinecap="butt" />
+                      <path
+                        d="M24 96 A71 71 0 0 1 166 96"
+                        fill="none"
+                        stroke="url(#projectProgressGradient)"
+                        strokeWidth="22"
+                        strokeLinecap="butt"
+                        pathLength="100"
+                        strokeDasharray={`${projectProgress} 100`}
+                      />
+                      <circle cx="24" cy="96" r="11" fill="#123dff" />
+                      <defs>
+                        <linearGradient id="projectProgressGradient" x1="24" y1="96" x2="166" y2="96" gradientUnits="userSpaceOnUse">
+                          <stop stopColor="#123dff" />
+                          <stop offset="1" stopColor="#00a3ff" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
                   </div>
 
                   <div>
@@ -6116,8 +6198,8 @@ if (loading) {
   <div className="pm-section-header">
     <div className="pm-section-icon">{Icons.project}</div>
     <span className="pm-section-title">Payments</span>
-    <div style={{ marginLeft: 'auto', background: '#ffffff', border: '1px solid rgba(230,226,245,0.95)', borderRadius: 14, padding: '9px 10px', minWidth: 260, boxShadow: '0 10px 24px rgba(45,35,120,0.06)' }}>
-      <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9a96ad', marginBottom: 6 }}>Project Value</div>
+    <div className="pm-project-value-box">
+      <div className="pm-project-value-label">Project Value</div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
         <input
           className="pm-input"
@@ -6314,23 +6396,17 @@ if (loading) {
                               href={link.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="pm-project-card"
+                              className="pm-project-card pm-external-card"
                               style={{ textDecoration: 'none' }}
                             >
                               {link.icon_url ? (
                                 <img
                                   src={link.icon_url}
                                   alt={link.title}
-                                  style={{
-                                    width: '48px',
-                                    height: '48px',
-                                    objectFit: 'cover',
-                                    borderRadius: '12px',
-                                    marginBottom: '14px',
-                                  }}
+                                  className="pm-external-thumb"
                                 />
                               ) : (
-                                <div className="pm-card-icon">{Icons.project}</div>
+                                <div className="pm-external-icon">{Icons.artifact}</div>
                               )}
                               <div className="pm-card-name">{link.title}</div>
                               <div className="pm-card-client">Click to open external link</div>
