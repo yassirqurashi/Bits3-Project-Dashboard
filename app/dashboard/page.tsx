@@ -2218,6 +2218,48 @@ const styles = `
     background: linear-gradient(135deg, rgba(18,61,255,0.92), rgba(0,163,255,0.70));
   }
 
+  .pm-project-detail {
+    position: relative;
+  }
+
+  .pm-main.pm-main-project-detail {
+    background:
+      radial-gradient(circle at 82% 0%, rgba(18,61,255,0.045), transparent 28%),
+      linear-gradient(180deg, #050814 0%, #040713 100%);
+  }
+
+  .pm-main.pm-main-project-detail .pm-content {
+    background: transparent;
+  }
+
+  .pm-project-detail .pm-section,
+  .pm-project-detail .pm-progress-card,
+  .pm-project-detail .pm-milestone-card,
+  .pm-project-detail .pm-project-list,
+  .pm-project-detail .pm-project-card {
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.078), rgba(255,255,255,0.030)),
+      rgba(5,9,20,0.60);
+    border-color: rgba(142,170,255,0.16);
+    box-shadow:
+      0 22px 62px rgba(0,0,0,0.22),
+      inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+
+  .pm-project-detail .pm-section-header,
+  .pm-project-detail .pm-milestone-header {
+    background: rgba(255,255,255,0.028);
+    border-bottom-color: rgba(142,170,255,0.12);
+  }
+
+  .pm-project-detail .pm-external-card,
+  .pm-project-detail .pm-artifact-card,
+  .pm-project-detail .pm-chat-card {
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.078), rgba(255,255,255,0.030)),
+      rgba(5,9,20,0.60);
+  }
+
   .pm-support-card [style*="color: #15113b"],
   .pm-support-layout [style*="color: #15113b"],
   .pm-support-layout [style*="color: '#15113b'"],
@@ -4434,7 +4476,7 @@ if (loading) {
         </aside>
 
         {/* ── Main Area ── */}
-        <main className="pm-main">
+        <main className={`pm-main ${selectedProject ? 'pm-main-project-detail' : ''}`}>
 
           {/* Topbar */}
           <div className="pm-topbar">
@@ -6038,7 +6080,7 @@ if (loading) {
 
             {/* ═══════════ PROJECT DETAIL ═══════════ */}
             {selectedProject && (
-              <div>
+              <div className="pm-project-detail">
                 <button className="pm-back-btn" onClick={() => setSelectedProject(null)}>
                   {Icons.back} Back to Projects
                 </button>
