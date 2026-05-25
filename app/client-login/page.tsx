@@ -8,224 +8,309 @@ import { ArrowRight, Eye, EyeOff, Lock, Mail, Sparkles } from 'lucide-react'
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap');
 
-  .cl-root {
+  .pm-login-root {
     min-height: 100vh;
     font-family: Inter, Arial, sans-serif;
     color: #ffffff;
     background:
-      radial-gradient(circle at 18% 18%, rgba(255,255,255,0.18), transparent 24%),
-      radial-gradient(circle at 82% 16%, rgba(0,220,255,0.16), transparent 25%),
-      linear-gradient(145deg, #7C3DFF 0%, #6547F4 48%, #4158F3 100%);
+      radial-gradient(circle at 20% 12%, rgba(18,61,255,0.12), transparent 22%),
+      radial-gradient(circle at 82% 16%, rgba(0,123,255,0.08), transparent 26%),
+      radial-gradient(circle at 50% 105%, rgba(18,61,255,0.07), transparent 36%),
+      linear-gradient(135deg, #000104 0%, #02040c 44%, #000205 100%);
     position: relative;
     overflow: hidden;
   }
-  .cl-root::after {
+
+  .pm-login-root::before {
     content: '';
     position: absolute;
-    left: -8%;
-    right: -8%;
-    bottom: -1px;
-    height: 25vh;
-    background: #ffffff;
-    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    inset: 0;
+    background:
+      linear-gradient(rgba(255,255,255,0.020) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.020) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(circle at 50% 34%, black, transparent 68%);
+    opacity: 0.36;
     z-index: 0;
   }
-  .cl-shell {
+
+  .pm-login-root::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.024), transparent 18%, transparent 78%, rgba(18,61,255,0.045)),
+      radial-gradient(circle at 50% 42%, transparent 0%, rgba(0,0,0,0.46) 72%);
+    z-index: 0;
+  }
+
+  .pm-login-shell {
     position: relative;
     z-index: 1;
     min-height: 100vh;
-    max-width: 1180px;
+    max-width: 1240px;
     margin: 0 auto;
-    padding: 28px 32px 0;
+    padding: 30px 32px;
     display: flex;
     flex-direction: column;
   }
-  .cl-nav {
+
+  .pm-login-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
   }
-  .cl-brand {
+
+  .pm-login-brand {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     font-weight: 900;
     letter-spacing: 0.01em;
   }
-  .cl-brand-mark {
-    width: 30px;
-    height: 30px;
-    border-radius: 999px;
-    background: conic-gradient(from 140deg, #39E9D2, #FFD166, #FF4D8D, #7C3DFF, #39E9D2);
-    box-shadow: 0 10px 26px rgba(0,0,0,0.12);
+
+  .pm-login-brand-logo {
+    width: 118px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 0 22px rgba(18,61,255,0.45));
   }
-  .cl-nav-links {
+
+  .pm-login-nav-links {
     display: flex;
     align-items: center;
-    gap: 28px;
+    gap: 24px;
     font-size: 13px;
     font-weight: 800;
-    color: rgba(255,255,255,0.78);
+    color: rgba(226,232,255,0.70);
   }
-  .cl-nav-pill {
-    border: 1px solid rgba(255,255,255,0.62);
+
+  .pm-login-nav-pill {
+    border: 1px solid rgba(45,98,255,0.55);
     border-radius: 999px;
     padding: 12px 22px;
     color: #fff;
+    background: rgba(18,61,255,0.13);
+    box-shadow: inset 0 0 24px rgba(18,61,255,0.18);
   }
-  .cl-hero {
+
+  .pm-login-hero {
     flex: 1;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 390px;
-    align-items: center;
-    gap: 34px;
-    padding: 52px 0 76px;
+    grid-template-columns: minmax(0, 1.08fr) 430px;
+    align-items: end;
+    gap: 44px;
+    padding: 0 0 210px;
   }
-  .cl-copy {
-    text-align: center;
-    max-width: 690px;
-    margin: 0 auto;
+
+  .pm-login-stage {
+    position: relative;
+    min-height: 610px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-top: 0;
+    perspective: 1200px;
   }
-  .cl-kicker {
+
+  .pm-login-cube {
+    position: absolute;
+    top: -120px;
+    left: 50%;
+    width: min(66%, 500px);
+    max-height: 500px;
+    object-fit: contain;
+    filter: drop-shadow(0 34px 90px rgba(18,61,255,0.34));
+    animation: pmCubeFloat 7s ease-in-out infinite;
+    z-index: 0;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .pm-login-orbit {
+    display: none;
+  }
+
+  .pm-login-copy {
+    position: relative;
+    max-width: 620px;
+    padding: 22px 24px;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 28px;
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.085), rgba(255,255,255,0.025)),
+      rgba(3,6,16,0.50);
+    backdrop-filter: blur(28px) saturate(132%);
+    -webkit-backdrop-filter: blur(28px) saturate(132%);
+    box-shadow:
+      0 28px 80px rgba(0,0,0,0.28),
+      inset 0 1px 0 rgba(255,255,255,0.16),
+      inset 0 -1px 0 rgba(255,255,255,0.05);
+    z-index: 1;
+  }
+
+  .pm-login-kicker {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 9px 14px;
+    gap: 12px;
+    padding: 9px 13px;
     border-radius: 999px;
-    background: rgba(255,255,255,0.14);
-    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(18,61,255,0.16);
+    border: 1px solid rgba(45,98,255,0.38);
+    color: #AFC4FF;
     font-size: 12px;
     font-weight: 900;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
-  .cl-title {
+
+  .pm-login-title {
     margin: 0;
-    font-size: 50px;
-    line-height: 1.08;
+    font-size: 54px;
+    line-height: 0.98;
     font-weight: 900;
     letter-spacing: 0;
+    max-width: 580px;
   }
-  .cl-subtitle {
-    margin: 18px auto 0;
-    max-width: 500px;
-    color: rgba(255,255,255,0.82);
+
+  .pm-login-subtitle {
+    margin: 16px 0 0;
+    max-width: 540px;
+    color: rgba(226,232,255,0.72);
     font-size: 15px;
     line-height: 1.7;
     font-weight: 700;
   }
-  .cl-actions {
-    margin-top: 28px;
+
+  .pm-login-actions {
+    margin-top: 20px;
     display: flex;
-    justify-content: center;
-    gap: 12px;
+    gap: 10px;
     flex-wrap: wrap;
   }
-  .cl-primary-cta,
-  .cl-secondary-cta {
-    min-height: 48px;
-    border-radius: 999px;
-    padding: 0 24px;
-    border: none;
-    font-size: 13px;
-    font-weight: 900;
+
+  .pm-login-chip {
     display: inline-flex;
     align-items: center;
-    gap: 9px;
+    gap: 8px;
+    min-height: 38px;
+    border-radius: 999px;
+    padding: 0 14px;
+    color: #C7D5FF;
+    background: rgba(255,255,255,0.055);
+    border: 1px solid rgba(255,255,255,0.10);
+    font-size: 12px;
+    font-weight: 900;
   }
-  .cl-primary-cta {
-    background: #FF176B;
-    color: #fff;
-    box-shadow: 0 16px 34px rgba(255,23,107,0.32);
-  }
-  .cl-secondary-cta {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.54);
-    color: #fff;
-  }
-  .cl-visual-zone {
-    position: relative;
-    min-height: 430px;
-    margin-top: 42px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-  }
-  .cl-team-illustration {
-    width: min(680px, 100%);
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    filter: drop-shadow(0 24px 34px rgba(26,25,80,0.22));
-    position: relative;
-    z-index: 1;
-  }
-  .cl-login-panel {
-    background: rgba(255,255,255,0.96);
-    color: #151236;
-    border-radius: 30px;
+
+  .pm-login-panel {
+    background:
+      linear-gradient(180deg, rgba(8,13,28,0.84), rgba(3,6,15,0.96)),
+      rgba(2,4,10,0.86);
+    color: #ffffff;
+    border-radius: 32px;
     padding: 34px;
-    box-shadow: 0 26px 70px rgba(17,18,48,0.20);
-    border: 1px solid rgba(255,255,255,0.78);
-    align-self: center;
+    box-shadow: 0 28px 90px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.10);
+    border: 1px solid rgba(79,120,255,0.26);
+    align-self: end;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
   }
-  .cl-login-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 17px;
-    background: #F3F0FF;
-    color: #6C5CE7;
+
+  .pm-login-panel::before {
+    content: '';
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    top: 0;
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, #123DFF, #00A3FF, transparent);
+  }
+
+  .pm-login-icon {
+    width: 76px;
+    height: 76px;
+    border-radius: 22px;
+    background: rgba(18,61,255,0.12);
+    border: 1px solid rgba(45,98,255,0.24);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+    box-shadow: 0 18px 48px rgba(18,61,255,0.18);
   }
-  .cl-login-title {
+
+  .pm-login-icon img {
+    width: 62px;
+    height: 62px;
+    object-fit: contain;
+  }
+
+  .pm-login-panel-title {
     margin: 0;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 900;
-    color: #151236;
+    color: #fff;
   }
-  .cl-login-subtitle {
+
+  .pm-login-panel-subtitle {
     margin: 8px 0 26px;
-    color: #7b7894;
+    color: rgba(226,232,255,0.62);
     font-size: 14px;
     font-weight: 700;
     line-height: 1.55;
   }
-  .cl-field-label {
+
+  .pm-login-field-label {
     display: block;
     font-size: 12px;
     font-weight: 900;
-    color: #6f6b8d;
+    color: rgba(226,232,255,0.64);
     margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
-  .cl-input-wrap {
+
+  .pm-login-input-wrap {
     display: flex;
     align-items: center;
     gap: 10px;
-    border: 1px solid #e4e2ef;
+    border: 1px solid rgba(91,124,255,0.20);
     border-radius: 18px;
     padding: 0 14px;
     height: 54px;
     margin-bottom: 16px;
-    background: #fbfbfd;
+    background: rgba(255,255,255,0.055);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   }
-  .cl-input {
+
+  .pm-login-input-wrap:focus-within {
+    border-color: rgba(35,89,255,0.72);
+    box-shadow: 0 0 0 4px rgba(18,61,255,0.14);
+    background: rgba(255,255,255,0.075);
+  }
+
+  .pm-login-input {
     border: none;
     outline: none;
     background: transparent;
     width: 100%;
     font-size: 14px;
-    color: #151236;
+    color: #fff;
     font-weight: 500;
   }
-  .cl-password-toggle {
+
+  .pm-login-input::placeholder {
+    color: rgba(226,232,255,0.34);
+  }
+
+  .pm-password-toggle {
     border: none;
     background: transparent;
-    color: #7C4DFF;
+    color: #8FACFF;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -234,23 +319,36 @@ const styles = `
     cursor: pointer;
     flex-shrink: 0;
   }
-  .cl-password-toggle:hover {
-    background: #f3f0ff;
+
+  .pm-password-toggle:hover {
+    background: rgba(255,255,255,0.08);
   }
-  .cl-error {
-    color: #d63031;
-    background: #fff1f1;
-    border: 1px solid #ffd6d6;
-    padding: 12px;
-    border-radius: 14px;
+
+  .pm-login-forgot-row {
+    display: flex;
+    justify-content: flex-end;
+    margin: -4px 0 18px;
+  }
+
+  .pm-login-forgot-button {
+    border: none;
+    background: transparent;
+    color: #8FACFF;
     font-size: 13px;
-    margin-bottom: 16px;
-    font-weight: 700;
+    font-weight: 900;
+    cursor: pointer;
+    padding: 0;
   }
-  .cl-success {
-    color: #047857;
-    background: #ecfdf5;
-    border: 1px solid #bbf7d0;
+
+  .pm-login-forgot-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+  }
+
+  .pm-login-error {
+    color: #ffb1ba;
+    background: rgba(255,93,115,0.12);
+    border: 1px solid rgba(255,93,115,0.28);
     padding: 12px;
     border-radius: 14px;
     font-size: 13px;
@@ -258,52 +356,58 @@ const styles = `
     font-weight: 700;
     line-height: 1.45;
   }
-  .cl-forgot-row {
-    display: flex;
-    justify-content: flex-end;
-    margin: -4px 0 18px;
+
+  .pm-login-success {
+    color: #70f0ae;
+    background: rgba(57,217,138,0.12);
+    border: 1px solid rgba(57,217,138,0.26);
+    padding: 12px;
+    border-radius: 14px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    font-weight: 700;
+    line-height: 1.45;
   }
-  .cl-forgot-button {
-    border: none;
-    background: transparent;
-    color: #6C5CE7;
-    font-size: 12px;
-    font-weight: 900;
-    cursor: pointer;
-    padding: 0;
-  }
-  .cl-forgot-button:disabled {
-    cursor: not-allowed;
-    opacity: 0.65;
-  }
-  .cl-login-button {
+
+  .pm-login-button {
     width: 100%;
     height: 56px;
     border: none;
     border-radius: 18px;
-    background: linear-gradient(135deg, #6C5CE7, #8E6CFF);
+    background: linear-gradient(135deg, #123DFF, #006DFF);
     color: #fff;
     font-size: 15px;
     font-weight: 900;
     cursor: pointer;
-    box-shadow: 0 14px 30px rgba(108,92,231,0.28);
+    box-shadow: 0 18px 40px rgba(18,61,255,0.36);
   }
-  .cl-login-button:disabled {
+
+  .pm-login-button:disabled {
     cursor: not-allowed;
     opacity: 0.72;
   }
+
   @media (max-width: 960px) {
-    .cl-nav-links { display: none; }
-    .cl-hero { grid-template-columns: 1fr; padding-top: 38px; }
-    .cl-login-panel { width: min(100%, 460px); justify-self: center; }
-    .cl-title { font-size: 40px; }
-    .cl-visual-zone { min-height: 390px; }
+    .pm-login-nav-links { display: none; }
+    .pm-login-hero { grid-template-columns: 1fr; padding-top: 38px; }
+    .pm-login-panel { width: min(100%, 460px); justify-self: center; }
+    .pm-login-title { font-size: 40px; }
+    .pm-login-stage { min-height: 560px; }
+    .pm-login-copy { position: relative; left: auto; bottom: auto; margin-top: -60px; }
   }
+
   @media (max-width: 620px) {
-    .cl-shell { padding: 22px 18px 0; }
-    .cl-title { font-size: 34px; }
-    .cl-visual-zone { min-height: 300px; margin-top: 24px; }
-    .cl-login-panel { padding: 24px; border-radius: 24px; }
+    .pm-login-shell { padding: 22px 18px 0; }
+    .pm-login-title { font-size: 34px; }
+    .pm-login-panel { padding: 24px; border-radius: 24px; }
+    .pm-login-stage { min-height: auto; display: grid; gap: 18px; }
+    .pm-login-cube { width: 86%; }
+    .pm-login-copy { margin-top: 0; padding: 18px; }
+  }
+
+  @keyframes pmCubeFloat {
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-1deg); }
+    50% { transform: translateX(-50%) translateY(-16px) rotate(1deg); }
   }
 `
 
@@ -373,62 +477,58 @@ export default function ClientLoginPage() {
   }
 
   return (
-    <main className="cl-root">
+    <main className="pm-login-root">
       <style>{styles}</style>
-      <div className="cl-shell">
-        <nav className="cl-nav">
-          <div className="cl-brand">
-            <span className="cl-brand-mark" />
-            <span>Bits3 Portal</span>
+      <div className="pm-login-shell">
+        <nav className="pm-login-nav">
+          <div className="pm-login-brand">
+            <img className="pm-login-brand-logo" src="/bits3-logo.png" alt="Bits3" />
           </div>
-          <div className="cl-nav-links">
+          <div className="pm-login-nav-links">
             <span>Projects</span>
             <span>Milestones</span>
             <span>Support</span>
             <span>Artifacts</span>
-            <span className="cl-nav-pill">Client Login</span>
+            <span className="pm-login-nav-pill">Client Login</span>
           </div>
         </nav>
 
-        <section className="cl-hero">
-          <div>
-            <div className="cl-copy">
-              <div className="cl-kicker"><Sparkles size={15} /> Team workspace</div>
-              <h1 className="cl-title">Your project is in good hands with us!</h1>
-              <p className="cl-subtitle">
+        <section className="pm-login-hero">
+          <div className="pm-login-stage">
+            <div className="pm-login-orbit" />
+            <img className="pm-login-cube" src="/bits3-login-cube.png" alt="Bits3 client workspace cube" />
+            <div className="pm-login-copy">
+              <div className="pm-login-kicker"><Sparkles size={15} /> Client workspace</div>
+              <h1 className="pm-login-title">Track your project from the blue core.</h1>
+              <p className="pm-login-subtitle">
                 Access project progress, deliverables, chats, support, files, and assigned tasks from one simple workspace.
               </p>
-              <div className="cl-actions">
-                <button className="cl-primary-cta" onClick={() => document.getElementById('client-email')?.focus()}>
-                  Get Started <ArrowRight size={15} />
-                </button>
-                <button className="cl-secondary-cta" type="button">
-                  View Workspace <span style={{ width: 8, height: 8, borderRadius: 999, background: '#fff' }} />
-                </button>
+              <div className="pm-login-actions">
+                <span className="pm-login-chip">Client delivery hub <ArrowRight size={14} /></span>
+                <span className="pm-login-chip">Secure client access</span>
               </div>
             </div>
-
           </div>
 
           <form
-            className="cl-login-panel"
+            className="pm-login-panel"
             onSubmit={(e) => {
               e.preventDefault()
               login()
             }}
           >
-            <div className="cl-login-icon">
-              <Lock size={24} />
+            <div className="pm-login-icon">
+              <img src="/bits3-logo.png" alt="" />
             </div>
-            <h2 className="cl-login-title">Welcome back</h2>
-            <p className="cl-login-subtitle">Sign in to continue to your dashboard.</p>
+            <h2 className="pm-login-panel-title">Client Portal</h2>
+            <p className="pm-login-panel-subtitle">Sign in to continue to your client dashboard.</p>
 
-            <label className="cl-field-label" htmlFor="client-email">Email</label>
-            <div className="cl-input-wrap">
-              <Mail size={18} color="#7C4DFF" />
+            <label className="pm-login-field-label" htmlFor="client-email">Email</label>
+            <div className="pm-login-input-wrap">
+              <Mail size={18} color="#8FACFF" />
               <input
                 id="client-email"
-                className="cl-input"
+                className="pm-login-input"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="client@example.com"
@@ -436,12 +536,12 @@ export default function ClientLoginPage() {
               />
             </div>
 
-            <label className="cl-field-label" htmlFor="client-password">Password</label>
-            <div className="cl-input-wrap">
-              <Lock size={18} color="#7C4DFF" />
+            <label className="pm-login-field-label" htmlFor="client-password">Password</label>
+            <div className="pm-login-input-wrap">
+              <Lock size={18} color="#8FACFF" />
               <input
                 id="client-password"
-                className="cl-input"
+                className="pm-login-input"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Enter your password"
@@ -449,7 +549,7 @@ export default function ClientLoginPage() {
               />
               <button
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
-                className="cl-password-toggle"
+                className="pm-password-toggle"
                 onClick={() => setShowPassword(value => !value)}
                 type="button"
               >
@@ -457,16 +557,16 @@ export default function ClientLoginPage() {
               </button>
             </div>
 
-            <div className="cl-forgot-row">
-              <button className="cl-forgot-button" disabled={resetLoading} onClick={sendPasswordReset} type="button">
+            <div className="pm-login-forgot-row">
+              <button className="pm-login-forgot-button" disabled={resetLoading} onClick={sendPasswordReset} type="button">
                 {resetLoading ? 'Sending reset email...' : 'Forgot password?'}
               </button>
             </div>
 
-            {error && <div className="cl-error">{error}</div>}
-            {resetMessage && <div className="cl-success">{resetMessage}</div>}
+            {error && <div className="pm-login-error">{error}</div>}
+            {resetMessage && <div className="pm-login-success">{resetMessage}</div>}
 
-            <button className="cl-login-button" disabled={loading} type="submit">
+            <button className="pm-login-button" disabled={loading} type="submit">
               {loading ? 'Signing in...' : 'Login'}
             </button>
           </form>

@@ -13,10 +13,10 @@ const styles = `
     font-family: Inter, Arial, sans-serif;
     color: #ffffff;
     background:
-      radial-gradient(circle at 18% 16%, rgba(18,61,255,0.28), transparent 24%),
-      radial-gradient(circle at 78% 18%, rgba(0,171,255,0.20), transparent 28%),
-      radial-gradient(circle at 60% 90%, rgba(18,61,255,0.16), transparent 34%),
-      linear-gradient(135deg, #02040A 0%, #050814 48%, #02040A 100%);
+      radial-gradient(circle at 20% 12%, rgba(18,61,255,0.12), transparent 22%),
+      radial-gradient(circle at 82% 16%, rgba(0,123,255,0.08), transparent 26%),
+      radial-gradient(circle at 50% 105%, rgba(18,61,255,0.07), transparent 36%),
+      linear-gradient(135deg, #000104 0%, #02040c 44%, #000205 100%);
     position: relative;
     overflow: hidden;
   }
@@ -26,11 +26,22 @@ const styles = `
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-    background-size: 58px 58px;
-    mask-image: radial-gradient(circle at 50% 38%, black, transparent 72%);
-    opacity: 0.45;
+      linear-gradient(rgba(255,255,255,0.020) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.020) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(circle at 50% 34%, black, transparent 68%);
+    opacity: 0.36;
+    z-index: 0;
+  }
+
+  .pm-login-root::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.024), transparent 18%, transparent 78%, rgba(18,61,255,0.045)),
+      radial-gradient(circle at 50% 42%, transparent 0%, rgba(0,0,0,0.46) 72%);
     z-index: 0;
   }
 
@@ -131,10 +142,10 @@ const styles = `
     border: 1px solid rgba(255,255,255,0.14);
     border-radius: 28px;
     background:
-      linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.035)),
-      rgba(4,8,20,0.34);
-    backdrop-filter: blur(24px) saturate(142%);
-    -webkit-backdrop-filter: blur(24px) saturate(142%);
+      linear-gradient(145deg, rgba(255,255,255,0.085), rgba(255,255,255,0.025)),
+      rgba(3,6,16,0.50);
+    backdrop-filter: blur(28px) saturate(132%);
+    -webkit-backdrop-filter: blur(28px) saturate(132%);
     box-shadow:
       0 28px 80px rgba(0,0,0,0.28),
       inset 0 1px 0 rgba(255,255,255,0.16),
@@ -197,7 +208,9 @@ const styles = `
   }
 
   .pm-login-panel {
-    background: linear-gradient(180deg, rgba(8,13,28,0.88), rgba(4,7,16,0.94));
+    background:
+      linear-gradient(180deg, rgba(8,13,28,0.84), rgba(3,6,15,0.96)),
+      rgba(2,4,10,0.86);
     color: #ffffff;
     border-radius: 32px;
     padding: 34px;
