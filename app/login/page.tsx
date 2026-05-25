@@ -91,7 +91,7 @@ const styles = `
     grid-template-columns: minmax(0, 1.08fr) 430px;
     align-items: end;
     gap: 44px;
-    padding: 0 0 140px;
+    padding: 0 0 210px;
   }
 
   .pm-login-stage {
