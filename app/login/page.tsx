@@ -13,22 +13,24 @@ const styles = `
     font-family: Inter, Arial, sans-serif;
     color: #ffffff;
     background:
-      radial-gradient(circle at 18% 18%, rgba(255,255,255,0.18), transparent 24%),
-      radial-gradient(circle at 82% 16%, rgba(0,220,255,0.14), transparent 25%),
-      linear-gradient(145deg, #7C3DFF 0%, #6547F4 48%, #4158F3 100%);
+      radial-gradient(circle at 18% 16%, rgba(18,61,255,0.28), transparent 24%),
+      radial-gradient(circle at 78% 18%, rgba(0,171,255,0.20), transparent 28%),
+      radial-gradient(circle at 60% 90%, rgba(18,61,255,0.16), transparent 34%),
+      linear-gradient(135deg, #02040A 0%, #050814 48%, #02040A 100%);
     position: relative;
     overflow: hidden;
   }
 
-  .pm-login-root::after {
+  .pm-login-root::before {
     content: '';
     position: absolute;
-    left: -8%;
-    right: -8%;
-    bottom: -1px;
-    height: 25vh;
-    background: #ffffff;
-    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    inset: 0;
+    background:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 58px 58px;
+    mask-image: radial-gradient(circle at 50% 38%, black, transparent 72%);
+    opacity: 0.45;
     z-index: 0;
   }
 
@@ -36,9 +38,9 @@ const styles = `
     position: relative;
     z-index: 1;
     min-height: 100vh;
-    max-width: 1180px;
+    max-width: 1240px;
     margin: 0 auto;
-    padding: 28px 32px 0;
+    padding: 30px 32px;
     display: flex;
     flex-direction: column;
   }
@@ -53,145 +55,200 @@ const styles = `
   .pm-login-brand {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     font-weight: 900;
     letter-spacing: 0.01em;
   }
 
-  .pm-login-brand-mark {
-    width: 30px;
-    height: 30px;
-    border-radius: 999px;
-    background: conic-gradient(from 140deg, #39E9D2, #FFD166, #FF4D8D, #7C3DFF, #39E9D2);
-    box-shadow: 0 10px 26px rgba(0,0,0,0.12);
+  .pm-login-brand-logo {
+    width: 118px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 0 22px rgba(18,61,255,0.45));
   }
 
   .pm-login-nav-links {
     display: flex;
     align-items: center;
-    gap: 28px;
+    gap: 24px;
     font-size: 13px;
     font-weight: 800;
-    color: rgba(255,255,255,0.78);
+    color: rgba(226,232,255,0.70);
   }
 
   .pm-login-nav-pill {
-    border: 1px solid rgba(255,255,255,0.62);
+    border: 1px solid rgba(45,98,255,0.55);
     border-radius: 999px;
     padding: 12px 22px;
     color: #fff;
+    background: rgba(18,61,255,0.13);
+    box-shadow: inset 0 0 24px rgba(18,61,255,0.18);
   }
 
   .pm-login-hero {
     flex: 1;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 390px;
-    align-items: center;
-    gap: 34px;
-    padding: 52px 0 76px;
+    grid-template-columns: minmax(0, 1.08fr) 430px;
+    align-items: end;
+    gap: 44px;
+    padding: 0 0 140px;
+  }
+
+  .pm-login-stage {
+    position: relative;
+    min-height: 610px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-top: 0;
+    perspective: 1200px;
+  }
+
+  .pm-login-cube {
+    position: absolute;
+    top: -120px;
+    left: 50%;
+    width: min(66%, 500px);
+    max-height: 500px;
+    object-fit: contain;
+    filter: drop-shadow(0 34px 90px rgba(18,61,255,0.34));
+    animation: pmCubeFloat 7s ease-in-out infinite;
+    z-index: 0;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .pm-login-orbit {
+    display: none;
   }
 
   .pm-login-copy {
-    text-align: center;
-    max-width: 690px;
-    margin: 0 auto;
+    position: relative;
+    left: auto;
+    bottom: auto;
+    max-width: 620px;
+    padding: 22px 24px;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 28px;
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.035)),
+      rgba(4,8,20,0.34);
+    backdrop-filter: blur(24px) saturate(142%);
+    -webkit-backdrop-filter: blur(24px) saturate(142%);
+    box-shadow:
+      0 28px 80px rgba(0,0,0,0.28),
+      inset 0 1px 0 rgba(255,255,255,0.16),
+      inset 0 -1px 0 rgba(255,255,255,0.05);
+    margin-top: 0;
+    z-index: 1;
   }
 
   .pm-login-kicker {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 9px 14px;
+    gap: 12px;
+    padding: 9px 13px;
     border-radius: 999px;
-    background: rgba(255,255,255,0.14);
-    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(18,61,255,0.16);
+    border: 1px solid rgba(45,98,255,0.38);
+    color: #AFC4FF;
     font-size: 12px;
     font-weight: 900;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
 
   .pm-login-title {
     margin: 0;
-    font-size: 50px;
-    line-height: 1.08;
+    font-size: 54px;
+    line-height: 0.98;
     font-weight: 900;
     letter-spacing: 0;
+    max-width: 580px;
   }
 
   .pm-login-subtitle {
-    margin: 18px auto 0;
-    max-width: 520px;
-    color: rgba(255,255,255,0.82);
+    margin: 16px 0 0;
+    max-width: 540px;
+    color: rgba(226,232,255,0.72);
     font-size: 15px;
     line-height: 1.7;
     font-weight: 700;
   }
 
   .pm-login-actions {
-    margin-top: 28px;
+    margin-top: 20px;
     display: flex;
-    justify-content: center;
-    gap: 12px;
+    gap: 10px;
     flex-wrap: wrap;
   }
 
-  .pm-login-primary-cta,
-  .pm-login-secondary-cta {
-    min-height: 48px;
-    border-radius: 999px;
-    padding: 0 24px;
-    border: none;
-    font-size: 13px;
-    font-weight: 900;
+  .pm-login-chip {
     display: inline-flex;
     align-items: center;
-    gap: 9px;
-  }
-
-  .pm-login-primary-cta {
-    background: #FF176B;
-    color: #fff;
-    box-shadow: 0 16px 34px rgba(255,23,107,0.32);
-  }
-
-  .pm-login-secondary-cta {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.54);
-    color: #fff;
+    gap: 8px;
+    min-height: 38px;
+    border-radius: 999px;
+    padding: 0 14px;
+    color: #C7D5FF;
+    background: rgba(255,255,255,0.055);
+    border: 1px solid rgba(255,255,255,0.10);
+    font-size: 12px;
+    font-weight: 900;
   }
 
   .pm-login-panel {
-    background: rgba(255,255,255,0.96);
-    color: #151236;
-    border-radius: 30px;
+    background: linear-gradient(180deg, rgba(8,13,28,0.88), rgba(4,7,16,0.94));
+    color: #ffffff;
+    border-radius: 32px;
     padding: 34px;
-    box-shadow: 0 26px 70px rgba(17,18,48,0.20);
-    border: 1px solid rgba(255,255,255,0.78);
-    align-self: center;
+    box-shadow: 0 28px 90px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.10);
+    border: 1px solid rgba(79,120,255,0.26);
+    align-self: end;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pm-login-panel::before {
+    content: '';
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    top: 0;
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, #123DFF, #00A3FF, transparent);
   }
 
   .pm-login-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 17px;
-    background: #F3F0FF;
-    color: #6C5CE7;
+    width: 76px;
+    height: 76px;
+    border-radius: 22px;
+    background: rgba(18,61,255,0.12);
+    border: 1px solid rgba(45,98,255,0.24);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+    box-shadow: 0 18px 48px rgba(18,61,255,0.18);
+  }
+
+  .pm-login-icon img {
+    width: 62px;
+    height: 62px;
+    object-fit: contain;
   }
 
   .pm-login-panel-title {
     margin: 0;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 900;
-    color: #151236;
+    color: #fff;
   }
 
   .pm-login-panel-subtitle {
     margin: 8px 0 26px;
-    color: #7b7894;
+    color: rgba(226,232,255,0.62);
     font-size: 14px;
     font-weight: 700;
     line-height: 1.55;
@@ -201,7 +258,7 @@ const styles = `
     display: block;
     font-size: 12px;
     font-weight: 900;
-    color: #6f6b8d;
+    color: rgba(226,232,255,0.64);
     margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 0.04em;
@@ -211,12 +268,19 @@ const styles = `
     display: flex;
     align-items: center;
     gap: 10px;
-    border: 1px solid #e4e2ef;
+    border: 1px solid rgba(91,124,255,0.20);
     border-radius: 18px;
     padding: 0 14px;
     height: 54px;
     margin-bottom: 16px;
-    background: #fbfbfd;
+    background: rgba(255,255,255,0.055);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+
+  .pm-login-input-wrap:focus-within {
+    border-color: rgba(35,89,255,0.72);
+    box-shadow: 0 0 0 4px rgba(18,61,255,0.14);
+    background: rgba(255,255,255,0.075);
   }
 
   .pm-login-input {
@@ -225,14 +289,18 @@ const styles = `
     background: transparent;
     width: 100%;
     font-size: 14px;
-    color: #151236;
+    color: #fff;
     font-weight: 500;
+  }
+
+  .pm-login-input::placeholder {
+    color: rgba(226,232,255,0.34);
   }
 
   .pm-password-toggle {
     border: none;
     background: transparent;
-    color: #7C4DFF;
+    color: #8FACFF;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -243,7 +311,7 @@ const styles = `
   }
 
   .pm-password-toggle:hover {
-    background: #f3f0ff;
+    background: rgba(255,255,255,0.08);
   }
 
   .pm-login-error {
@@ -262,12 +330,12 @@ const styles = `
     height: 56px;
     border: none;
     border-radius: 18px;
-    background: linear-gradient(135deg, #6C5CE7, #8E6CFF);
+    background: linear-gradient(135deg, #123DFF, #006DFF);
     color: #fff;
     font-size: 15px;
     font-weight: 900;
     cursor: pointer;
-    box-shadow: 0 14px 30px rgba(108,92,231,0.28);
+    box-shadow: 0 18px 40px rgba(18,61,255,0.36);
   }
 
   .pm-login-button:disabled {
@@ -280,13 +348,24 @@ const styles = `
     .pm-login-hero { grid-template-columns: 1fr; padding-top: 38px; }
     .pm-login-panel { width: min(100%, 460px); justify-self: center; }
     .pm-login-title { font-size: 40px; }
+    .pm-login-stage { min-height: 560px; }
+    .pm-login-copy { position: relative; left: auto; bottom: auto; margin-top: -60px; }
   }
 
   @media (max-width: 620px) {
     .pm-login-shell { padding: 22px 18px 0; }
     .pm-login-title { font-size: 34px; }
     .pm-login-panel { padding: 24px; border-radius: 24px; }
+    .pm-login-stage { min-height: auto; display: grid; gap: 18px; }
+    .pm-login-cube { width: 86%; }
+    .pm-login-copy { margin-top: 0; padding: 18px; }
   }
+
+  @keyframes pmCubeFloat {
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-1deg); }
+    50% { transform: translateX(-50%) translateY(-16px) rotate(1deg); }
+  }
+
 `
 
 export default function LoginPage() {
@@ -351,8 +430,7 @@ export default function LoginPage() {
       <div className="pm-login-shell">
         <nav className="pm-login-nav">
           <div className="pm-login-brand">
-            <span className="pm-login-brand-mark" />
-            <span>Bits3 PM Portal</span>
+            <img className="pm-login-brand-logo" src="/bits3-logo.png" alt="Bits3" />
           </div>
           <div className="pm-login-nav-links">
             <span>Clients</span>
@@ -364,19 +442,19 @@ export default function LoginPage() {
         </nav>
 
         <section className="pm-login-hero">
-          <div className="pm-login-copy">
-            <div className="pm-login-kicker"><Sparkles size={15} /> Project manager workspace</div>
-            <h1 className="pm-login-title">Run every client project from one clean dashboard.</h1>
-            <p className="pm-login-subtitle">
-              Manage clients, milestones, deliverables, payments, support contracts, meetings, and project updates in one place.
-            </p>
-            <div className="pm-login-actions">
-              <button className="pm-login-primary-cta" onClick={() => document.getElementById('pm-email')?.focus()} type="button">
-                Start Managing <ArrowRight size={15} />
-              </button>
-              <button className="pm-login-secondary-cta" type="button">
-                PM Workspace <span style={{ width: 8, height: 8, borderRadius: 999, background: '#fff' }} />
-              </button>
+          <div className="pm-login-stage">
+            <div className="pm-login-orbit" />
+            <img className="pm-login-cube" src="/bits3-login-cube.png" alt="Bits3 operations cube" />
+            <div className="pm-login-copy">
+              <div className="pm-login-kicker"><Sparkles size={15} /> Project command system</div>
+              <h1 className="pm-login-title">Control delivery from the blue core.</h1>
+              <p className="pm-login-subtitle">
+                A secure Bits3 workspace for clients, projects, milestones, payments, chats, artifacts, meetings, and support operations.
+              </p>
+              <div className="pm-login-actions">
+                <span className="pm-login-chip">Live delivery hub <ArrowRight size={14} /></span>
+                <span className="pm-login-chip">PM access only</span>
+              </div>
             </div>
           </div>
 
@@ -388,14 +466,14 @@ export default function LoginPage() {
             }}
           >
             <div className="pm-login-icon">
-              <Lock size={24} />
+              <img src="/bits3-logo.png" alt="" />
             </div>
-            <h2 className="pm-login-panel-title">Welcome back</h2>
+            <h2 className="pm-login-panel-title">Project Manager Portal</h2>
             <p className="pm-login-panel-subtitle">Sign in to access your project manager dashboard.</p>
 
             <label className="pm-login-field-label" htmlFor="pm-email">Email / Team Username</label>
             <div className="pm-login-input-wrap">
-              <Mail size={18} color="#7C4DFF" />
+              <Mail size={18} color="#8FACFF" />
               <input
                 id="pm-email"
                 className="pm-login-input"
@@ -408,7 +486,7 @@ export default function LoginPage() {
 
             <label className="pm-login-field-label" htmlFor="pm-password">Password</label>
             <div className="pm-login-input-wrap">
-              <Lock size={18} color="#7C4DFF" />
+              <Lock size={18} color="#8FACFF" />
               <input
                 id="pm-password"
                 className="pm-login-input"
