@@ -2893,6 +2893,898 @@ const styles = `
     .pm-main { margin-left: 0; }
     .pm-content { padding: 18px; }
   }
+
+  /* Final admin refresh: light premium SaaS shell using the existing Bits3 blue/cyan accents. */
+  .pm-root {
+    --black: #101828;
+    --white: #ffffff;
+    --gray-50: #f8fafc;
+    --gray-100: #eef2f7;
+    --gray-200: #d9e2ee;
+    --gray-400: #8a95a6;
+    --gray-600: #5f6b7a;
+    --gray-800: #1f2937;
+    --accent: #123dff;
+    --accent-2: #00a3ff;
+    --accent-light: #eef4ff;
+    --success: #047857;
+    --danger: #c0263d;
+    --warning: #b45309;
+    --radius: 14px;
+    --radius-lg: 16px;
+    --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.04), 0 10px 28px rgba(16, 24, 40, 0.05);
+    --shadow-md: 0 18px 44px rgba(16, 24, 40, 0.09);
+    --shadow-lg: 0 26px 68px rgba(16, 24, 40, 0.12);
+    background: #f6f8fb;
+    color: #101828;
+  }
+
+  .pm-root::before { display: none; }
+
+  .pm-layout {
+    width: 100%;
+    min-height: 100vh;
+    max-width: none;
+    background: #f6f8fb;
+  }
+
+  .pm-sidebar {
+    width: 268px;
+    background: #ffffff;
+    border-right: 1px solid #e5eaf2;
+    box-shadow: 8px 0 30px rgba(16, 24, 40, 0.04);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .pm-logo {
+    min-height: 86px;
+    padding: 20px 22px;
+    border-bottom: 1px solid #edf1f7;
+  }
+
+  .pm-logo-title {
+    color: #101828;
+    gap: 12px;
+    letter-spacing: 0;
+  }
+
+  .pm-logo-mark {
+    width: 86px;
+    height: auto;
+    filter: none;
+  }
+
+  .pm-logo-name {
+    color: #101828;
+    font-size: 13px;
+    font-weight: 900;
+  }
+
+  .pm-logo-role {
+    color: #667085;
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .pm-nav {
+    padding: 18px 14px;
+  }
+
+  .pm-nav-label {
+    color: #98a2b3;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    padding: 0 10px;
+  }
+
+  .pm-nav-btn {
+    min-height: 44px;
+    border-radius: 12px;
+    color: #475467;
+    font-size: 13px;
+    font-weight: 750;
+    padding: 11px 12px;
+    margin-bottom: 4px;
+  }
+
+  .pm-nav-btn:hover {
+    background: #f3f7ff;
+    color: var(--accent);
+    transform: none;
+  }
+
+  .pm-nav-btn.active {
+    color: var(--accent);
+    background: linear-gradient(90deg, rgba(18, 61, 255, 0.10), rgba(0, 163, 255, 0.06));
+    box-shadow: inset 3px 0 0 var(--accent);
+  }
+
+  .pm-sidebar-footer {
+    border-top: 1px solid #edf1f7;
+    padding: 14px;
+  }
+
+  .pm-logout-btn {
+    background: #ffffff;
+    border-color: #e5eaf2;
+    color: #9f1239;
+  }
+
+  .pm-logout-btn:hover {
+    background: #fff5f6;
+    border-color: #fecdd3;
+  }
+
+  .pm-main,
+  .pm-main.pm-main-project-detail {
+    margin-left: 268px;
+    background:
+      radial-gradient(circle at 88% -10%, rgba(18, 61, 255, 0.08), transparent 26%),
+      #f6f8fb;
+  }
+
+  .pm-topbar {
+    height: 76px;
+    padding: 0 34px;
+    background: rgba(246, 248, 251, 0.92);
+    border-bottom: 1px solid rgba(229, 234, 242, 0.92);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  .pm-topbar-title {
+    color: #101828;
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: -0.035em;
+  }
+
+  .pm-topbar-title::before {
+    border-color: var(--accent);
+    box-shadow: inset 0 -6px 0 rgba(18, 61, 255, 0.12);
+  }
+
+  .pm-topbar-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 0 12px;
+    border: 1px solid #dbe5f4;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #344054;
+    font-size: 12px;
+    font-weight: 850;
+    box-shadow: 0 8px 22px rgba(16, 24, 40, 0.04);
+  }
+
+  .pm-content {
+    width: min(100%, 1440px);
+    margin: 0 auto;
+    padding: 34px 38px 56px;
+  }
+
+  .pm-section,
+  .pm-taskboard-shell,
+  .pm-project-list,
+  .pm-stat-card,
+  .pm-client-card,
+  .pm-support-card,
+  .pm-task-card,
+  .pm-milestone-card,
+  .pm-progress-card,
+  .pm-compact-stat,
+  .pm-project-detail .pm-section,
+  .pm-project-detail .pm-progress-card,
+  .pm-project-detail .pm-milestone-card,
+  .pm-project-detail .pm-project-card {
+    background: #ffffff;
+    border: 1px solid #e5eaf2;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .pm-section,
+  .pm-taskboard-shell,
+  .pm-project-list {
+    overflow: hidden;
+  }
+
+  .pm-section-header,
+  .pm-milestone-header,
+  .pm-project-detail .pm-section-header,
+  .pm-project-detail .pm-milestone-header {
+    min-height: 62px;
+    background: #ffffff;
+    border-bottom: 1px solid #edf1f7;
+  }
+
+  .pm-section-body {
+    padding: 22px;
+  }
+
+  .pm-section-icon,
+  .pm-stat-icon,
+  .pm-chat-icon,
+  .pm-artifact-card .pm-card-icon,
+  .pm-external-icon {
+    background: linear-gradient(135deg, rgba(18, 61, 255, 0.12), rgba(0, 163, 255, 0.12));
+    color: var(--accent);
+    box-shadow: none;
+  }
+
+  .pm-section-title,
+  .pm-card-name,
+  .pm-client-name,
+  .pm-milestone-title,
+  .pm-task-title,
+  .pm-detail-title,
+  .pm-board-title,
+  .pm-list-name,
+  .pm-stat-value,
+  .pm-compact-stat strong,
+  .pm-progress-value,
+  .pm-chat-detail-value,
+  .pm-progress-label,
+  .pm-list-percent,
+  .pm-card-stat strong {
+    color: #101828;
+  }
+
+  .pm-card-client,
+  .pm-task-meta,
+  .pm-task-date,
+  .pm-progress-sub,
+  .pm-board-sub,
+  .pm-list-muted,
+  .pm-stat-label,
+  .pm-label,
+  .pm-divider-text,
+  .pm-client-projects,
+  .pm-chat-detail-label,
+  .pm-chat-chip,
+  .pm-artifact-description,
+  .pm-artifact-file-state {
+    color: #667085;
+  }
+
+  .pm-page-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .pm-page-kpi {
+    min-height: 108px;
+    border: 1px solid #e5eaf2;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: var(--shadow-sm);
+    padding: 18px;
+    display: grid;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pm-page-kpi::after {
+    content: '';
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 14px;
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(18, 61, 255, 0.32), rgba(0, 163, 255, 0));
+  }
+
+  .pm-page-kpi span {
+    color: #667085;
+    font-size: 11px;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .pm-page-kpi strong {
+    color: #101828;
+    font-size: 32px;
+    line-height: 1;
+    font-weight: 950;
+    letter-spacing: -0.045em;
+  }
+
+  .pm-hero-banner {
+    background: #ffffff;
+    color: #101828;
+    border: 1px solid #e5eaf2;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pm-hero-title {
+    color: #101828;
+  }
+
+  .pm-hero-sub {
+    color: #667085;
+  }
+
+  .pm-hero-pill,
+  button.pm-hero-pill,
+  .pm-btn-primary,
+  .pm-welcome-btn {
+    background: linear-gradient(135deg, #123dff, #0076ff);
+    color: #ffffff;
+    border-color: rgba(18, 61, 255, 0.20);
+    box-shadow: 0 12px 26px rgba(18, 61, 255, 0.20);
+  }
+
+  .pm-btn-primary:hover,
+  .pm-welcome-btn:hover {
+    background: linear-gradient(135deg, #0f35df, #006ee8);
+    box-shadow: 0 16px 34px rgba(18, 61, 255, 0.24);
+  }
+
+  .pm-input,
+  .pm-select,
+  .pm-list-date-input,
+  .pm-client-welcome-input,
+  .pm-color-field,
+  .pm-file-upload,
+  .pm-check-pill,
+  .pm-deliverable-item,
+  .pm-work-log,
+  .pm-filter-row .pm-input,
+  .pm-filter-row .pm-select,
+  .pm-filter-row .pm-btn {
+    background: #ffffff;
+    border-color: #dbe3ef;
+    color: #101828;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .pm-input::placeholder,
+  .pm-client-welcome-input::placeholder,
+  .pm-color-code-input::placeholder {
+    color: #98a2b3;
+  }
+
+  .pm-input:focus,
+  .pm-select:focus,
+  .pm-list-date-input:focus,
+  .pm-client-welcome-input:focus,
+  .pm-color-code-input:focus,
+  .pm-btn:focus-visible,
+  .pm-action-btn:focus-visible,
+  .pm-back-btn:focus-visible,
+  .pm-nav-btn:focus-visible,
+  .pm-welcome-btn:focus-visible,
+  .pm-list-row.item:focus-visible,
+  .pm-project-card:focus-visible,
+  .pm-support-card:focus-visible {
+    outline: none;
+    border-color: rgba(18, 61, 255, 0.52);
+    box-shadow: 0 0 0 4px rgba(18, 61, 255, 0.12);
+  }
+
+  .pm-select option {
+    background: #ffffff;
+    color: #101828;
+  }
+
+  .pm-action-btn,
+  .pm-btn-outline,
+  .pm-back-btn {
+    background: #ffffff;
+    border-color: #dbe3ef;
+    color: #344054;
+  }
+
+  .pm-action-btn:hover,
+  .pm-btn-outline:hover,
+  .pm-back-btn:hover {
+    background: #f3f7ff;
+    border-color: rgba(18, 61, 255, 0.28);
+    color: var(--accent);
+  }
+
+  .pm-project-card,
+  .pm-chat-card,
+  .pm-artifact-card,
+  .pm-external-card {
+    background: #ffffff;
+  }
+
+  .pm-client-card {
+    background: #ffffff;
+    border-radius: 16px;
+    min-height: 104px;
+  }
+
+  .pm-client-logo,
+  .pm-client-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+  }
+
+  .pm-project-card:hover,
+  .pm-support-card:hover,
+  .pm-task-card:hover,
+  .pm-client-card:hover,
+  .pm-milestone-card:hover,
+  .pm-compact-stat:hover,
+  .pm-page-kpi:hover {
+    transform: translateY(-2px);
+    border-color: rgba(18, 61, 255, 0.24);
+    box-shadow: var(--shadow-md);
+  }
+
+  .pm-list-table {
+    overflow-x: auto;
+  }
+
+  .pm-list-row {
+    min-width: 980px;
+    border-bottom-color: #edf1f7;
+  }
+
+  .pm-list-row.item:hover {
+    background: #f8fbff;
+  }
+
+  .pm-list-status {
+    color: #344054;
+    background: #f2f6fb;
+  }
+
+  .pm-list-bar,
+  .pm-hours-bar {
+    background: #edf2f7;
+  }
+
+  .pm-list-fill,
+  .pm-hours-fill {
+    background: linear-gradient(90deg, #123dff, #00a3ff);
+    box-shadow: none;
+  }
+
+  .pm-project-value-box,
+  .pm-chat-description,
+  .pm-chat-detail-item,
+  .pm-chat-panel,
+  .pm-artifact-description,
+  .pm-artifact-file-state {
+    background: #f8fbff;
+    border: 1px solid #e5eaf2;
+    box-shadow: none;
+  }
+
+  .pm-project-value-label {
+    color: #667085;
+  }
+
+  .pm-chat-bubble.admin {
+    color: #ffffff;
+    background: linear-gradient(135deg, #123dff, #0076ff);
+    box-shadow: 0 12px 28px rgba(18, 61, 255, 0.18);
+  }
+
+  .pm-chat-bubble.client {
+    color: #344054;
+    background: #f3f7ff;
+    border-color: #dbe5f4;
+  }
+
+  .pm-empty {
+    background: #ffffff;
+    border: 1px dashed #cfd8e6;
+    border-radius: 16px;
+  }
+
+  .pm-empty-text {
+    color: #667085;
+  }
+
+  .pm-status-pill {
+    border: 1px solid transparent;
+    background: #eef4ff;
+    color: var(--accent);
+  }
+
+  .pm-status-pill.Active,
+  .pm-status-pill.Approved,
+  .pm-status-pill.Completed {
+    background: #ecfdf5;
+    color: #047857;
+  }
+
+  .pm-status-pill.Expired,
+  .pm-status-pill.Suspended,
+  .pm-status-pill.Rejected {
+    background: #fff1f2;
+    color: #be123c;
+  }
+
+  .pm-status-pill.Pending,
+  .pm-status-pill.Pending-Renewal,
+  .pm-status-pill.Not-Started {
+    background: #fffbeb;
+    color: #b45309;
+  }
+
+  .pm-status-pill.In-Progress {
+    background: #eff6ff;
+    color: #1d4ed8;
+  }
+
+  .pm-divider-line,
+  .pm-client-welcome,
+  .pm-card-meta {
+    border-color: #edf1f7;
+  }
+
+  .pm-member-avatar {
+    background: linear-gradient(135deg, #123dff, #00a3ff);
+    color: #ffffff;
+    box-shadow: none;
+  }
+
+  .pm-gauge::after {
+    color: #667085;
+  }
+
+  @media (max-width: 1180px) {
+    .pm-content {
+      padding: 28px 24px 44px;
+    }
+
+    .pm-page-kpis {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 980px) {
+    .pm-sidebar {
+      width: 82px;
+    }
+
+    .pm-main,
+    .pm-main.pm-main-project-detail {
+      margin-left: 82px;
+    }
+
+    .pm-logo {
+      padding: 18px 14px;
+    }
+
+    .pm-logo-mark {
+      width: 40px;
+    }
+
+    .pm-logo-text,
+    .pm-nav-label,
+    .pm-logout-btn span {
+      display: none;
+    }
+
+    .pm-nav-btn {
+      justify-content: center;
+      padding: 11px;
+    }
+
+    .pm-nav-btn span:not(.icon) {
+      display: none;
+    }
+
+    .pm-topbar {
+      padding: 0 22px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .pm-sidebar {
+      display: flex;
+      width: 72px;
+    }
+
+    .pm-main,
+    .pm-main.pm-main-project-detail {
+      margin-left: 72px;
+    }
+
+    .pm-topbar {
+      height: auto;
+      min-height: 70px;
+      padding: 14px 18px;
+      align-items: flex-start;
+      gap: 10px;
+      flex-direction: column;
+    }
+
+    .pm-topbar-title {
+      font-size: 22px;
+    }
+
+    .pm-topbar-actions {
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    .pm-content {
+      padding: 18px 14px 36px;
+    }
+
+    .pm-page-kpis,
+    .pm-compact-stats,
+    .pm-support-grid,
+    .pm-chat-detail-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pm-section-header {
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .pm-project-value-box {
+      width: 100%;
+      min-width: 0;
+      margin-left: 0;
+    }
+  }
+
+  /* More visible admin polish pass. */
+  .pm-topbar {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,251,255,0.94));
+    box-shadow: 0 8px 28px rgba(16, 24, 40, 0.045);
+  }
+
+  .pm-topbar-left {
+    display: grid;
+    gap: 2px;
+  }
+
+  .pm-topbar-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .pm-topbar-title::before {
+    width: 30px;
+    height: 30px;
+    margin-right: 0;
+    border: 0;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #123dff, #00a3ff);
+    box-shadow: 0 10px 24px rgba(18,61,255,0.22);
+  }
+
+  .pm-topbar-chip {
+    background: #101828;
+    border-color: #101828;
+    color: #ffffff;
+    box-shadow: 0 12px 28px rgba(16, 24, 40, 0.12);
+  }
+
+  .pm-sidebar {
+    background:
+      linear-gradient(180deg, #ffffff 0%, #fafdff 100%);
+  }
+
+  .pm-nav-btn.active {
+    background: linear-gradient(135deg, rgba(18,61,255,0.12), rgba(0,163,255,0.08));
+    box-shadow:
+      inset 4px 0 0 #123dff,
+      0 10px 24px rgba(18,61,255,0.08);
+  }
+
+  .pm-content {
+    display: grid;
+    gap: 24px;
+  }
+
+  .pm-taskboard-shell {
+    border-radius: 24px;
+    padding: 30px;
+    border-color: rgba(18,61,255,0.12);
+    background:
+      linear-gradient(135deg, rgba(18,61,255,0.045), rgba(0,163,255,0.030) 36%, rgba(255,255,255,0) 58%),
+      #ffffff;
+    box-shadow: 0 24px 70px rgba(16, 24, 40, 0.08);
+  }
+
+  .pm-compact-stats {
+    grid-template-columns: repeat(4, minmax(180px, 1fr));
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+
+  .pm-compact-stat,
+  .pm-page-kpi {
+    border-radius: 20px;
+    min-height: 138px;
+    padding: 24px;
+    background:
+      radial-gradient(circle at 92% 12%, rgba(18,61,255,0.10), transparent 34%),
+      #ffffff;
+    border-color: #dfe7f3;
+    box-shadow: 0 18px 42px rgba(16,24,40,0.07);
+  }
+
+  .pm-compact-stat::after,
+  .pm-page-kpi::after {
+    left: 24px;
+    right: 24px;
+    bottom: 20px;
+    height: 4px;
+    background: linear-gradient(90deg, #123dff, #00a3ff 46%, rgba(0,163,255,0));
+  }
+
+  .pm-compact-stat span,
+  .pm-page-kpi span {
+    color: #667085;
+    font-size: 11px;
+    letter-spacing: 0.10em;
+  }
+
+  .pm-compact-stat strong,
+  .pm-page-kpi strong {
+    margin-top: 10px;
+    font-size: 42px;
+    letter-spacing: -0.055em;
+  }
+
+  .pm-compact-icon {
+    top: 24px;
+    right: 24px;
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    color: #123dff;
+    background: #eef4ff;
+  }
+
+  .pm-filter-row {
+    grid-template-columns: minmax(220px, 1fr) minmax(280px, 1.35fr) minmax(190px, 0.75fr) 170px;
+    gap: 16px;
+    padding: 22px;
+    border: 1px solid #dfe7f3;
+    border-radius: 20px;
+    background: rgba(248,251,255,0.82);
+  }
+
+  .pm-filter-row .pm-label {
+    color: #475467;
+    margin-bottom: 9px;
+  }
+
+  .pm-filter-row .pm-input,
+  .pm-filter-row .pm-select,
+  .pm-filter-row .pm-btn {
+    min-height: 54px;
+    border-radius: 14px;
+    font-size: 14px;
+  }
+
+  .pm-filter-row .pm-btn {
+    width: 100%;
+    justify-content: center;
+    margin-top: 0;
+  }
+
+  .pm-project-list {
+    border-radius: 24px;
+    border-color: #dfe7f3;
+    box-shadow: 0 24px 70px rgba(16, 24, 40, 0.075);
+  }
+
+  .pm-list-group {
+    padding: 30px;
+  }
+
+  .pm-list-status {
+    min-height: 34px;
+    padding: 0 14px;
+    border-radius: 999px;
+    background: #101828;
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+
+  .pm-list-status::before {
+    background: #00a3ff;
+  }
+
+  .pm-list-table {
+    border: 1px solid #edf1f7;
+    border-radius: 18px;
+    background: #ffffff;
+  }
+
+  .pm-list-row {
+    padding: 0 18px;
+    min-height: 76px;
+  }
+
+  .pm-list-row.head {
+    min-height: 48px;
+    background: #f8fbff;
+    color: #667085;
+  }
+
+  .pm-list-row.item {
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .pm-list-row.item:hover {
+    background: #f4f8ff;
+    transform: none;
+  }
+
+  .pm-list-name {
+    font-size: 16px;
+  }
+
+  .pm-action-btn {
+    min-height: 36px;
+  }
+
+  .pm-section {
+    border-radius: 22px;
+  }
+
+  .pm-page-kpis {
+    gap: 18px;
+  }
+
+  @media (max-width: 1320px) {
+    .pm-compact-stats,
+    .pm-page-kpis {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pm-filter-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pm-filter-row .pm-btn {
+      width: 180px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .pm-taskboard-shell {
+      padding: 18px;
+      border-radius: 18px;
+    }
+
+    .pm-compact-stats,
+    .pm-page-kpis,
+    .pm-filter-row {
+      grid-template-columns: 1fr;
+    }
+
+    .pm-compact-stat,
+    .pm-page-kpi {
+      min-height: 116px;
+    }
+
+    .pm-filter-row .pm-btn {
+      width: 100%;
+    }
+  }
 `
 
 export default function DashboardPage() {
@@ -4347,6 +5239,14 @@ if (loading) {
   const visibleDeliverables = isTeamMemberMode
     ? deliverables.filter(deliverable => visibleMilestoneIds.includes(deliverable.milestone_id))
     : deliverables
+  const openRequestCount = clientRequests.filter(request => request.status === 'Open').length
+  const closedRequestCount = clientRequests.filter(request => request.status === 'Closed').length
+  const pendingArtifactCount = artifacts.filter(artifact => artifact.approval_status !== 'Approved').length
+  const completedClientTaskCount = clientTasks.filter(task => task.status === 'Completed').length
+  const upcomingMeetingCount = meetings.filter(meeting => {
+    const meetingTime = Date.parse(`${meeting.meeting_date || ''}T${meeting.meeting_time || '00:00'}`)
+    return !Number.isNaN(meetingTime) && meetingTime >= supportTodayTime
+  }).length
 
   return (
     <div className="pm-root">
@@ -4504,6 +5404,9 @@ if (loading) {
               </span>
             </div>
             <div className="pm-topbar-actions">
+              <span className="pm-topbar-chip">
+                {isTeamMemberMode ? 'Team workspace' : 'Admin workspace'}
+              </span>
             </div>
           </div>
 
@@ -4512,6 +5415,25 @@ if (loading) {
             {/* ═══════════ CLIENTS VIEW ═══════════ */}
             {activeNav === 'clients' && !selectedProject && (
               <>
+                <div className="pm-page-kpis">
+                  <div className="pm-page-kpi">
+                    <span>Total Clients</span>
+                    <strong>{clients.length}</strong>
+                  </div>
+                  <div className="pm-page-kpi">
+                    <span>Active Projects</span>
+                    <strong>{projects.length}</strong>
+                  </div>
+                  <div className="pm-page-kpi">
+                    <span>Open Chats</span>
+                    <strong>{openRequestCount}</strong>
+                  </div>
+                  <div className="pm-page-kpi">
+                    <span>Pending Artifacts</span>
+                    <strong>{pendingArtifactCount}</strong>
+                  </div>
+                </div>
+
                 {/* Create Client */}
                 <div className="pm-section">
                   <div className="pm-section-header">
@@ -4705,6 +5627,25 @@ if (loading) {
 {/* ═══════════ TEAMS VIEW ═══════════ */}
 {activeNav === 'teams' && !selectedProject && (
   <>
+    <div className="pm-page-kpis">
+      <div className="pm-page-kpi">
+        <span>Team Members</span>
+        <strong>{teamMembers.length}</strong>
+      </div>
+      <div className="pm-page-kpi">
+        <span>Assigned Projects</span>
+        <strong>{projectTeamMembers.length}</strong>
+      </div>
+      <div className="pm-page-kpi">
+        <span>Total Projects</span>
+        <strong>{projects.length}</strong>
+      </div>
+      <div className="pm-page-kpi">
+        <span>Deliverables</span>
+        <strong>{deliverables.length}</strong>
+      </div>
+    </div>
+
     <div className="pm-section">
       <div className="pm-section-header">
         <div className="pm-section-icon">{Icons.client}</div>
@@ -4852,6 +5793,25 @@ if (loading) {
       <div className="pm-hero-pill">{clientTasks.length} task{clientTasks.length !== 1 ? 's' : ''}</div>
     </div>
 
+    <div className="pm-page-kpis">
+      <div className="pm-page-kpi">
+        <span>Total Tasks</span>
+        <strong>{clientTasks.length}</strong>
+      </div>
+      <div className="pm-page-kpi">
+        <span>Completed</span>
+        <strong>{completedClientTaskCount}</strong>
+      </div>
+      <div className="pm-page-kpi">
+        <span>In Progress</span>
+        <strong>{clientTasks.filter(task => task.status === 'In Progress').length}</strong>
+      </div>
+      <div className="pm-page-kpi">
+        <span>Not Started</span>
+        <strong>{clientTasks.filter(task => task.status === 'Not Started').length}</strong>
+      </div>
+    </div>
+
     <div className="pm-section">
       <div className="pm-section-header">
         <div className="pm-section-icon">{Icons.plus}</div>
@@ -4989,6 +5949,25 @@ if (loading) {
       <div className="pm-hero-pill">{meetings.length} meeting{meetings.length !== 1 ? 's' : ''}</div>
     </div>
 
+    <div className="pm-page-kpis">
+      <div className="pm-page-kpi">
+        <span>Total Meetings</span>
+        <strong>{meetings.length}</strong>
+      </div>
+      <div className="pm-page-kpi">
+        <span>Upcoming</span>
+        <strong>{upcomingMeetingCount}</strong>
+      </div>
+      <div className="pm-page-kpi">
+        <span>Clients</span>
+        <strong>{clients.length}</strong>
+      </div>
+      <div className="pm-page-kpi">
+        <span>Projects</span>
+        <strong>{projects.length}</strong>
+      </div>
+    </div>
+
     <div className="pm-section">
       <div className="pm-section-header">
         <div className="pm-section-icon">{Icons.meeting}</div>
@@ -5108,6 +6087,25 @@ if (loading) {
         <div className="pm-hero-sub">Upload project files for clients, track approval status, and keep documents linked to the right project.</div>
       </div>
       <div className="pm-hero-pill">{artifacts.length} artifact{artifacts.length !== 1 ? 's' : ''}</div>
+    </div>
+
+    <div className="pm-page-kpis">
+      <div className="pm-page-kpi">
+        <span>Total Artifacts</span>
+        <strong>{artifacts.length}</strong>
+      </div>
+      <div className="pm-page-kpi">
+        <span>Pending Approval</span>
+        <strong>{pendingArtifactCount}</strong>
+      </div>
+      <div className="pm-page-kpi">
+        <span>Clients</span>
+        <strong>{clients.length}</strong>
+      </div>
+      <div className="pm-page-kpi">
+        <span>Projects</span>
+        <strong>{projects.length}</strong>
+      </div>
     </div>
 
     <div className="pm-section">
@@ -5482,14 +6480,14 @@ if (loading) {
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 12 }}>
                       <div>
                         <div className="pm-stat-label">Monthly Fee</div>
-                        <div style={{ fontSize: 18, fontWeight: 900, color: '#ffffff' }}>{Number(contract.monthly_support_fee || 0).toLocaleString()}</div>
+                        <div style={{ fontSize: 18, fontWeight: 900, color: '#101828' }}>{Number(contract.monthly_support_fee || 0).toLocaleString()}</div>
                       </div>
                       <div>
                         <div className="pm-stat-label">Duration</div>
-                        <div style={{ fontSize: 13, fontWeight: 900, color: '#ffffff' }}>{Number(contract.duration_days || 0)} days</div>
+                        <div style={{ fontSize: 13, fontWeight: 900, color: '#101828' }}>{Number(contract.duration_days || 0)} days</div>
                       </div>
                     </div>
-                    <div style={{ fontSize: 12, color: 'rgba(226,232,255,0.70)', fontWeight: 800 }}>
+                    <div style={{ fontSize: 12, color: '#667085', fontWeight: 800 }}>
                       {hours.used} used / {hours.included} included hours
                     </div>
                     <div className="pm-hours-bar">
@@ -5557,14 +6555,14 @@ if (loading) {
               </div>
 
               <div style={{ marginTop: 18, display: 'grid', gap: 8 }}>
-                <div style={{ fontSize: 12, fontWeight: 900, color: '#ffffff' }}>SLA Response Times</div>
+                <div style={{ fontSize: 12, fontWeight: 900, color: '#101828' }}>SLA Response Times</div>
                 <div className="pm-card-client">Critical: {selectedSupportContract.critical_response_hours || 0}h{selectedSupportContract.critical_response_definition ? ` • ${selectedSupportContract.critical_response_definition}` : ''}</div>
                 <div className="pm-card-client">Normal: {selectedSupportContract.normal_response_hours || 0}h{selectedSupportContract.normal_response_definition ? ` • ${selectedSupportContract.normal_response_definition}` : ''}</div>
                 <div className="pm-card-client">Low: {selectedSupportContract.low_response_hours || 0}h{selectedSupportContract.low_response_definition ? ` • ${selectedSupportContract.low_response_definition}` : ''}</div>
               </div>
 
               <div style={{ marginTop: 18 }}>
-                <div style={{ fontSize: 12, fontWeight: 900, color: '#ffffff', marginBottom: 8 }}>Included Scope</div>
+                <div style={{ fontSize: 12, fontWeight: 900, color: '#101828', marginBottom: 8 }}>Included Scope</div>
                 {(selectedSupportContract.included_scope || []).length === 0 ? (
                   <div className="pm-card-client">No included scope selected.</div>
                 ) : (
@@ -5578,7 +6576,7 @@ if (loading) {
 
               <div style={{ marginTop: 18 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                  <div style={{ fontSize: 12, fontWeight: 900, color: '#ffffff' }}>Renewal Log</div>
+                  <div style={{ fontSize: 12, fontWeight: 900, color: '#101828' }}>Renewal Log</div>
                   <button className="pm-action-btn" onClick={() => renewSupportContract(selectedSupportContract)}>Renew</button>
                 </div>
                 {selectedSupportRenewals.length === 0 ? (
@@ -5659,13 +6657,13 @@ if (loading) {
               selectedSupportLogs.map(log => (
                 <div key={log.id} className="pm-work-log">
                   <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
-                    <div style={{ fontWeight: 900, color: '#ffffff' }}>{log.title}</div>
+                    <div style={{ fontWeight: 900, color: '#101828' }}>{log.title}</div>
                     <span className={`pm-status-pill ${String(log.approval_status || 'Pending').replaceAll(' ', '-')}`}>{log.approval_status || 'Pending'}</span>
                   </div>
                   <div className="pm-card-client">
                     {log.work_date || 'No creation date'} • {Number(log.time_spent_hours || 0)}h required • {Number(log.charged_hours || 0)}h charged • {Number(log.charge_per_hour || 0).toLocaleString()} per hour • {log.priority} • {log.status}
                   </div>
-                  {log.description && <div style={{ color: 'rgba(226,232,255,0.70)', fontSize: 13, lineHeight: 1.5 }}>{log.description}</div>}
+                  {log.description && <div style={{ color: '#667085', fontSize: 13, lineHeight: 1.5 }}>{log.description}</div>}
                 </div>
               ))
             )}
@@ -5678,6 +6676,25 @@ if (loading) {
 {/* ═══════════ CLIENTS REQUESTS VIEW ═══════════ */}
 {activeNav === 'requests' && !selectedProject && !selectedRequest && (
   <>
+    <div className="pm-page-kpis">
+      <div className="pm-page-kpi">
+        <span>Total Chats</span>
+        <strong>{clientRequests.length}</strong>
+      </div>
+      <div className="pm-page-kpi">
+        <span>Open</span>
+        <strong>{openRequestCount}</strong>
+      </div>
+      <div className="pm-page-kpi">
+        <span>Closed</span>
+        <strong>{closedRequestCount}</strong>
+      </div>
+      <div className="pm-page-kpi">
+        <span>Messages</span>
+        <strong>{clientRequestMessages.length}</strong>
+      </div>
+    </div>
+
     <div className="pm-section">
       <div className="pm-section-header">
         <div className="pm-section-icon">{Icons.chat}</div>

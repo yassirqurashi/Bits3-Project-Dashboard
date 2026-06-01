@@ -257,6 +257,91 @@ const styles = `
     .client-edit-actions { flex-direction: column-reverse; }
     .client-edit-btn { width: 100%; }
   }
+
+  .client-edit-root {
+    background:
+      radial-gradient(circle at 88% -10%, rgba(18, 61, 255, 0.08), transparent 26%),
+      #f6f8fb;
+    color: #101828;
+  }
+
+  .client-edit-shell {
+    max-width: 960px;
+  }
+
+  .client-edit-eyebrow,
+  .client-edit-subtitle,
+  .client-edit-label,
+  .client-edit-file-title,
+  .client-edit-file-sub,
+  .client-edit-color span {
+    color: #667085;
+  }
+
+  .client-edit-title {
+    color: #101828;
+    letter-spacing: -0.035em;
+  }
+
+  .client-edit-card {
+    background: #ffffff;
+    border: 1px solid #e5eaf2;
+    border-radius: 18px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 14px 38px rgba(16, 24, 40, 0.06);
+  }
+
+  .client-edit-preview {
+    color: #ffffff;
+    background: linear-gradient(135deg, var(--client-primary), var(--client-secondary));
+  }
+
+  .client-edit-preview-name,
+  .client-edit-preview-email {
+    color: #ffffff;
+  }
+
+  .client-edit-input,
+  .client-edit-color,
+  .client-edit-file {
+    border-color: #dbe3ef;
+    border-radius: 13px;
+    background: #ffffff;
+    color: #101828;
+    box-shadow: none;
+  }
+
+  .client-edit-input:focus {
+    border-color: rgba(18, 61, 255, 0.52);
+    box-shadow: 0 0 0 4px rgba(18, 61, 255, 0.12);
+  }
+
+  .client-edit-file {
+    background: #f8fbff;
+  }
+
+  .client-edit-file:hover {
+    border-color: rgba(18, 61, 255, 0.38);
+    background: #f3f7ff;
+  }
+
+  .client-edit-btn {
+    border-radius: 12px;
+  }
+
+  .client-edit-btn.primary {
+    background: linear-gradient(135deg, #123dff, #0076ff);
+    box-shadow: 0 12px 26px rgba(18, 61, 255, 0.20);
+  }
+
+  .client-edit-btn.secondary {
+    color: #123dff;
+    border-color: #dbe3ef;
+  }
+
+  .client-edit-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(18, 61, 255, 0.12);
+  }
 `
 
 export default function EditClientPage() {
