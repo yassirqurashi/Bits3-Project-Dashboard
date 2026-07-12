@@ -5325,14 +5325,23 @@ const saveTeamMember = async () => {
     const data = deliverableTitles[milestoneId] || {}
 
     if (!data.title?.trim()) return
+    if (!data.start_date || !data.end_date) {
+      alert('Please set both start and end dates for this deliverable.')
+      return
+    }
 
-    await supabase.from('deliverables').insert([{
+    const { error } = await supabase.from('deliverables').insert([{
       title: data.title,
       milestone_id: milestoneId,
-      start_date: data.start_date || null,
-      end_date: data.end_date || null,
+      start_date: data.start_date,
+      end_date: data.end_date,
       status: data.status || 'Not started'
     }])
+
+    if (error) {
+      alert(error.message)
+      return
+    }
 
     setDeliverableTitles(prev => ({
       ...prev,
@@ -8585,26 +8594,28 @@ if (loading) {
                                 flexWrap: 'wrap'
                               }}>
                                 {!isTeamMemberMode && (
-                                <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#f3f0ff', color: '#5b4bff', padding: '4px 8px', borderRadius: '999px', fontSize: '11px', fontWeight: 800, whiteSpace: 'nowrap' }}>
+                                <label style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: 6, background: '#f3f0ff', color: '#5b4bff', padding: '4px 8px', borderRadius: '999px', fontSize: '11px', fontWeight: 800, whiteSpace: 'nowrap' }}>
                                   Start
                                   <input
                                     type="date"
                                     value={d.start_date || ''}
                                     onChange={(e) => updateDeliverableField(d.id, 'start_date', e.target.value)}
-                                    style={{ border: 'none', background: 'transparent', color: '#5b4bff', fontSize: '11px', fontWeight: 800, outline: 'none', cursor: 'pointer', width: 104 }}
+                                    style={{ border: 'none', background: 'transparent', color: d.start_date ? '#5b4bff' : 'transparent', fontSize: '11px', fontWeight: 800, outline: 'none', cursor: 'pointer', width: 104 }}
                                   />
+                                  {!d.start_date && <span style={{ position: 'absolute', left: 48, pointerEvents: 'none', color: '#5b4bff' }}>Not set</span>}
                                 </label>
                                 )}
 
                                 {!isTeamMemberMode && (
-                                <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#eef7ff', color: '#2563eb', padding: '4px 8px', borderRadius: '999px', fontSize: '11px', fontWeight: 800, whiteSpace: 'nowrap' }}>
+                                <label style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: 6, background: '#eef7ff', color: '#2563eb', padding: '4px 8px', borderRadius: '999px', fontSize: '11px', fontWeight: 800, whiteSpace: 'nowrap' }}>
                                   End
                                   <input
                                     type="date"
                                     value={d.end_date || ''}
                                     onChange={(e) => updateDeliverableField(d.id, 'end_date', e.target.value)}
-                                    style={{ border: 'none', background: 'transparent', color: '#2563eb', fontSize: '11px', fontWeight: 800, outline: 'none', cursor: 'pointer', width: 104 }}
+                                    style={{ border: 'none', background: 'transparent', color: d.end_date ? '#2563eb' : 'transparent', fontSize: '11px', fontWeight: 800, outline: 'none', cursor: 'pointer', width: 104 }}
                                   />
+                                  {!d.end_date && <span style={{ position: 'absolute', left: 38, pointerEvents: 'none', color: '#2563eb' }}>Not set</span>}
                                 </label>
                                 )}
 

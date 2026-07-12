@@ -247,7 +247,15 @@ export default function ClientDashboardPage() {
 
     return normalizedUrl
   }
-  const formatDate = (date?: string | null) => date ? new Date(date).toLocaleDateString() : 'Not set'
+  const formatDate = (date?: string | null) => {
+    if (!date) return 'Not set'
+    const dateOnlyMatch = date.match(/^(\d{4})-(\d{2})-(\d{2})$/)
+    const parsedDate = dateOnlyMatch
+      ? new Date(Number(dateOnlyMatch[1]), Number(dateOnlyMatch[2]) - 1, Number(dateOnlyMatch[3]))
+      : new Date(date)
+
+    return Number.isNaN(parsedDate.getTime()) ? 'Not set' : parsedDate.toLocaleDateString()
+  }
   const getStatusStyle = (status?: string) => {
     if (status === 'Completed') return { background: '#e8f5e9', color: '#2e7d32' }
     if (status === 'Delayed') return { background: '#fdecea', color: '#c0392b' }
