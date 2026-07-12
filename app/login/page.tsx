@@ -13,10 +13,9 @@ const styles = `
     font-family: Inter, Arial, sans-serif;
     color: #ffffff;
     background:
-      radial-gradient(circle at 20% 12%, rgba(18,61,255,0.12), transparent 22%),
-      radial-gradient(circle at 82% 16%, rgba(0,123,255,0.08), transparent 26%),
-      radial-gradient(circle at 50% 105%, rgba(18,61,255,0.07), transparent 36%),
-      linear-gradient(135deg, #000104 0%, #02040c 44%, #000205 100%);
+      radial-gradient(circle at 74% 46%, rgba(18,61,255,0.13), transparent 27%),
+      radial-gradient(circle at 84% 82%, rgba(0,163,255,0.08), transparent 28%),
+      linear-gradient(180deg, #030303 0%, #000000 100%);
     position: relative;
     overflow: hidden;
   }
@@ -26,11 +25,9 @@ const styles = `
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(rgba(255,255,255,0.020) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.020) 1px, transparent 1px);
-    background-size: 72px 72px;
-    mask-image: radial-gradient(circle at 50% 34%, black, transparent 68%);
-    opacity: 0.36;
+      linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.035) 50%, transparent 100%),
+      radial-gradient(circle at 50% 0%, rgba(255,255,255,0.08), transparent 34%);
+    opacity: 0.55;
     z-index: 0;
   }
 
@@ -40,8 +37,8 @@ const styles = `
     inset: 0;
     pointer-events: none;
     background:
-      linear-gradient(180deg, rgba(255,255,255,0.024), transparent 18%, transparent 78%, rgba(18,61,255,0.045)),
-      radial-gradient(circle at 50% 42%, transparent 0%, rgba(0,0,0,0.46) 72%);
+      linear-gradient(180deg, rgba(255,255,255,0.03), transparent 18%, transparent 74%, rgba(18,61,255,0.06)),
+      radial-gradient(circle at 78% 50%, transparent 0%, rgba(0,0,0,0.54) 58%);
     z-index: 0;
   }
 
@@ -49,9 +46,9 @@ const styles = `
     position: relative;
     z-index: 1;
     min-height: 100vh;
-    max-width: 1240px;
+    max-width: 1320px;
     margin: 0 auto;
-    padding: 30px 32px;
+    padding: 20px 46px 42px;
     display: flex;
     flex-direction: column;
   }
@@ -60,7 +57,16 @@ const styles = `
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    gap: 28px;
+    width: min(100%, 930px);
+    margin: 0 auto;
+    padding: 8px 22px;
+    border: 1px solid rgba(255,255,255,0.11);
+    border-radius: 999px;
+    background: rgba(12,12,12,0.86);
+    box-shadow: 0 22px 54px rgba(0,0,0,0.34), inset 0 1px 0 rgba(255,255,255,0.06);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
   }
 
   .pm-login-brand {
@@ -72,124 +78,121 @@ const styles = `
   }
 
   .pm-login-brand-logo {
-    width: 118px;
+    width: 60px;
     height: auto;
     display: block;
-    filter: drop-shadow(0 0 22px rgba(18,61,255,0.45));
+    filter: brightness(0) invert(1) drop-shadow(0 0 18px rgba(255,255,255,0.15));
   }
 
   .pm-login-nav-links {
     display: flex;
     align-items: center;
     gap: 24px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 800;
-    color: rgba(226,232,255,0.70);
+    color: rgba(255,255,255,0.58);
   }
 
   .pm-login-nav-pill {
-    border: 1px solid rgba(45,98,255,0.55);
-    border-radius: 999px;
-    padding: 12px 22px;
+    border: none;
+    padding: 0;
     color: #fff;
-    background: rgba(18,61,255,0.13);
-    box-shadow: inset 0 0 24px rgba(18,61,255,0.18);
+    background: transparent;
+    box-shadow: none;
   }
 
   .pm-login-hero {
     flex: 1;
     display: grid;
-    grid-template-columns: minmax(0, 1.08fr) 430px;
-    align-items: end;
-    gap: 44px;
-    padding: 0 0 210px;
+    grid-template-columns: minmax(0, 1.08fr) 400px;
+    align-items: center;
+    gap: 46px;
+    padding: 42px 0 0;
   }
 
   .pm-login-stage {
     position: relative;
-    min-height: 610px;
+    min-height: 540px;
     display: flex;
-    align-items: flex-end;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-start;
     padding-top: 0;
-    perspective: 1200px;
   }
 
   .pm-login-cube {
     position: absolute;
-    top: -120px;
-    left: 50%;
-    width: min(66%, 500px);
-    max-height: 500px;
+    right: -70px;
+    top: 190px;
+    width: min(50%, 430px);
+    max-height: 330px;
     object-fit: contain;
-    filter: drop-shadow(0 34px 90px rgba(18,61,255,0.34));
-    animation: pmCubeFloat 7s ease-in-out infinite;
+    opacity: 0.08;
+    filter: grayscale(1) brightness(1.6);
+    animation: none;
     z-index: 0;
-    transform-style: preserve-3d;
-    will-change: transform;
   }
 
-  .pm-login-orbit {
-    display: none;
+  .pm-login-watermark {
+    position: absolute;
+    right: -130px;
+    top: 205px;
+    width: 500px;
+    opacity: 0.055;
+    filter: brightness(0) invert(1);
+    z-index: 0;
+    pointer-events: none;
   }
 
   .pm-login-copy {
     position: relative;
-    left: auto;
-    bottom: auto;
     max-width: 620px;
-    padding: 22px 24px;
-    border: 1px solid rgba(255,255,255,0.14);
-    border-radius: 28px;
-    background:
-      linear-gradient(145deg, rgba(255,255,255,0.085), rgba(255,255,255,0.025)),
-      rgba(3,6,16,0.50);
-    backdrop-filter: blur(28px) saturate(132%);
-    -webkit-backdrop-filter: blur(28px) saturate(132%);
-    box-shadow:
-      0 28px 80px rgba(0,0,0,0.28),
-      inset 0 1px 0 rgba(255,255,255,0.16),
-      inset 0 -1px 0 rgba(255,255,255,0.05);
-    margin-top: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
     z-index: 1;
   }
 
   .pm-login-kicker {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    padding: 9px 13px;
-    border-radius: 999px;
-    background: rgba(18,61,255,0.16);
-    border: 1px solid rgba(45,98,255,0.38);
-    color: #AFC4FF;
-    font-size: 12px;
+    gap: 10px;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    border: none;
+    color: #1768ff;
+    font-size: 15px;
     font-weight: 900;
-    margin-bottom: 16px;
+    margin-bottom: 22px;
   }
 
   .pm-login-title {
     margin: 0;
-    font-size: 54px;
-    line-height: 0.98;
+    font-size: clamp(48px, 5.7vw, 84px);
+    line-height: 0.96;
     font-weight: 900;
-    letter-spacing: 0;
-    max-width: 580px;
+    letter-spacing: -0.055em;
+    max-width: 650px;
   }
 
   .pm-login-subtitle {
-    margin: 16px 0 0;
+    margin: 24px 0 0;
     max-width: 540px;
-    color: rgba(226,232,255,0.72);
-    font-size: 15px;
-    line-height: 1.7;
-    font-weight: 700;
+    color: rgba(255,255,255,0.66);
+    font-size: 19px;
+    line-height: 1.45;
+    font-weight: 800;
+    letter-spacing: -0.02em;
   }
 
   .pm-login-actions {
-    margin-top: 20px;
+    margin-top: 28px;
     display: flex;
-    gap: 10px;
+    gap: 14px;
     flex-wrap: wrap;
   }
 
@@ -197,26 +200,25 @@ const styles = `
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    min-height: 38px;
+    min-height: 42px;
     border-radius: 999px;
-    padding: 0 14px;
-    color: #C7D5FF;
+    padding: 0 18px;
+    color: rgba(255,255,255,0.82);
     background: rgba(255,255,255,0.055);
-    border: 1px solid rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.12);
     font-size: 12px;
     font-weight: 900;
   }
 
   .pm-login-panel {
     background:
-      linear-gradient(180deg, rgba(8,13,28,0.84), rgba(3,6,15,0.96)),
-      rgba(2,4,10,0.86);
+      linear-gradient(160deg, #2f6edf 0%, #102441 100%);
     color: #ffffff;
-    border-radius: 32px;
-    padding: 34px;
-    box-shadow: 0 28px 90px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.10);
-    border: 1px solid rgba(79,120,255,0.26);
-    align-self: end;
+    border-radius: 24px;
+    padding: 36px 32px;
+    box-shadow: 0 38px 90px rgba(0,0,0,0.36), inset 0 1px 0 rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.12);
+    align-self: center;
     width: 100%;
     position: relative;
     overflow: hidden;
@@ -225,44 +227,47 @@ const styles = `
   .pm-login-panel::before {
     content: '';
     position: absolute;
-    left: 22px;
-    right: 22px;
-    top: 0;
-    height: 3px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, transparent, #123DFF, #00A3FF, transparent);
+    left: 38px;
+    right: 38px;
+    top: 50%;
+    height: 1px;
+    border-radius: 0;
+    background: rgba(255,255,255,0.18);
   }
 
   .pm-login-icon {
-    width: 76px;
-    height: 76px;
-    border-radius: 22px;
-    background: rgba(18,61,255,0.12);
-    border: 1px solid rgba(45,98,255,0.24);
+    width: 72px;
+    height: 44px;
+    border-radius: 0;
+    background: transparent;
+    border: none;
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 22px;
-    box-shadow: 0 18px 48px rgba(18,61,255,0.18);
+    justify-content: flex-start;
+    margin-bottom: 24px;
+    box-shadow: none;
   }
 
   .pm-login-icon img {
-    width: 62px;
-    height: 62px;
+    width: 74px;
+    height: auto;
     object-fit: contain;
+    filter: brightness(0) invert(1);
   }
 
   .pm-login-panel-title {
     margin: 0;
-    font-size: 30px;
+    font-size: 34px;
+    line-height: 1.02;
     font-weight: 900;
     color: #fff;
+    letter-spacing: -0.045em;
   }
 
   .pm-login-panel-subtitle {
-    margin: 8px 0 26px;
-    color: rgba(226,232,255,0.62);
-    font-size: 14px;
+    margin: 10px 0 34px;
+    color: rgba(255,255,255,0.70);
+    font-size: 15px;
     font-weight: 700;
     line-height: 1.55;
   }
@@ -271,8 +276,8 @@ const styles = `
     display: block;
     font-size: 12px;
     font-weight: 900;
-    color: rgba(226,232,255,0.64);
-    margin-bottom: 8px;
+    color: rgba(255,255,255,0.70);
+    margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
@@ -281,19 +286,19 @@ const styles = `
     display: flex;
     align-items: center;
     gap: 10px;
-    border: 1px solid rgba(91,124,255,0.20);
-    border-radius: 18px;
-    padding: 0 14px;
-    height: 54px;
-    margin-bottom: 16px;
-    background: rgba(255,255,255,0.055);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 14px;
+    padding: 0 16px;
+    height: 52px;
+    margin-bottom: 15px;
+    background: rgba(255,255,255,0.10);
     transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   }
 
   .pm-login-input-wrap:focus-within {
-    border-color: rgba(35,89,255,0.72);
-    box-shadow: 0 0 0 4px rgba(18,61,255,0.14);
-    background: rgba(255,255,255,0.075);
+    border-color: rgba(255,255,255,0.54);
+    box-shadow: 0 0 0 4px rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.15);
   }
 
   .pm-login-input {
@@ -307,13 +312,13 @@ const styles = `
   }
 
   .pm-login-input::placeholder {
-    color: rgba(226,232,255,0.34);
+    color: rgba(255,255,255,0.48);
   }
 
   .pm-password-toggle {
     border: none;
     background: transparent;
-    color: #8FACFF;
+    color: rgba(255,255,255,0.82);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -324,7 +329,7 @@ const styles = `
   }
 
   .pm-password-toggle:hover {
-    background: rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.12);
   }
 
   .pm-login-error {
@@ -340,15 +345,15 @@ const styles = `
 
   .pm-login-button {
     width: 100%;
-    height: 56px;
+    height: 52px;
     border: none;
-    border-radius: 18px;
-    background: linear-gradient(135deg, #123DFF, #006DFF);
-    color: #fff;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #123DFF;
     font-size: 15px;
     font-weight: 900;
     cursor: pointer;
-    box-shadow: 0 18px 40px rgba(18,61,255,0.36);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.18);
   }
 
   .pm-login-button:disabled {
@@ -357,29 +362,42 @@ const styles = `
   }
 
   @media (max-width: 960px) {
+    .pm-login-shell { padding: 20px 20px 38px; }
+    .pm-login-nav { width: 100%; }
     .pm-login-nav-links { display: none; }
-    .pm-login-hero { grid-template-columns: 1fr; padding-top: 38px; }
+    .pm-login-hero { grid-template-columns: 1fr; padding-top: 44px; gap: 32px; }
     .pm-login-panel { width: min(100%, 460px); justify-self: center; }
-    .pm-login-title { font-size: 40px; }
-    .pm-login-stage { min-height: 560px; }
-    .pm-login-copy { position: relative; left: auto; bottom: auto; margin-top: -60px; }
+    .pm-login-title { font-size: 56px; }
+    .pm-login-subtitle { font-size: 18px; }
+    .pm-login-stage { min-height: 520px; }
+    .pm-login-watermark,
+    .pm-login-cube { display: none; }
   }
 
   @media (max-width: 620px) {
-    .pm-login-shell { padding: 22px 18px 0; }
-    .pm-login-title { font-size: 34px; }
+    .pm-login-title { font-size: 44px; }
+    .pm-login-subtitle { font-size: 16px; }
     .pm-login-panel { padding: 24px; border-radius: 24px; }
-    .pm-login-stage { min-height: auto; display: grid; gap: 18px; }
-    .pm-login-cube { width: 86%; }
-    .pm-login-copy { margin-top: 0; padding: 18px; }
-  }
-
-  @keyframes pmCubeFloat {
-    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-1deg); }
-    50% { transform: translateX(-50%) translateY(-16px) rotate(1deg); }
+    .pm-login-stage { min-height: auto; }
+    .pm-login-nav { padding: 18px 22px; }
   }
 
 `
+
+const DATABASE_CONNECTION_ERROR = 'Unable to connect to the project database. Check the Supabase URL in .env.local and make sure the project is active.'
+
+const withDatabaseTimeout = async <T,>(request: PromiseLike<T>) => {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined
+  const timeout = new Promise<never>((_, reject) => {
+    timeoutId = setTimeout(() => reject(new Error(DATABASE_CONNECTION_ERROR)), 8000)
+  })
+
+  try {
+    return await Promise.race([request, timeout])
+  } finally {
+    if (timeoutId) clearTimeout(timeoutId)
+  }
+}
 
 export default function LoginPage() {
   const router = useRouter()
@@ -393,48 +411,64 @@ export default function LoginPage() {
     setLoading(true)
     setError('')
 
-    const { data: loginData, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
+    try {
+      const { data: loginData, error } = await withDatabaseTimeout(
+        supabase.auth.signInWithPassword({
+          email,
+          password,
+        })
+      )
 
-    if (error) {
-      const { data: teamMember } = await supabase
-        .from('team_members')
-        .select('*')
-        .eq('username', email.trim())
-        .single()
+      if (error) {
+        if (error.message.toLowerCase().includes('failed to fetch')) {
+          throw new Error(DATABASE_CONNECTION_ERROR)
+        }
 
-      if (teamMember && String(teamMember.password || '').trim() === password.trim()) {
-        await supabase.auth.signOut()
-        window.localStorage.setItem('pm-team-member-id', teamMember.id)
+        const { data: teamMember } = await withDatabaseTimeout(
+          supabase
+            .from('team_members')
+            .select('*')
+            .eq('username', email.trim())
+            .single()
+        )
+
+        if (teamMember && String(teamMember.password || '').trim() === password.trim()) {
+          await supabase.auth.signOut()
+          window.localStorage.setItem('pm-team-member-id', teamMember.id)
+          setLoading(false)
+          router.push('/dashboard')
+          return
+        }
+
         setLoading(false)
-        router.push('/dashboard')
+        setError(error.message)
+        return
+      }
+
+      const user = loginData.user
+      const { data: profile, error: profileError } = await withDatabaseTimeout(
+        supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', user.id)
+          .single()
+      )
+
+      if (profileError || profile?.role !== 'pm') {
+        await supabase.auth.signOut()
+        setLoading(false)
+        setError('This account does not have access to the admin dashboard.')
         return
       }
 
       setLoading(false)
-      setError(error.message)
-      return
-    }
-
-    const user = loginData.user
-    const { data: profile, error: profileError } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .single()
-
-    if (profileError || profile?.role !== 'pm') {
-      await supabase.auth.signOut()
+      window.localStorage.removeItem('pm-team-member-id')
+      router.push('/dashboard')
+    } catch (loginError) {
+      console.error('Login request failed', loginError)
       setLoading(false)
-      setError('This account does not have access to the admin dashboard.')
-      return
+      setError(DATABASE_CONNECTION_ERROR)
     }
-
-    setLoading(false)
-    window.localStorage.removeItem('pm-team-member-id')
-    router.push('/dashboard')
   }
 
   return (
@@ -456,16 +490,16 @@ export default function LoginPage() {
 
         <section className="pm-login-hero">
           <div className="pm-login-stage">
-            <div className="pm-login-orbit" />
-            <img className="pm-login-cube" src="/bits3-login-cube.png" alt="Bits3 operations cube" />
+            <img className="pm-login-watermark" src="/bits3-logo.png" alt="" />
+            <img className="pm-login-cube" src="/bits3-logo.png" alt="" />
             <div className="pm-login-copy">
-              <div className="pm-login-kicker"><Sparkles size={15} /> Project command system</div>
-              <h1 className="pm-login-title">Control delivery from the blue core.</h1>
+              <div className="pm-login-kicker"><Sparkles size={18} /> Bits3 digital systems studio</div>
+              <h1 className="pm-login-title">Run every project from one blue command center.</h1>
               <p className="pm-login-subtitle">
-                A secure Bits3 workspace for clients, projects, milestones, payments, chats, artifacts, meetings, and support operations.
+                Manage your clients, projects, milestones, payments, chats, and support from the blue studio.
               </p>
               <div className="pm-login-actions">
-                <span className="pm-login-chip">Live delivery hub <ArrowRight size={14} /></span>
+                <span className="pm-login-chip">Studio dashboard <ArrowRight size={14} /></span>
                 <span className="pm-login-chip">PM access only</span>
               </div>
             </div>
@@ -481,8 +515,8 @@ export default function LoginPage() {
             <div className="pm-login-icon">
               <img src="/bits3-logo.png" alt="" />
             </div>
-            <h2 className="pm-login-panel-title">Project Manager Portal</h2>
-            <p className="pm-login-panel-subtitle">Sign in to access your project manager dashboard.</p>
+            <h2 className="pm-login-panel-title">Project manager access.</h2>
+            <p className="pm-login-panel-subtitle">Sign in to manage clients, delivery, support, payments, and team operations.</p>
 
             <label className="pm-login-field-label" htmlFor="pm-email">Email / Team Username</label>
             <div className="pm-login-input-wrap">

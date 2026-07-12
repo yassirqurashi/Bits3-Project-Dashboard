@@ -258,6 +258,17 @@ const getInitialDashboardSection = (): DashboardSection => {
   return 'projects'
 }
 
+const getDashboardSectionIcon = (section: DashboardSection) => {
+  if (section === 'projects') return Icons.project
+  if (section === 'teams') return Icons.team
+  if (section === 'requests') return Icons.chat
+  if (section === 'support') return Icons.support
+  if (section === 'client-tasks') return Icons.task
+  if (section === 'meetings') return Icons.meeting
+  if (section === 'artifacts') return Icons.artifact
+  return Icons.client
+}
+
 // ─── Styles ───────────────────────────────────────────────────────────────────
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -3785,11 +3796,1035 @@ const styles = `
       width: 100%;
     }
   }
+
+  /* Bits3 noir admin theme: final layer matching the login page. */
+  .pm-root {
+    --black: #f8fbff;
+    --white: #ffffff;
+    --gray-50: rgba(255,255,255,0.055);
+    --gray-100: rgba(255,255,255,0.08);
+    --gray-200: rgba(142,170,255,0.18);
+    --gray-400: #7f8baa;
+    --gray-600: #a6b0cc;
+    --gray-800: #e8efff;
+    --accent: #123dff;
+    --accent-2: #00a3ff;
+    --accent-light: rgba(18,61,255,0.14);
+    --success: #39d98a;
+    --danger: #ff5d73;
+    --warning: #ffc857;
+    --shadow-sm: 0 18px 46px rgba(0,0,0,0.22);
+    --shadow-md: 0 24px 70px rgba(18,61,255,0.18);
+    --shadow-lg: 0 34px 95px rgba(0,0,0,0.34);
+    background:
+      radial-gradient(circle at 18% 0%, rgba(18,61,255,0.18), transparent 24%),
+      radial-gradient(circle at 92% 4%, rgba(0,163,255,0.12), transparent 28%),
+      linear-gradient(180deg, #05070c 0%, #010205 100%);
+    color: #f8fbff;
+  }
+
+  .pm-root::before {
+    display: block;
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(rgba(255,255,255,0.024) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.024) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(circle at 52% 22%, black, transparent 70%);
+    opacity: 0.38;
+    z-index: 0;
+  }
+
+  .pm-layout {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: none;
+    min-height: 100vh;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .pm-sidebar {
+    width: 268px;
+    background: rgba(7,10,18,0.92);
+    border-right: 1px solid rgba(255,255,255,0.09);
+    box-shadow: 18px 0 60px rgba(0,0,0,0.34);
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+  }
+
+  .pm-logo {
+    min-height: 80px;
+    padding: 18px 22px;
+    border-bottom: 1px solid rgba(255,255,255,0.09);
+  }
+
+  .pm-logo-title,
+  .pm-logo-name {
+    color: #ffffff;
+  }
+
+  .pm-logo-mark {
+    width: 72px;
+    filter: brightness(0) invert(1) drop-shadow(0 0 18px rgba(255,255,255,0.12));
+  }
+
+  .pm-logo-role {
+    color: rgba(255,255,255,0.48);
+  }
+
+  .pm-nav {
+    padding: 18px 14px;
+  }
+
+  .pm-nav-label {
+    color: rgba(255,255,255,0.34);
+  }
+
+  .pm-nav-btn {
+    color: rgba(255,255,255,0.64);
+    border: 1px solid transparent;
+    background: transparent;
+  }
+
+  .pm-nav-btn:hover {
+    color: #ffffff;
+    background: rgba(255,255,255,0.065);
+    border-color: rgba(255,255,255,0.08);
+  }
+
+  .pm-nav-btn.active {
+    color: #ffffff;
+    background: linear-gradient(135deg, rgba(18,61,255,0.32), rgba(0,163,255,0.12));
+    border-color: rgba(0,163,255,0.26);
+    box-shadow: inset 3px 0 0 #00a3ff, 0 16px 36px rgba(18,61,255,0.16);
+  }
+
+  .pm-sidebar-footer {
+    border-top: 1px solid rgba(255,255,255,0.09);
+  }
+
+  .pm-logout-btn {
+    background: rgba(255,255,255,0.055);
+    border-color: rgba(255,255,255,0.10);
+    color: #ff9daa;
+  }
+
+  .pm-logout-btn:hover {
+    background: rgba(255,93,115,0.12);
+    border-color: rgba(255,93,115,0.28);
+  }
+
+  .pm-main,
+  .pm-main.pm-main-project-detail {
+    margin-left: 268px;
+    background:
+      radial-gradient(circle at 86% 0%, rgba(18,61,255,0.15), transparent 30%),
+      radial-gradient(circle at 0% 90%, rgba(0,163,255,0.08), transparent 26%),
+      transparent;
+  }
+
+  .pm-topbar {
+    height: 76px;
+    padding: 0 34px;
+    background: rgba(6,9,17,0.72);
+    border-bottom: 1px solid rgba(255,255,255,0.09);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+    backdrop-filter: blur(20px) saturate(145%);
+    -webkit-backdrop-filter: blur(20px) saturate(145%);
+  }
+
+  .pm-topbar-title {
+    color: #ffffff;
+  }
+
+  .pm-topbar-title::before {
+    display: none;
+  }
+
+  .pm-topbar-title-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .pm-topbar-title-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .pm-theme-toggle {
+    min-width: 104px;
+    height: 42px;
+    border-radius: 999px;
+    border: 1px solid rgba(142,170,255,0.22);
+    background: rgba(255,255,255,0.065);
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all 180ms ease;
+  }
+
+  .pm-theme-toggle:hover {
+    border-color: rgba(0,163,255,0.46);
+    background: rgba(18,61,255,0.16);
+    transform: translateY(-1px);
+  }
+
+  .pm-theme-toggle-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: #00a3ff;
+    box-shadow: 0 0 18px rgba(0,163,255,0.72);
+  }
+
+  .pm-topbar-chip {
+    background: rgba(255,255,255,0.075);
+    border-color: rgba(255,255,255,0.11);
+    color: #ffffff;
+  }
+
+  .pm-content {
+    width: min(100%, 1440px);
+    margin: 0 auto;
+    padding: 32px 38px 56px;
+  }
+
+  .pm-section,
+  .pm-taskboard-shell,
+  .pm-project-list,
+  .pm-stat-card,
+  .pm-client-card,
+  .pm-support-card,
+  .pm-task-card,
+  .pm-milestone-card,
+  .pm-progress-card,
+  .pm-compact-stat,
+  .pm-page-kpi,
+  .pm-project-detail .pm-section,
+  .pm-project-detail .pm-progress-card,
+  .pm-project-detail .pm-milestone-card,
+  .pm-project-detail .pm-project-card {
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.085), rgba(255,255,255,0.030)),
+      rgba(4,8,20,0.62);
+    border: 1px solid rgba(142,170,255,0.17);
+    box-shadow: 0 24px 70px rgba(0,0,0,0.26), inset 0 1px 0 rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px) saturate(136%);
+    -webkit-backdrop-filter: blur(20px) saturate(136%);
+  }
+
+  .pm-taskboard-shell,
+  .pm-project-list,
+  .pm-section {
+    border-radius: 24px;
+  }
+
+  .pm-section-header,
+  .pm-milestone-header,
+  .pm-project-detail .pm-section-header,
+  .pm-project-detail .pm-milestone-header {
+    background: rgba(255,255,255,0.035);
+    border-bottom: 1px solid rgba(142,170,255,0.13);
+  }
+
+  .pm-hero-banner {
+    background:
+      radial-gradient(circle at 92% 8%, rgba(0,163,255,0.15), transparent 32%),
+      linear-gradient(145deg, rgba(18,61,255,0.22), rgba(255,255,255,0.045)),
+      rgba(4,8,20,0.62);
+    border: 1px solid rgba(142,170,255,0.17);
+    color: #ffffff;
+  }
+
+  .pm-section-icon,
+  .pm-stat-icon,
+  .pm-compact-icon,
+  .pm-chat-icon,
+  .pm-artifact-card .pm-card-icon,
+  .pm-external-icon {
+    background: linear-gradient(135deg, rgba(18,61,255,0.92), rgba(0,163,255,0.82));
+    color: #ffffff;
+    box-shadow: 0 16px 34px rgba(18,61,255,0.22);
+  }
+
+  .pm-section-title,
+  .pm-card-name,
+  .pm-client-name,
+  .pm-milestone-title,
+  .pm-task-title,
+  .pm-detail-title,
+  .pm-board-title,
+  .pm-list-name,
+  .pm-stat-value,
+  .pm-compact-stat strong,
+  .pm-page-kpi strong,
+  .pm-progress-value,
+  .pm-chat-detail-value,
+  .pm-progress-label,
+  .pm-list-percent,
+  .pm-card-stat strong,
+  .pm-hero-title {
+    color: #ffffff;
+  }
+
+  .pm-card-client,
+  .pm-task-meta,
+  .pm-task-date,
+  .pm-progress-sub,
+  .pm-board-sub,
+  .pm-list-muted,
+  .pm-stat-label,
+  .pm-label,
+  .pm-divider-text,
+  .pm-client-projects,
+  .pm-chat-detail-label,
+  .pm-chat-chip,
+  .pm-artifact-description,
+  .pm-artifact-file-state,
+  .pm-page-kpi span,
+  .pm-hero-sub {
+    color: rgba(226,232,255,0.62);
+  }
+
+  .pm-input,
+  .pm-select,
+  .pm-list-date-input,
+  .pm-client-welcome-input,
+  .pm-color-field,
+  .pm-file-upload,
+  .pm-check-pill,
+  .pm-deliverable-item,
+  .pm-work-log,
+  .pm-filter-row,
+  .pm-filter-row .pm-input,
+  .pm-filter-row .pm-select,
+  .pm-filter-row .pm-btn,
+  .pm-project-value-box,
+  .pm-chat-description,
+  .pm-chat-detail-item,
+  .pm-chat-panel,
+  .pm-artifact-description,
+  .pm-artifact-file-state {
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.070), rgba(255,255,255,0.026)),
+      rgba(3,7,17,0.50);
+    border-color: rgba(142,170,255,0.19);
+    color: #ffffff;
+    box-shadow: none;
+    backdrop-filter: blur(14px) saturate(126%);
+    -webkit-backdrop-filter: blur(14px) saturate(126%);
+  }
+
+  .pm-input::placeholder,
+  .pm-client-welcome-input::placeholder,
+  .pm-color-code-input::placeholder,
+  .pm-filter-row .pm-input::placeholder {
+    color: rgba(226,232,255,0.34);
+  }
+
+  .pm-input:focus,
+  .pm-select:focus,
+  .pm-list-date-input:focus,
+  .pm-client-welcome-input:focus,
+  .pm-color-code-input:focus {
+    border-color: rgba(0,163,255,0.72);
+    background: rgba(255,255,255,0.085);
+    box-shadow: 0 0 0 4px rgba(18,61,255,0.16);
+  }
+
+  .pm-select option {
+    background: #071022;
+    color: #ffffff;
+  }
+
+  .pm-btn-primary,
+  .pm-hero-pill,
+  button.pm-hero-pill,
+  .pm-welcome-btn {
+    background: linear-gradient(135deg, #123dff, #0076ff);
+    color: #ffffff;
+    border-color: rgba(0,163,255,0.28);
+    box-shadow: 0 18px 42px rgba(18,61,255,0.24);
+  }
+
+  .pm-action-btn,
+  .pm-btn-outline,
+  .pm-back-btn {
+    background: rgba(255,255,255,0.060);
+    border-color: rgba(142,170,255,0.20);
+    color: rgba(255,255,255,0.86);
+  }
+
+  .pm-action-btn:hover,
+  .pm-btn-outline:hover,
+  .pm-back-btn:hover,
+  .pm-welcome-btn:hover {
+    background: rgba(18,61,255,0.18);
+    border-color: rgba(0,163,255,0.42);
+    color: #ffffff;
+  }
+
+  .pm-action-btn.danger {
+    color: #ff9daa;
+    border-color: rgba(255,93,115,0.28);
+  }
+
+  .pm-list-status {
+    color: #ffffff;
+    background: rgba(255,255,255,0.075);
+  }
+
+  .pm-list-table {
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.060), rgba(255,255,255,0.024)),
+      rgba(3,7,17,0.58);
+    border: 1px solid rgba(142,170,255,0.17);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .pm-list-row {
+    border-bottom-color: rgba(142,170,255,0.13);
+    color: rgba(226,232,255,0.78);
+  }
+
+  .pm-list-row.head {
+    background: rgba(255,255,255,0.040);
+    color: rgba(226,232,255,0.58);
+  }
+
+  .pm-list-row.item:hover {
+    background: rgba(18,61,255,0.10);
+  }
+
+  .pm-list-name {
+    color: #ffffff;
+  }
+
+  .pm-list-muted {
+    color: rgba(226,232,255,0.68);
+  }
+
+  .pm-list-date-input {
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.085), rgba(255,255,255,0.035)),
+      rgba(4,8,20,0.54);
+    border-color: rgba(142,170,255,0.24);
+    color: #ffffff;
+  }
+
+  .pm-compact-icon {
+    background: transparent;
+    color: #ffffff;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .pm-compact-icon svg {
+    stroke: currentColor;
+  }
+
+  .pm-list-bar,
+  .pm-hours-bar {
+    background: rgba(255,255,255,0.10);
+  }
+
+  .pm-list-fill,
+  .pm-hours-fill,
+  .pm-compact-stat::after,
+  .pm-page-kpi::after {
+    background: linear-gradient(90deg, #123dff, #00a3ff);
+  }
+
+  .pm-chat-bubble.admin {
+    color: #ffffff;
+    background: linear-gradient(135deg, #123dff, #0076ff);
+  }
+
+  .pm-chat-bubble.client {
+    color: #e8efff;
+    background: rgba(255,255,255,0.075);
+    border-color: rgba(142,170,255,0.18);
+  }
+
+  .pm-chat-card {
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.085), rgba(255,255,255,0.030)),
+      rgba(4,8,20,0.62);
+    border: 1px solid rgba(142,170,255,0.17);
+    color: #ffffff;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.24), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+
+  .pm-chat-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    min-height: 74px;
+  }
+
+  .pm-chat-card .pm-card-name {
+    color: #ffffff;
+    min-height: 24px;
+  }
+
+  .pm-chat-card .pm-card-client {
+    color: rgba(226,232,255,0.58);
+  }
+
+  .pm-chat-card .pm-chat-icon {
+    background: transparent;
+    box-shadow: none;
+    color: #ffffff;
+    width: auto;
+    height: auto;
+    border-radius: 0;
+  }
+
+  .pm-chat-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: auto;
+  }
+
+  .pm-chat-chip {
+    background: rgba(255,255,255,0.060);
+    border: 1px solid rgba(142,170,255,0.18);
+    color: rgba(226,232,255,0.78);
+    max-width: 100%;
+  }
+
+  .pm-support-layout,
+  .pm-support-layout .pm-section,
+  .pm-support-card,
+  .pm-work-log {
+    color: #ffffff;
+  }
+
+  .pm-support-layout strong,
+  .pm-support-card strong,
+  .pm-work-log strong {
+    color: #ffffff;
+  }
+
+  .pm-support-layout [style*="color: #101828"],
+  .pm-support-layout [style*="color: rgb(16, 24, 40)"],
+  .pm-support-layout [style*="color: #15113b"],
+  .pm-support-layout [style*="color: rgb(21, 17, 59)"],
+  .pm-support-card [style*="color: #101828"],
+  .pm-support-card [style*="color: rgb(16, 24, 40)"],
+  .pm-work-log [style*="color: #101828"],
+  .pm-work-log [style*="color: rgb(16, 24, 40)"] {
+    color: #ffffff !important;
+  }
+
+  .pm-support-layout [style*="color: #667085"],
+  .pm-support-layout [style*="color: rgb(102, 112, 133)"],
+  .pm-support-layout [style*="color: #6d6883"],
+  .pm-support-layout [style*="color: rgb(109, 104, 131)"],
+  .pm-support-layout [style*="color: #4f4a63"],
+  .pm-support-layout [style*="color: rgb(79, 74, 99)"],
+  .pm-work-log [style*="color: #667085"],
+  .pm-work-log [style*="color: rgb(102, 112, 133)"] {
+    color: rgba(226,232,255,0.68) !important;
+  }
+
+  .pm-support-layout .pm-status-pill:not(.Active):not(.Approved):not(.Completed):not(.Expired):not(.Suspended):not(.Rejected):not(.Pending):not(.Pending-Renewal):not(.Not-Started):not(.In-Progress) {
+    background: rgba(0,163,255,0.12);
+    border-color: rgba(0,163,255,0.22);
+    color: #8ed1ff;
+  }
+
+  .pm-artifact-card {
+    min-height: 246px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background:
+      radial-gradient(circle at 92% 8%, rgba(0,163,255,0.14), transparent 34%),
+      linear-gradient(145deg, rgba(255,255,255,0.085), rgba(255,255,255,0.030)),
+      rgba(4,8,20,0.62);
+    border: 1px solid rgba(142,170,255,0.17);
+    color: #ffffff;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.24), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+
+  .pm-artifact-card::before {
+    background: linear-gradient(90deg, #123dff, #00a3ff);
+  }
+
+  .pm-artifact-card .pm-card-header {
+    min-height: 34px;
+  }
+
+  .pm-artifact-card .pm-card-icon {
+    width: auto;
+    height: auto;
+    background: transparent;
+    box-shadow: none;
+    color: #ffffff;
+    border-radius: 0;
+  }
+
+  .pm-artifact-card .pm-card-icon svg {
+    width: 28px;
+    height: 28px;
+    stroke: currentColor;
+  }
+
+  .pm-artifact-card .pm-card-arrow {
+    color: #00a3ff;
+    font-weight: 900;
+  }
+
+  .pm-artifact-card .pm-card-name {
+    color: #ffffff;
+    min-height: 24px;
+  }
+
+  .pm-artifact-card .pm-card-client,
+  .pm-artifact-card [style*="color: #667085"],
+  .pm-artifact-card [style*="color: rgb(102, 112, 133)"] {
+    color: rgba(226,232,255,0.66) !important;
+  }
+
+  .pm-artifact-card .pm-artifact-description {
+    color: rgba(226,232,255,0.74);
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.070), rgba(255,255,255,0.026)),
+      rgba(3,7,17,0.50);
+    border-color: rgba(142,170,255,0.18);
+  }
+
+  .pm-artifact-card .pm-card-meta {
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid rgba(142,170,255,0.15);
+    color: rgba(226,232,255,0.66);
+    gap: 12px;
+  }
+
+  .pm-artifact-card .pm-actions {
+    margin-top: 0 !important;
+  }
+
+  .pm-artifact-card .pm-action-btn {
+    justify-content: center;
+    width: 100%;
+    background: rgba(255,255,255,0.060);
+    border-color: rgba(142,170,255,0.20);
+    color: #ffffff;
+  }
+
+  .pm-artifact-card .pm-action-btn:hover {
+    background: rgba(18,61,255,0.18);
+    border-color: rgba(0,163,255,0.42);
+  }
+
+  .pm-artifact-file-state {
+    color: rgba(226,232,255,0.72);
+  }
+
+  .pm-empty {
+    background: rgba(255,255,255,0.040);
+    border-color: rgba(142,170,255,0.20);
+  }
+
+  .pm-empty-text {
+    color: rgba(226,232,255,0.62);
+  }
+
+  .pm-status-pill {
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .pm-status-pill.Active,
+  .pm-status-pill.Approved,
+  .pm-status-pill.Completed {
+    background: rgba(57,217,138,0.14);
+    color: #70f0ae;
+  }
+
+  .pm-status-pill.Expired,
+  .pm-status-pill.Suspended,
+  .pm-status-pill.Rejected {
+    background: rgba(255,93,115,0.14);
+    color: #ff9daa;
+  }
+
+  .pm-status-pill.Pending,
+  .pm-status-pill.Pending-Renewal,
+  .pm-status-pill.Not-Started {
+    background: rgba(255,200,87,0.13);
+    color: #ffe09a;
+  }
+
+  .pm-status-pill.In-Progress {
+    background: rgba(0,163,255,0.14);
+    color: #8ed1ff;
+  }
+
+  .pm-divider-line,
+  .pm-client-welcome,
+  .pm-card-meta {
+    border-color: rgba(142,170,255,0.15);
+  }
+
+  .pm-project-card:hover,
+  .pm-support-card:hover,
+  .pm-task-card:hover,
+  .pm-client-card:hover,
+  .pm-milestone-card:hover,
+  .pm-compact-stat:hover,
+  .pm-page-kpi:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0,163,255,0.34);
+    box-shadow: var(--shadow-md);
+  }
+
+  .pm-root.pm-theme-light {
+    color: #101828;
+    background:
+      radial-gradient(circle at 84% 0%, rgba(18,61,255,0.10), transparent 30%),
+      radial-gradient(circle at 10% 92%, rgba(0,163,255,0.08), transparent 30%),
+      #f5f8fd;
+  }
+
+  .pm-root.pm-theme-light::before {
+    background-image:
+      linear-gradient(rgba(18,61,255,0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(18,61,255,0.055) 1px, transparent 1px);
+    opacity: 0.65;
+  }
+
+  .pm-root.pm-theme-light .pm-sidebar {
+    background: rgba(255,255,255,0.92);
+    border-right: 1px solid rgba(18,61,255,0.10);
+    box-shadow: 18px 0 60px rgba(16,24,40,0.08);
+  }
+
+  .pm-root.pm-theme-light .pm-logo {
+    border-bottom-color: rgba(18,61,255,0.10);
+  }
+
+  .pm-root.pm-theme-light .pm-logo-title,
+  .pm-root.pm-theme-light .pm-logo-name {
+    color: #101828;
+  }
+
+  .pm-root.pm-theme-light .pm-logo-mark {
+    filter: none;
+  }
+
+  .pm-root.pm-theme-light .pm-logo-role,
+  .pm-root.pm-theme-light .pm-logo-sub,
+  .pm-root.pm-theme-light .pm-nav-label {
+    color: #667085;
+  }
+
+  .pm-root.pm-theme-light .pm-nav-btn {
+    color: #475467;
+  }
+
+  .pm-root.pm-theme-light .pm-nav-btn:hover {
+    color: #123dff;
+    background: rgba(18,61,255,0.060);
+    border-color: rgba(18,61,255,0.10);
+  }
+
+  .pm-root.pm-theme-light .pm-nav-btn.active {
+    color: #123dff;
+    background: linear-gradient(135deg, rgba(18,61,255,0.11), rgba(0,163,255,0.07));
+    border-color: rgba(18,61,255,0.18);
+    box-shadow: inset 3px 0 0 #123dff;
+  }
+
+  .pm-root.pm-theme-light .pm-sidebar-footer {
+    border-top-color: rgba(18,61,255,0.10);
+  }
+
+  .pm-root.pm-theme-light .pm-logout-btn {
+    background: #ffffff;
+    border-color: #e5eaf2;
+    color: #b42318;
+  }
+
+  .pm-root.pm-theme-light .pm-main,
+  .pm-root.pm-theme-light .pm-main.pm-main-project-detail {
+    background:
+      radial-gradient(circle at 86% 0%, rgba(18,61,255,0.10), transparent 32%),
+      radial-gradient(circle at 0% 90%, rgba(0,163,255,0.08), transparent 28%),
+      transparent;
+  }
+
+  .pm-root.pm-theme-light .pm-topbar {
+    background: rgba(255,255,255,0.86);
+    border-bottom-color: rgba(18,61,255,0.10);
+    box-shadow: 0 8px 28px rgba(16,24,40,0.06);
+  }
+
+  .pm-root.pm-theme-light .pm-breadcrumb {
+    color: #667085;
+  }
+
+  .pm-root.pm-theme-light .pm-topbar-title,
+  .pm-root.pm-theme-light .pm-topbar-title-icon {
+    color: #101828;
+  }
+
+  .pm-root.pm-theme-light .pm-theme-toggle {
+    background: #ffffff;
+    border-color: #dbe3ef;
+    color: #123dff;
+    box-shadow: 0 12px 30px rgba(16,24,40,0.06);
+  }
+
+  .pm-root.pm-theme-light .pm-section,
+  .pm-root.pm-theme-light .pm-taskboard-shell,
+  .pm-root.pm-theme-light .pm-project-list,
+  .pm-root.pm-theme-light .pm-stat-card,
+  .pm-root.pm-theme-light .pm-client-card,
+  .pm-root.pm-theme-light .pm-support-card,
+  .pm-root.pm-theme-light .pm-task-card,
+  .pm-root.pm-theme-light .pm-milestone-card,
+  .pm-root.pm-theme-light .pm-progress-card,
+  .pm-root.pm-theme-light .pm-compact-stat,
+  .pm-root.pm-theme-light .pm-page-kpi,
+  .pm-root.pm-theme-light .pm-project-detail .pm-section,
+  .pm-root.pm-theme-light .pm-project-detail .pm-progress-card,
+  .pm-root.pm-theme-light .pm-project-detail .pm-milestone-card,
+  .pm-root.pm-theme-light .pm-project-detail .pm-project-card,
+  .pm-root.pm-theme-light .pm-project-card,
+  .pm-root.pm-theme-light .pm-chat-card,
+  .pm-root.pm-theme-light .pm-artifact-card,
+  .pm-root.pm-theme-light .pm-external-card {
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.98), rgba(248,251,255,0.92)),
+      #ffffff;
+    border-color: rgba(18,61,255,0.12);
+    color: #101828;
+    box-shadow: 0 20px 55px rgba(16,24,40,0.08), inset 0 1px 0 rgba(255,255,255,0.95);
+  }
+
+  .pm-root.pm-theme-light .pm-section-header,
+  .pm-root.pm-theme-light .pm-milestone-header,
+  .pm-root.pm-theme-light .pm-project-detail .pm-section-header,
+  .pm-root.pm-theme-light .pm-project-detail .pm-milestone-header {
+    background: rgba(248,251,255,0.82);
+    border-bottom-color: rgba(18,61,255,0.10);
+  }
+
+  .pm-root.pm-theme-light .pm-hero-banner {
+    background:
+      radial-gradient(circle at 92% 8%, rgba(0,163,255,0.12), transparent 32%),
+      linear-gradient(145deg, rgba(255,255,255,0.98), rgba(239,246,255,0.92));
+    border-color: rgba(18,61,255,0.12);
+    color: #101828;
+  }
+
+  .pm-root.pm-theme-light .pm-section-title,
+  .pm-root.pm-theme-light .pm-card-name,
+  .pm-root.pm-theme-light .pm-client-name,
+  .pm-root.pm-theme-light .pm-milestone-title,
+  .pm-root.pm-theme-light .pm-task-title,
+  .pm-root.pm-theme-light .pm-detail-title,
+  .pm-root.pm-theme-light .pm-board-title,
+  .pm-root.pm-theme-light .pm-list-name,
+  .pm-root.pm-theme-light .pm-stat-value,
+  .pm-root.pm-theme-light .pm-compact-stat strong,
+  .pm-root.pm-theme-light .pm-page-kpi strong,
+  .pm-root.pm-theme-light .pm-progress-value,
+  .pm-root.pm-theme-light .pm-chat-detail-value,
+  .pm-root.pm-theme-light .pm-progress-label,
+  .pm-root.pm-theme-light .pm-list-percent,
+  .pm-root.pm-theme-light .pm-card-stat strong,
+  .pm-root.pm-theme-light .pm-hero-title,
+  .pm-root.pm-theme-light .pm-support-layout strong,
+  .pm-root.pm-theme-light .pm-support-card strong,
+  .pm-root.pm-theme-light .pm-work-log strong {
+    color: #101828;
+  }
+
+  .pm-root.pm-theme-light .pm-card-client,
+  .pm-root.pm-theme-light .pm-task-meta,
+  .pm-root.pm-theme-light .pm-task-date,
+  .pm-root.pm-theme-light .pm-progress-sub,
+  .pm-root.pm-theme-light .pm-board-sub,
+  .pm-root.pm-theme-light .pm-list-muted,
+  .pm-root.pm-theme-light .pm-stat-label,
+  .pm-root.pm-theme-light .pm-label,
+  .pm-root.pm-theme-light .pm-divider-text,
+  .pm-root.pm-theme-light .pm-client-projects,
+  .pm-root.pm-theme-light .pm-chat-detail-label,
+  .pm-root.pm-theme-light .pm-chat-chip,
+  .pm-root.pm-theme-light .pm-artifact-description,
+  .pm-root.pm-theme-light .pm-artifact-file-state,
+  .pm-root.pm-theme-light .pm-page-kpi span,
+  .pm-root.pm-theme-light .pm-hero-sub {
+    color: #667085;
+  }
+
+  .pm-root.pm-theme-light .pm-input,
+  .pm-root.pm-theme-light .pm-select,
+  .pm-root.pm-theme-light .pm-list-date-input,
+  .pm-root.pm-theme-light .pm-client-welcome-input,
+  .pm-root.pm-theme-light .pm-color-field,
+  .pm-root.pm-theme-light .pm-file-upload,
+  .pm-root.pm-theme-light .pm-check-pill,
+  .pm-root.pm-theme-light .pm-deliverable-item,
+  .pm-root.pm-theme-light .pm-work-log,
+  .pm-root.pm-theme-light .pm-filter-row,
+  .pm-root.pm-theme-light .pm-filter-row .pm-input,
+  .pm-root.pm-theme-light .pm-filter-row .pm-select,
+  .pm-root.pm-theme-light .pm-filter-row .pm-btn,
+  .pm-root.pm-theme-light .pm-project-value-box,
+  .pm-root.pm-theme-light .pm-chat-description,
+  .pm-root.pm-theme-light .pm-chat-detail-item,
+  .pm-root.pm-theme-light .pm-chat-panel,
+  .pm-root.pm-theme-light .pm-artifact-description,
+  .pm-root.pm-theme-light .pm-artifact-file-state {
+    background: #ffffff;
+    border-color: #dbe3ef;
+    color: #101828;
+    box-shadow: none;
+  }
+
+  .pm-root.pm-theme-light .pm-input::placeholder,
+  .pm-root.pm-theme-light .pm-client-welcome-input::placeholder,
+  .pm-root.pm-theme-light .pm-color-code-input::placeholder,
+  .pm-root.pm-theme-light .pm-filter-row .pm-input::placeholder {
+    color: #98a2b3;
+  }
+
+  .pm-root.pm-theme-light .pm-select option {
+    background: #ffffff;
+    color: #101828;
+  }
+
+  .pm-root.pm-theme-light .pm-action-btn,
+  .pm-root.pm-theme-light .pm-btn-outline,
+  .pm-root.pm-theme-light .pm-back-btn {
+    background: #ffffff;
+    border-color: #dbe3ef;
+    color: #344054;
+  }
+
+  .pm-root.pm-theme-light .pm-action-btn:hover,
+  .pm-root.pm-theme-light .pm-btn-outline:hover,
+  .pm-root.pm-theme-light .pm-back-btn:hover {
+    background: #f3f7ff;
+    border-color: rgba(18,61,255,0.28);
+    color: #123dff;
+  }
+
+  .pm-root.pm-theme-light .pm-list-table {
+    background: #ffffff;
+    border-color: #e5eaf2;
+  }
+
+  .pm-root.pm-theme-light .pm-list-row {
+    border-bottom-color: #edf1f7;
+    color: #344054;
+  }
+
+  .pm-root.pm-theme-light .pm-list-row.head {
+    background: #f8fbff;
+    color: #667085;
+  }
+
+  .pm-root.pm-theme-light .pm-list-row.item:hover {
+    background: #f3f7ff;
+  }
+
+  .pm-root.pm-theme-light .pm-list-bar,
+  .pm-root.pm-theme-light .pm-hours-bar {
+    background: #edf2f7;
+  }
+
+  .pm-root.pm-theme-light .pm-chat-bubble.client {
+    color: #344054;
+    background: #f3f7ff;
+    border-color: #dbe5f4;
+  }
+
+  .pm-root.pm-theme-light .pm-chat-card .pm-chat-icon,
+  .pm-root.pm-theme-light .pm-artifact-card .pm-card-icon,
+  .pm-root.pm-theme-light .pm-compact-icon {
+    color: #123dff;
+  }
+
+  .pm-root.pm-theme-light .pm-artifact-card .pm-artifact-description {
+    background: #f8fbff;
+    border-color: #e5eaf2;
+    color: #475467;
+  }
+
+  .pm-root.pm-theme-light .pm-artifact-card .pm-action-btn {
+    background: #ffffff;
+    color: #123dff;
+    border-color: rgba(18,61,255,0.20);
+  }
+
+  .pm-root.pm-theme-light .pm-empty {
+    background: #f8fbff;
+    border-color: #e5eaf2;
+  }
+
+  .pm-root.pm-theme-light .pm-empty-text {
+    color: #667085;
+  }
+
+  @media (max-width: 980px) {
+    .pm-sidebar {
+      width: 82px;
+    }
+
+    .pm-main,
+    .pm-main.pm-main-project-detail {
+      margin-left: 82px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .pm-sidebar {
+      width: 72px;
+    }
+
+    .pm-main,
+    .pm-main.pm-main-project-detail {
+      margin-left: 72px;
+    }
+
+    .pm-content {
+      padding: 18px 14px 36px;
+    }
+  }
 `
 
 export default function DashboardPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
+  const [adminTheme, setAdminTheme] = useState<'dark' | 'light'>('dark')
   const [activeNav, setActiveNav] = useState<DashboardSection>(getInitialDashboardSection)
   const [projects, setProjects] = useState<any[]>([])
   const [clients, setClients] = useState<any[]>([])
@@ -3919,6 +4954,17 @@ setClientRequestMessages(crm || [])
     setClientTasks(ct || [])
     setMeetings(mtg || [])
    }
+
+  useEffect(() => {
+    const savedTheme = window.localStorage.getItem('pm-admin-theme')
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      setAdminTheme(savedTheme)
+    }
+  }, [])
+
+  useEffect(() => {
+    window.localStorage.setItem('pm-admin-theme', adminTheme)
+  }, [adminTheme])
 
   useEffect(() => {
     const init = async () => {
@@ -5249,7 +6295,7 @@ if (loading) {
   }).length
 
   return (
-    <div className="pm-root">
+    <div className={`pm-root pm-theme-${adminTheme}`}>
       <style>{styles}</style>
       <div className="pm-layout">
 
@@ -5384,6 +6430,9 @@ if (loading) {
               <span className="pm-breadcrumb">Pages</span>
               <span className="pm-breadcrumb">›</span>
               <span className="pm-topbar-title">
+                <span className="pm-topbar-title-icon">
+                  {selectedProject ? Icons.project : getDashboardSectionIcon(activeNav)}
+                </span>
                 {selectedProject
                   ? selectedProject.name
                   : activeNav === 'projects'
@@ -5404,9 +6453,15 @@ if (loading) {
               </span>
             </div>
             <div className="pm-topbar-actions">
-              <span className="pm-topbar-chip">
-                {isTeamMemberMode ? 'Team workspace' : 'Admin workspace'}
-              </span>
+              <button
+                type="button"
+                className="pm-theme-toggle"
+                onClick={() => setAdminTheme(current => current === 'dark' ? 'light' : 'dark')}
+                aria-label={`Switch to ${adminTheme === 'dark' ? 'light' : 'dark'} theme`}
+              >
+                <span className="pm-theme-toggle-dot" />
+                {adminTheme === 'dark' ? 'Light' : 'Dark'}
+              </button>
             </div>
           </div>
 
@@ -6480,14 +7535,14 @@ if (loading) {
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 12 }}>
                       <div>
                         <div className="pm-stat-label">Monthly Fee</div>
-                        <div style={{ fontSize: 18, fontWeight: 900, color: '#101828' }}>{Number(contract.monthly_support_fee || 0).toLocaleString()}</div>
+                        <div style={{ fontSize: 18, fontWeight: 900, color: '#ffffff' }}>{Number(contract.monthly_support_fee || 0).toLocaleString()}</div>
                       </div>
                       <div>
                         <div className="pm-stat-label">Duration</div>
-                        <div style={{ fontSize: 13, fontWeight: 900, color: '#101828' }}>{Number(contract.duration_days || 0)} days</div>
+                        <div style={{ fontSize: 13, fontWeight: 900, color: '#00a3ff' }}>{Number(contract.duration_days || 0)} days</div>
                       </div>
                     </div>
-                    <div style={{ fontSize: 12, color: '#667085', fontWeight: 800 }}>
+                    <div style={{ fontSize: 12, color: 'rgba(226,232,255,0.68)', fontWeight: 800 }}>
                       {hours.used} used / {hours.included} included hours
                     </div>
                     <div className="pm-hours-bar">
@@ -6555,14 +7610,14 @@ if (loading) {
               </div>
 
               <div style={{ marginTop: 18, display: 'grid', gap: 8 }}>
-                <div style={{ fontSize: 12, fontWeight: 900, color: '#101828' }}>SLA Response Times</div>
+                <div style={{ fontSize: 12, fontWeight: 900, color: '#00a3ff' }}>SLA Response Times</div>
                 <div className="pm-card-client">Critical: {selectedSupportContract.critical_response_hours || 0}h{selectedSupportContract.critical_response_definition ? ` • ${selectedSupportContract.critical_response_definition}` : ''}</div>
                 <div className="pm-card-client">Normal: {selectedSupportContract.normal_response_hours || 0}h{selectedSupportContract.normal_response_definition ? ` • ${selectedSupportContract.normal_response_definition}` : ''}</div>
                 <div className="pm-card-client">Low: {selectedSupportContract.low_response_hours || 0}h{selectedSupportContract.low_response_definition ? ` • ${selectedSupportContract.low_response_definition}` : ''}</div>
               </div>
 
               <div style={{ marginTop: 18 }}>
-                <div style={{ fontSize: 12, fontWeight: 900, color: '#101828', marginBottom: 8 }}>Included Scope</div>
+                <div style={{ fontSize: 12, fontWeight: 900, color: '#00a3ff', marginBottom: 8 }}>Included Scope</div>
                 {(selectedSupportContract.included_scope || []).length === 0 ? (
                   <div className="pm-card-client">No included scope selected.</div>
                 ) : (
@@ -6576,7 +7631,7 @@ if (loading) {
 
               <div style={{ marginTop: 18 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                  <div style={{ fontSize: 12, fontWeight: 900, color: '#101828' }}>Renewal Log</div>
+                  <div style={{ fontSize: 12, fontWeight: 900, color: '#00a3ff' }}>Renewal Log</div>
                   <button className="pm-action-btn" onClick={() => renewSupportContract(selectedSupportContract)}>Renew</button>
                 </div>
                 {selectedSupportRenewals.length === 0 ? (
@@ -6657,13 +7712,13 @@ if (loading) {
               selectedSupportLogs.map(log => (
                 <div key={log.id} className="pm-work-log">
                   <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
-                    <div style={{ fontWeight: 900, color: '#101828' }}>{log.title}</div>
+                    <div style={{ fontWeight: 900, color: '#ffffff' }}>{log.title}</div>
                     <span className={`pm-status-pill ${String(log.approval_status || 'Pending').replaceAll(' ', '-')}`}>{log.approval_status || 'Pending'}</span>
                   </div>
                   <div className="pm-card-client">
                     {log.work_date || 'No creation date'} • {Number(log.time_spent_hours || 0)}h required • {Number(log.charged_hours || 0)}h charged • {Number(log.charge_per_hour || 0).toLocaleString()} per hour • {log.priority} • {log.status}
                   </div>
-                  {log.description && <div style={{ color: '#667085', fontSize: 13, lineHeight: 1.5 }}>{log.description}</div>}
+                  {log.description && <div style={{ color: 'rgba(226,232,255,0.68)', fontSize: 13, lineHeight: 1.5 }}>{log.description}</div>}
                 </div>
               ))
             )}
