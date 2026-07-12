@@ -322,6 +322,22 @@ const styles = `
     color: rgba(255,255,255,0.48);
   }
 
+  .pm-login-input:-webkit-autofill,
+  .pm-login-input:-webkit-autofill:hover,
+  .pm-login-input:-webkit-autofill:focus,
+  .pm-login-input:-webkit-autofill:active {
+    -webkit-text-fill-color: #ffffff;
+    caret-color: #ffffff;
+    border: 0;
+    box-shadow: 0 0 0 1000px transparent inset;
+    -webkit-box-shadow: 0 0 0 1000px transparent inset;
+    transition: background-color 9999s ease-out, color 9999s ease-out;
+  }
+
+  .pm-login-input-wrap:has(.pm-login-input:-webkit-autofill) {
+    background: rgba(255,255,255,0.10);
+  }
+
   .pm-password-toggle {
     border: none;
     background: transparent;
