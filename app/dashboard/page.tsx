@@ -8628,14 +8628,15 @@ if (loading) {
                                     borderRadius: '20px',
                                     border: 'none',
                                     outline: 'none',
-                                    background: d.status === 'Completed' ? '#e8f5e9' : d.status === 'Delayed' ? '#fdecea' : '#f3f3f3',
-                                    color: d.status === 'Completed' ? '#2e7d32' : d.status === 'Delayed' ? '#c0392b' : '#5a5a5a',
+                                    background: d.status === 'Completed' ? '#e8f5e9' : d.status === 'Delayed' ? '#fdecea' : d.status === 'In Progress' ? '#eaf2ff' : '#f3f3f3',
+                                    color: d.status === 'Completed' ? '#2e7d32' : d.status === 'Delayed' ? '#c0392b' : d.status === 'In Progress' ? '#1d4ed8' : '#5a5a5a',
                                     fontWeight: 800,
                                     whiteSpace: 'nowrap',
                                     cursor: 'pointer'
                                   }}
                                 >
                                   <option value="Not started">Not started</option>
+                                  <option value="In Progress">In Progress</option>
                                   <option value="Completed">Completed</option>
                                   <option value="Delayed">Delayed</option>
                                 </select>
@@ -8703,6 +8704,7 @@ if (loading) {
                               style={{ flex: 1, minWidth: '150px' }}
                             >
                               <option value="Not started">Not started</option>
+                              <option value="In Progress">In Progress</option>
                               <option value="Completed">Completed</option>
                               <option value="Delayed">Delayed</option>
                             </select>

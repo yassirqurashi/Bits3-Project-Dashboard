@@ -259,6 +259,7 @@ export default function ClientDashboardPage() {
   const getStatusStyle = (status?: string) => {
     if (status === 'Completed') return { background: '#e8f5e9', color: '#2e7d32' }
     if (status === 'Delayed') return { background: '#fdecea', color: '#c0392b' }
+    if (status === 'In Progress') return { background: '#eaf2ff', color: '#1d4ed8' }
     return { background: '#f3f3f3', color: '#5a5a5a' }
   }
 
