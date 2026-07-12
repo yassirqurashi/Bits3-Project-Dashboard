@@ -225,14 +225,7 @@ const styles = `
   }
 
   .pm-login-panel::before {
-    content: '';
-    position: absolute;
-    left: 38px;
-    right: 38px;
-    top: 50%;
-    height: 1px;
-    border-radius: 0;
-    background: rgba(255,255,255,0.18);
+    content: none;
   }
 
   .pm-login-icon {
@@ -302,13 +295,27 @@ const styles = `
   }
 
   .pm-login-input {
-    border: none;
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    border-bottom: 0;
+    border-radius: 0;
     outline: none;
+    box-shadow: none;
     background: transparent;
     width: 100%;
+    min-width: 0;
+    height: 100%;
     font-size: 14px;
     color: #fff;
     font-weight: 500;
+  }
+
+  .pm-login-input:focus,
+  .pm-login-input:focus-visible {
+    border: 0;
+    outline: none;
+    box-shadow: none;
   }
 
   .pm-login-input::placeholder {
