@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
 import { supabase } from '../../lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import type { Artifact, ClientTask, ClientTaskStatus, Meeting, SupportContract, SupportContractRenewal, SupportWorkLog } from '../../lib/types'
@@ -94,6 +94,221 @@ type ClientCard = {
 }
 
 const PROJECT_VALUE_PAYMENT_TERM = '__PROJECT_VALUE__'
+
+const longDateFormatter = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+})
+
+const parseDateOnly = (value?: string | null) => {
+  if (!value) return null
+  const match = value.match(/^(\d{4})-(\d{2})-(\d{2})$/)
+  if (!match) return null
+  const parsed = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]))
+  return Number.isNaN(parsed.getTime()) ? null : parsed
+}
+
+const formatDeliverableDate = (value?: string | null) => {
+  const parsed = parseDateOnly(value)
+  return parsed ? longDateFormatter.format(parsed) : 'Not set'
+}
+
+const toDateOnlyValue = (date: Date) => {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
+type DeliverableDatePickerProps = {
+  label: string
+  value?: string | null
+  onChange: (value: string) => void
+  tone: 'start' | 'end'
+  variant?: 'pill' | 'input'
+  openUp?: boolean
+  style?: CSSProperties
+}
+
+function DeliverableDatePicker({
+  label,
+  value,
+  onChange,
+  tone,
+  variant = 'pill',
+  style,
+}: DeliverableDatePickerProps) {
+  const selectedDate = parseDateOnly(value)
+  const [open, setOpen] = useState(false)
+  const [viewDate, setViewDate] = useState(() => {
+    const base = selectedDate || new Date()
+    return new Date(base.getFullYear(), base.getMonth(), 1)
+  })
+
+  useEffect(() => {
+    if (!selectedDate) return
+    setViewDate(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1))
+  }, [value])
+
+  const isStart = tone === 'start'
+  const accent = isStart ? '#5b4bff' : '#2563eb'
+  const surface = isStart ? '#f3f0ff' : '#eef7ff'
+  const monthLabel = longDateFormatter.format(viewDate).replace(/^\d+\s/, '')
+  const firstDay = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1)
+  const daysInMonth = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 0).getDate()
+  const leadingDays = firstDay.getDay()
+  const cells = [
+    ...Array.from({ length: leadingDays }, () => null),
+    ...Array.from({ length: daysInMonth }, (_, index) => index + 1),
+  ]
+
+  const buttonStyle: CSSProperties = variant === 'input'
+    ? {
+        width: '100%',
+        height: 54,
+        border: '1px solid rgba(255,255,255,0.16)',
+        borderRadius: 18,
+        background: 'rgba(255,255,255,0.045)',
+        color: value ? '#f5f7ff' : 'rgba(255,255,255,0.42)',
+        padding: '0 18px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 12,
+        fontSize: 15,
+        fontWeight: 850,
+        cursor: 'pointer',
+        textAlign: 'left',
+      }
+    : {
+        border: 'none',
+        borderRadius: 999,
+        background: surface,
+        color: accent,
+        padding: '8px 12px',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 8,
+        minHeight: 36,
+        fontSize: 12,
+        fontWeight: 900,
+        cursor: 'pointer',
+        whiteSpace: 'nowrap',
+      }
+
+  return (
+    <div style={{ position: 'relative', ...style }}>
+      <button
+        type="button"
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        aria-label={`${label} deliverable date: ${formatDeliverableDate(value)}`}
+        onClick={(event) => {
+          event.stopPropagation()
+          setOpen(current => !current)
+        }}
+        style={buttonStyle}
+      >
+        <span style={{ color: variant === 'input' ? 'rgba(255,255,255,0.62)' : accent }}>{label}</span>
+        <span>{formatDeliverableDate(value)}</span>
+      </button>
+
+      {open && (
+        <>
+          <div
+            onClick={() => setOpen(false)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              background: 'rgba(2, 6, 23, 0.2)',
+              zIndex: 190,
+            }}
+          />
+          <div
+            role="dialog"
+            aria-label={`${label} date picker`}
+            onClick={event => event.stopPropagation()}
+            style={{
+              position: 'fixed',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: 292,
+              maxWidth: 'calc(100vw - 32px)',
+              maxHeight: 'calc(100vh - 32px)',
+              overflowY: 'auto',
+              borderRadius: 22,
+              background: '#ffffff',
+              color: '#111827',
+              border: '1px solid rgba(15,23,42,0.14)',
+              boxShadow: '0 28px 80px rgba(0,0,0,0.36)',
+              padding: 16,
+              zIndex: 200,
+            }}
+          >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+            <button
+              type="button"
+              aria-label="Previous month"
+              onClick={() => setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1))}
+              style={{ border: 'none', background: '#f3f4f6', color: '#111827', borderRadius: 12, width: 38, height: 38, cursor: 'pointer', fontSize: 22, lineHeight: 1, fontWeight: 950 }}
+            >
+              ‹
+            </button>
+            <div style={{ fontSize: 16, fontWeight: 950, textAlign: 'center' }}>{monthLabel}</div>
+            <button
+              type="button"
+              aria-label="Next month"
+              onClick={() => setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1))}
+              style={{ border: 'none', background: '#f3f4f6', color: '#111827', borderRadius: 12, width: 38, height: 38, cursor: 'pointer', fontSize: 22, lineHeight: 1, fontWeight: 950 }}
+            >
+              ›
+            </button>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 6, marginBottom: 8 }}>
+            {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(day => (
+              <div key={day} style={{ color: '#6b7280', fontSize: 12, fontWeight: 900, textAlign: 'center' }}>{day}</div>
+            ))}
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 6 }}>
+            {cells.map((day, index) => {
+              if (!day) return <div key={`blank-${index}`} />
+              const date = new Date(viewDate.getFullYear(), viewDate.getMonth(), day)
+              const dateValue = toDateOnlyValue(date)
+              const selected = value === dateValue
+              return (
+                <button
+                  key={dateValue}
+                  type="button"
+                  onClick={() => {
+                    onChange(dateValue)
+                    setOpen(false)
+                  }}
+                  style={{
+                    border: 'none',
+                    borderRadius: 12,
+                    height: 34,
+                    background: selected ? accent : '#f8fafc',
+                    color: selected ? '#ffffff' : '#111827',
+                    cursor: 'pointer',
+                    fontSize: 14,
+                    fontWeight: selected ? 950 : 800,
+                  }}
+                >
+                  {day}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+        </>
+      )}
+    </div>
+  )
+}
 
 type DashboardSection = 'projects' | 'clients' | 'teams' | 'requests' | 'support' | 'artifacts' | 'client-tasks' | 'meetings'
 
@@ -8292,13 +8507,9 @@ if (loading) {
                     <div className="pm-client-name">
                       {member.name}
                     </div>
-
-                    <div className="pm-client-projects">
-                      {member.username}
-                    </div>
                   </div>
 
-                  <div className="pm-client-actions">
+                  <div className="pm-client-actions" style={{ marginLeft: 'auto', flexShrink: 0 }}>
                     <button
                       className="pm-action-btn danger"
                       onClick={() => removeProjectTeamMember(ptm.id)}
@@ -8594,29 +8805,23 @@ if (loading) {
                                 flexWrap: 'wrap'
                               }}>
                                 {!isTeamMemberMode && (
-                                <label style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: 6, background: '#f3f0ff', color: '#5b4bff', padding: '4px 8px', borderRadius: '999px', fontSize: '11px', fontWeight: 800, whiteSpace: 'nowrap' }}>
-                                  Start
-                                  <input
-                                    type="date"
-                                    value={d.start_date || ''}
-                                    onChange={(e) => updateDeliverableField(d.id, 'start_date', e.target.value)}
-                                    style={{ border: 'none', background: 'transparent', color: d.start_date ? '#5b4bff' : 'transparent', fontSize: '11px', fontWeight: 800, outline: 'none', cursor: 'pointer', width: 104 }}
+                                  <DeliverableDatePicker
+                                    label="Start"
+                                    value={d.start_date}
+                                    onChange={(date) => updateDeliverableField(d.id, 'start_date', date)}
+                                    tone="start"
+                                    openUp
                                   />
-                                  {!d.start_date && <span style={{ position: 'absolute', left: 48, pointerEvents: 'none', color: '#5b4bff' }}>Not set</span>}
-                                </label>
                                 )}
 
                                 {!isTeamMemberMode && (
-                                <label style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: 6, background: '#eef7ff', color: '#2563eb', padding: '4px 8px', borderRadius: '999px', fontSize: '11px', fontWeight: 800, whiteSpace: 'nowrap' }}>
-                                  End
-                                  <input
-                                    type="date"
-                                    value={d.end_date || ''}
-                                    onChange={(e) => updateDeliverableField(d.id, 'end_date', e.target.value)}
-                                    style={{ border: 'none', background: 'transparent', color: d.end_date ? '#2563eb' : 'transparent', fontSize: '11px', fontWeight: 800, outline: 'none', cursor: 'pointer', width: 104 }}
+                                  <DeliverableDatePicker
+                                    label="End"
+                                    value={d.end_date}
+                                    onChange={(date) => updateDeliverableField(d.id, 'end_date', date)}
+                                    tone="end"
+                                    openUp
                                   />
-                                  {!d.end_date && <span style={{ position: 'absolute', left: 38, pointerEvents: 'none', color: '#2563eb' }}>Not set</span>}
-                                </label>
                                 )}
 
                                 <select
@@ -8666,30 +8871,34 @@ if (loading) {
                               style={{ flex: 2, minWidth: '220px' }}
                             />
 
-                            <input
-                              type="date"
-                              className="pm-input"
+                            <DeliverableDatePicker
+                              label="Start"
                               value={deliverableTitles[m.id]?.start_date || ''}
-                              onChange={e =>
+                              onChange={date =>
                                 setDeliverableTitles(prev => ({
                                   ...prev,
-                                  [m.id]: { ...prev[m.id], start_date: e.target.value }
+                                  [m.id]: { ...prev[m.id], start_date: date }
                                 }))
                               }
-                              style={{ flex: 1, minWidth: '150px' }}
+                              tone="start"
+                              variant="input"
+                              openUp
+                              style={{ flex: 1, minWidth: '210px' }}
                             />
 
-                            <input
-                              type="date"
-                              className="pm-input"
+                            <DeliverableDatePicker
+                              label="End"
                               value={deliverableTitles[m.id]?.end_date || ''}
-                              onChange={e =>
+                              onChange={date =>
                                 setDeliverableTitles(prev => ({
                                   ...prev,
-                                  [m.id]: { ...prev[m.id], end_date: e.target.value }
+                                  [m.id]: { ...prev[m.id], end_date: date }
                                 }))
                               }
-                              style={{ flex: 1, minWidth: '150px' }}
+                              tone="end"
+                              variant="input"
+                              openUp
+                              style={{ flex: 1, minWidth: '210px' }}
                             />
 
                             <select
