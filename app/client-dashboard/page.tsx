@@ -355,6 +355,9 @@ export default function ClientDashboardPage() {
   const subStyle: any = { color: mutedColor, fontSize: 13, fontWeight: 700 }
   const rowStyle: any = { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 18, alignItems: 'stretch', marginBottom: 22 }
   const sectionTitleStyle: any = { fontSize: 15, fontWeight: 900, color: textColor, marginBottom: 12, letterSpacing: 0.1 }
+  const sectionBandStyle: any = { background: isDark ? 'rgba(255,255,255,0.028)' : 'rgba(255,255,255,0.54)', border: `1px solid ${borderColor}`, borderRadius: 28, padding: 20, marginBottom: 28, boxShadow: isDark ? 'inset 0 1px 0 rgba(255,255,255,0.04)' : '0 12px 34px rgba(21,18,54,0.045)' }
+  const sectionHeaderStyle: any = { display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }
+  const sectionMarkerStyle: any = { width: 4, height: 18, borderRadius: 999, background: iconAccent, boxShadow: `0 0 0 4px ${iconAccentTint}` }
   const countdownItems = [
     ['D', remainingDays],
     ['H', remainingHours],
@@ -417,8 +420,11 @@ export default function ClientDashboardPage() {
           </div>
 
           {!activeProject && (
-            <>
-              <div style={sectionTitleStyle}>Your Projects</div>
+            <section style={sectionBandStyle}>
+              <div style={sectionHeaderStyle}>
+                <span style={sectionMarkerStyle} />
+                <div style={{ ...sectionTitleStyle, marginBottom: 0 }}>Your Projects</div>
+              </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 18, alignItems: 'stretch', marginBottom: 18 }}>
                 {projects.map(project => {
                   return (
@@ -443,13 +449,17 @@ export default function ClientDashboardPage() {
                   )
                 })}
               </div>
-            </>
+            </section>
           )}
 
-          <div style={sectionTitleStyle}>Your Main Cards</div>
+          <section style={sectionBandStyle}>
+            <div style={sectionHeaderStyle}>
+              <span style={sectionMarkerStyle} />
+              <div style={{ ...sectionTitleStyle, marginBottom: 0 }}>Your Main Cards</div>
+            </div>
 
-          {/* Row 1 */}
-          <div style={rowStyle}>
+            {/* Row 1 */}
+            <div style={rowStyle}>
             <div style={{ background: `linear-gradient(135deg, ${client.primary_color}, ${client.secondary_color})`, borderRadius: 22, padding: '18px 20px', minWidth: 0, height: 218, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', color: '#fff', position: 'relative', overflow: 'hidden', boxShadow: '0 22px 48px rgba(80,65,180,0.18)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -526,10 +536,10 @@ export default function ClientDashboardPage() {
                 Next up
               </div>
             </div>
-          </div>
+            </div>
 
-          {/* Row 2 */}
-          <div style={rowStyle}>
+            {/* Row 2 */}
+            <div style={{ ...rowStyle, marginBottom: 0 }}>
             <div style={cardStyle} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.boxShadow = hoverShadow }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0px)'; e.currentTarget.style.boxShadow = 'none' }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 14 }}>
@@ -649,11 +659,15 @@ export default function ClientDashboardPage() {
               </div>
               <div style={{ color: iconAccent, fontSize: 13, fontWeight: 900 }}>View artifacts</div>
             </div>
-          </div>
+            </div>
+          </section>
 
           {displayedExternalLinks.length > 0 && (
-            <>
-              <div style={sectionTitleStyle}>External Links</div>
+            <section style={sectionBandStyle}>
+              <div style={sectionHeaderStyle}>
+                <span style={sectionMarkerStyle} />
+                <div style={{ ...sectionTitleStyle, marginBottom: 0 }}>External Links</div>
+              </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 260px))', gap: 18, alignItems: 'stretch', justifyContent: 'start', marginBottom: 26 }}>
                 {displayedExternalLinks.map(link => (
                   <a key={link.id} href={getExternalUrl(link.url)} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = hoverShadow }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0px)'; e.currentTarget.style.boxShadow = cardShadow }} style={{ minHeight: 154, background: cardSurface, borderRadius: 22, border: `1px solid ${borderColor}`, boxShadow: cardShadow, textDecoration: 'none', color: textColor, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: 18, cursor: 'pointer', transition: 'all 0.25s ease' }}>
@@ -667,11 +681,11 @@ export default function ClientDashboardPage() {
                       )}
                       <div style={{ fontSize: 17, fontWeight: 900, lineHeight: 1.25, minWidth: 0 }}>{link.title}</div>
                     </div>
-                    <div style={{ color: client.primary_color, fontSize: 13, fontWeight: 900 }}>Open link</div>
+                    <div style={{ color: iconAccent, fontSize: 13, fontWeight: 900 }}>Open link</div>
                   </a>
                 ))}
               </div>
-            </>
+            </section>
           )}
 
           <div style={sectionTitleStyle}>Milestones and Deliverables</div>
