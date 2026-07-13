@@ -50,7 +50,7 @@ const getColorSaturation = (color: { r: number; g: number; b: number }) => {
   return max === 0 ? 0 : (max - min) / max
 }
 
-const chooseIconAccentColor = (primary?: string | null, secondary?: string | null) => {
+const chooseIconAccentColor = (primary?: string | null, secondary?: string | null, theme: 'light' | 'dark' = 'dark') => {
   const dashboardBackground = parseHexColor('#0B1220')!
   const candidates = [primary, secondary]
     .map(value => ({ value, color: parseHexColor(value) }))
@@ -58,6 +58,17 @@ const chooseIconAccentColor = (primary?: string | null, secondary?: string | nul
 
   if (candidates.length === 0) return primary || '#2386d2'
   if (candidates.length === 1) return candidates[0].value
+
+  if (theme === 'light') {
+    const visibleCandidates = candidates.filter(item => getRelativeLuminance(item.color) < 0.9)
+    const scopedCandidates = visibleCandidates.length > 0 ? visibleCandidates : candidates
+    return scopedCandidates
+      .map(item => ({
+        ...item,
+        score: (1 - getRelativeLuminance(item.color)) + getColorSaturation(item.color) * 0.4,
+      }))
+      .sort((a, b) => b.score - a.score)[0].value
+  }
 
   const colorfulCandidate = candidates.find(item => {
     const luminance = getRelativeLuminance(item.color)
@@ -152,7 +163,7 @@ export default function ClientDashboardPage() {
 
   const primary = client?.primary_color || loadingPrimary
   const secondary = client?.secondary_color || loadingSecondary
-  const iconAccent = chooseIconAccentColor(primary, secondary)
+  const iconAccent = chooseIconAccentColor(primary, secondary, theme)
   const iconAccentTint = `${iconAccent}18`
   const loadingStyles = `
     @keyframes clientLoaderSpin {
@@ -386,7 +397,7 @@ export default function ClientDashboardPage() {
 
           <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '-16px 0 10px', position: 'relative', zIndex: 2 }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, flexWrap: 'wrap', background: cardSurface, border: `1px solid ${borderColor}`, borderRadius: 24, padding: '12px 16px', boxShadow: cardShadow }}>
-              <div style={{ fontSize: 11, fontWeight: 950, letterSpacing: 0.8, color: countdownLabel === 'Overdue' ? '#DC2626' : client.primary_color, textTransform: 'uppercase', borderRadius: 999, padding: '9px 12px', background: countdownLabel === 'Overdue' ? 'rgba(220,38,38,0.10)' : `${client.primary_color}14` }}>
+              <div style={{ fontSize: 11, fontWeight: 950, letterSpacing: 0.8, color: countdownLabel === 'Overdue' ? '#DC2626' : iconAccent, textTransform: 'uppercase', borderRadius: 999, padding: '9px 12px', background: countdownLabel === 'Overdue' ? 'rgba(220,38,38,0.10)' : iconAccentTint }}>
                 {countdownLabel}
               </div>
               {countdownMs !== null && (
