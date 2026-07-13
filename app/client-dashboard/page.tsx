@@ -423,22 +423,21 @@ export default function ClientDashboardPage() {
                 {projects.map(project => {
                   return (
                     <div key={project.id} onClick={() => setSelectedProject(project)}
-                      onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = '0 22px 54px rgba(80,65,180,0.15)' }}
-                      onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0px)'; e.currentTarget.style.boxShadow = '0 10px 34px rgba(80,65,180,0.07)' }}
-                      style={{ background: `linear-gradient(135deg, rgba(255,255,255,0.98), ${client.primary_color}0D)`, width: '100%', height: 186, borderRadius: 22, padding: 20, cursor: 'pointer', border: '1px solid rgba(230,230,240,0.9)', boxShadow: '0 12px 34px rgba(80,65,180,0.07)', transition: 'all 0.25s ease', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', gap: 16 }}>
-                      <div style={{ width: 58, height: 58, borderRadius: 18, background: '#ffffff', boxShadow: '0 12px 30px rgba(80,65,180,0.10)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, position: 'relative', zIndex: 1 }}>
+                      onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = isDark ? '0 24px 56px rgba(0,0,0,0.30)' : '0 22px 52px rgba(15,23,42,0.12)' }}
+                      onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0px)'; e.currentTarget.style.boxShadow = isDark ? '0 16px 40px rgba(0,0,0,0.22)' : '0 12px 34px rgba(15,23,42,0.08)' }}
+                      style={{ background: isDark ? 'linear-gradient(135deg, rgba(31,41,55,0.84), rgba(15,23,42,0.74))' : 'linear-gradient(135deg, rgba(255,255,255,0.86), rgba(248,250,252,0.72))', width: '100%', height: 186, borderRadius: 22, padding: 20, cursor: 'pointer', border: isDark ? '1px solid rgba(148,163,184,0.24)' : '1px solid rgba(203,213,225,0.72)', boxShadow: isDark ? '0 16px 40px rgba(0,0,0,0.22)' : '0 12px 34px rgba(15,23,42,0.08)', backdropFilter: 'blur(18px)', WebkitBackdropFilter: 'blur(18px)', transition: 'all 0.25s ease', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', gap: 16 }}>
+                      <div style={{ width: 58, height: 58, borderRadius: 18, background: isDark ? 'rgba(255,255,255,0.10)' : 'rgba(255,255,255,0.92)', border: isDark ? '1px solid rgba(255,255,255,0.12)' : '1px solid rgba(226,232,240,0.86)', boxShadow: isDark ? '0 12px 30px rgba(0,0,0,0.18)' : '0 12px 30px rgba(15,23,42,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, position: 'relative', zIndex: 1 }}>
                         <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
                           <rect x="3" y="4" width="18" height="16" rx="3" stroke={iconAccent} strokeWidth="2.2" />
                           <path d="M8 8v8M16 8v8" stroke={iconAccent} strokeWidth="2.2" strokeLinecap="round" />
                           <path d="M6.5 9.5h3M14.5 9.5h3M6.5 13h3M14.5 13h3" stroke={iconAccent} strokeWidth="1.8" strokeLinecap="round" />
                         </svg>
                       </div>
-                      <div style={{ minWidth: 0, position: 'relative', zIndex: 1 }}>
-                        <div style={{ fontSize: 18, fontWeight: 900, color: textColor, lineHeight: 1.2 }}>{project.name}</div>
+                      <div style={{ minWidth: 0, position: 'relative', zIndex: 1, flex: 1 }}>
+                        <div style={{ fontSize: 18, fontWeight: 900, color: textColor, lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{project.name}</div>
                         <div style={{ marginTop: 8, fontSize: 12, fontWeight: 800, color: bodyMutedColor }}>
                           Kickoff: {formatDate(project.start_date)}
                         </div>
-                        <div style={{ marginTop: 8, width: 42, height: 4, borderRadius: 999, background: client.primary_color }} />
                         </div>
                     </div>
                   )
