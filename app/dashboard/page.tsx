@@ -121,6 +121,18 @@ const toDateOnlyValue = (date: Date) => {
   return `${year}-${month}-${day}`
 }
 
+const parseMoneyAmount = (value?: string | number | null) => {
+  if (value === null || value === undefined) return 0
+  const normalized = String(value).replace(/[^0-9.-]/g, '')
+  const parsed = Number(normalized)
+  return Number.isFinite(parsed) ? parsed : 0
+}
+
+const formatMoneyAmount = (value?: string | number | null) => {
+  const amount = parseMoneyAmount(value)
+  return amount.toLocaleString('en-US')
+}
+
 type DeliverableDatePickerProps = {
   label: string
   value?: string | null
@@ -5121,7 +5133,7 @@ const [requestFilter, setRequestFilter] = useState<'Open' | 'Closed'>('Open')
   const [externalUrl, setExternalUrl] = useState('')
   const [externalIconUrl, setExternalIconUrl] = useState('')
   const [paymentName, setPaymentName] = useState('')
-  const [paymentPercentage, setPaymentPercentage] = useState('')
+  const [paymentAmount, setPaymentAmount] = useState('')
   const [paymentStatus, setPaymentStatus] = useState('Pending')
   const [paymentDueUpon, setPaymentDueUpon] = useState('')
   const [projectValue, setProjectValue] = useState('')
@@ -6222,7 +6234,7 @@ const createClientRequest = async () => {
   const { data: payment, error } = await supabase.from('payments').insert([{
     project_id: selectedProject.id,
     term: paymentName,
-    amount: Number(paymentPercentage.replace('%', '')),
+    amount: parseMoneyAmount(paymentAmount),
     is_paid: paymentStatus === 'Paid',
     due_upon: paymentDueUpon,
   }]).select().single()
@@ -6251,7 +6263,7 @@ const createClientRequest = async () => {
   }
 
   setPaymentName('')
-  setPaymentPercentage('')
+  setPaymentAmount('')
   setPaymentStatus('Pending')
   setPaymentDueUpon('')
 
@@ -6296,6 +6308,23 @@ const createClientRequest = async () => {
   }
 }
 
+ const deletePayment = async (paymentId: string) => {
+  const ok = confirm('Delete this payment?')
+  if (!ok) return
+
+  const { error } = await supabase
+    .from('payments')
+    .delete()
+    .eq('id', paymentId)
+
+  if (error) {
+    alert(error.message)
+    return
+  }
+
+  setPayments(prev => prev.filter(payment => payment.id !== paymentId))
+}
+
  const deleteDeliverable = async (deliverableId: string) => {
     const ok = confirm('Delete this deliverable?')
     if (!ok) return
@@ -6311,104 +6340,71 @@ if (loading) {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'radial-gradient(circle at 18% 16%, rgba(18,61,255,0.28), transparent 24%), radial-gradient(circle at 78% 18%, rgba(0,163,255,0.20), transparent 28%), linear-gradient(135deg, #02040A 0%, #050814 48%, #02040A 100%)',
+      background: 'radial-gradient(circle at 24% 18%, rgba(18,61,255,0.24), transparent 28%), radial-gradient(circle at 78% 10%, rgba(0,163,255,0.22), transparent 30%), linear-gradient(180deg, #0B1220 0%, #111827 100%)',
       fontFamily: 'Inter, Arial, sans-serif',
       position: 'relative',
       overflow: 'hidden',
+      padding: 24,
     }}>
       <style>{`
-        @keyframes pmLoaderFloatOne {
-          0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.78; }
-          50% { transform: translate3d(28px, 22px, 0) scale(1.08); opacity: 1; }
+        @keyframes pmLoaderSpin {
+          to { transform: rotate(360deg); }
         }
-        @keyframes pmLoaderFloatTwo {
-          0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.72; }
-          50% { transform: translate3d(-32px, -20px, 0) scale(1.06); opacity: 1; }
-        }
-        @keyframes pmLoaderCardIn {
-          from { transform: translateY(18px) scale(0.97); opacity: 0; }
-          to { transform: translateY(0) scale(1); opacity: 1; }
-        }
-        @keyframes pmLoaderIconPulse {
-          0%, 100% { transform: translateY(0) rotate(-1deg) scale(1); filter: drop-shadow(0 24px 52px rgba(18,61,255,0.42)); }
-          50% { transform: translateY(-14px) rotate(1.5deg) scale(1.04); filter: drop-shadow(0 34px 70px rgba(0,163,255,0.42)); }
-        }
-        @keyframes pmLoaderCheck {
-          0%, 100% { transform: rotate(-8deg) scale(1); opacity: 0.92; }
-          50% { transform: rotate(0deg) scale(1.12); opacity: 1; }
+        @keyframes pmLoaderPulse {
+          0%, 100% { transform: scale(0.84); opacity: 0.62; }
+          50% { transform: scale(1); opacity: 1; }
         }
         @keyframes pmLoaderBar {
-          0% { transform: translateX(-115%); }
-          55% { transform: translateX(45%); }
-          100% { transform: translateX(125%); }
+          0% { transform: translateX(-120%); }
+          50% { transform: translateX(42%); }
+          100% { transform: translateX(120%); }
         }
       `}</style>
       <div style={{
-        position: 'absolute',
         width: 360,
-        height: 360,
-        borderRadius: '50%',
-        background: 'rgba(18, 61, 255, 0.20)',
-        top: -120,
-        left: -100,
-        filter: 'blur(10px)',
-        animation: 'pmLoaderFloatOne 4.8s ease-in-out infinite',
-      }} />
-
-      <div style={{
-        position: 'absolute',
-        width: 420,
-        height: 420,
-        borderRadius: '50%',
-        background: 'rgba(0, 163, 255, 0.14)',
-        bottom: -160,
-        right: -120,
-        filter: 'blur(10px)',
-        animation: 'pmLoaderFloatTwo 5.4s ease-in-out infinite',
-      }} />
-
-      <div style={{
-        width: 420,
-        padding: 38,
-        borderRadius: 28,
-        background: 'linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.035)), rgba(4,8,20,0.52)',
-        backdropFilter: 'blur(24px) saturate(140%)',
-        boxShadow: '0 30px 90px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255,255,255,0.14)',
-        border: '1px solid rgba(142,170,255,0.22)',
+        padding: 34,
+        borderRadius: 30,
+        background: 'rgba(20,28,44,0.86)',
+        backdropFilter: 'blur(18px)',
+        boxShadow: '0 30px 80px rgba(0,0,0,0.34)',
+        border: '1px solid rgba(148,163,184,0.22)',
         textAlign: 'center',
-        zIndex: 2,
-        animation: 'pmLoaderCardIn 0.55s ease-out both',
       }}>
         <div style={{
-          width: 190,
-          height: 150,
-          margin: '0 auto 18px',
+          width: 86,
+          height: 86,
+          borderRadius: 28,
+          margin: '0 auto 22px',
+          background: 'linear-gradient(135deg, #123DFF, #00A3FF)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          animation: 'pmLoaderIconPulse 2.8s ease-in-out infinite',
+          boxShadow: '0 18px 42px rgba(18,61,255,0.33)',
+          position: 'relative',
         }}>
-          <img src="/bits3-login-cube.png" alt="Bits3 cube" style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} />
+          <div style={{ position: 'absolute', inset: -8, borderRadius: 34, border: '3px solid rgba(18,61,255,0.22)', borderTopColor: '#123DFF', animation: 'pmLoaderSpin 1s linear infinite' }} />
+          <div style={{ width: 22, height: 22, borderRadius: 999, background: '#EAF2FF', animation: 'pmLoaderPulse 1.2s ease-in-out infinite' }} />
         </div>
 
         <div style={{
-          fontSize: 24,
-          fontWeight: 800,
+          fontSize: 22,
+          fontWeight: 900,
           color: '#ffffff',
-          marginBottom: 8,
         }}>
-          Project Manager
+          Loading workspace...
         </div>
 
         <div style={{
-          color: 'rgba(226,232,255,0.64)',
-          fontSize: 15,
-          marginBottom: 24,
+          marginTop: 8,
+          color: '#AAB3C5',
+          fontSize: 14,
+          fontWeight: 700,
         }}>
-          Loading your workspace...
+          Preparing your admin dashboard
         </div>
 
         <div style={{
+          marginTop: 22,
           height: 8,
           background: 'rgba(255,255,255,0.10)',
           borderRadius: 999,
@@ -6416,11 +6412,11 @@ if (loading) {
           position: 'relative',
         }}>
           <div style={{
-            height: '100%',
-            width: '48%',
-            borderRadius: 999,
-            background: 'linear-gradient(135deg, #123DFF, #00A3FF)',
-            animation: 'pmLoaderBar 1.45s ease-in-out infinite',
+          height: '100%',
+          width: '55%',
+          borderRadius: 999,
+          background: 'linear-gradient(90deg, #123DFF, #00A3FF)',
+          animation: 'pmLoaderBar 1.25s ease-in-out infinite',
           }} />
         </div>
       </div>
@@ -8567,12 +8563,12 @@ if (loading) {
       </div>
 
       <div className="pm-field">
-        <label className="pm-label">Percentage</label>
+        <label className="pm-label">Amount</label>
         <input
           className="pm-input"
-          placeholder="50%"
-          value={paymentPercentage}
-          onChange={(e) => setPaymentPercentage(e.target.value)}
+          placeholder="30,000"
+          value={paymentAmount}
+          onChange={(e) => setPaymentAmount(e.target.value)}
         />
       </div>
     </div>
@@ -8628,7 +8624,7 @@ if (loading) {
                   marginTop: '4px'
                 }}
               >
-                {p.amount}% • {p.due_upon}
+                {formatMoneyAmount(p.amount)} • {p.due_upon}
               </div>
             </div>
             <select
@@ -8640,6 +8636,14 @@ if (loading) {
               <option value="Pending">Pending</option>
               <option value="Paid">Paid</option>
             </select>
+            <button
+              type="button"
+              className="pm-action-btn danger"
+              onClick={() => deletePayment(p.id)}
+              style={{ minHeight: 42, padding: '9px 14px', flexShrink: 0 }}
+            >
+              Remove
+            </button>
           </div>
         ))}
     </div>

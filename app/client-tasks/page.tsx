@@ -39,10 +39,10 @@ const styles = `
   .ct-card-top { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; }
   .ct-name { font-size: 16px; font-weight: 900; color: #151236; line-height: 1.25; }
   .ct-meta { color: #8A86A4; font-size: 12px; font-weight: 700; line-height: 1.45; }
-  .ct-pill { display: inline-flex; border-radius: 999px; padding: 6px 10px; font-size: 11px; font-weight: 900; color: var(--client-primary); background: var(--client-primary-soft); white-space: nowrap; border: 1px solid var(--client-primary-border); }
-  .ct-pill.Completed { color: #047857; background: #ecfdf5; }
-  .ct-pill.In-Progress { color: #1d4ed8; background: #eff6ff; }
-  .ct-pill.Not-Started { color: #4b5563; background: #f3f4f6; }
+  .ct-pill { display: inline-flex; font-size: 12px; font-weight: 900; color: var(--client-primary); white-space: nowrap; }
+  .ct-pill.Completed { color: #047857; }
+  .ct-pill.In-Progress { color: #1d4ed8; }
+  .ct-pill.Not-Started { color: #4b5563; }
   .ct-empty { padding: 34px 20px; color: #8A86A4; font-weight: 700; text-align: center; }
   .ct-root.dark { background: linear-gradient(180deg, #0B1220 0%, #111827 100%); color: #F8FAFC; }
   .ct-root.dark .ct-top { background: rgba(20,28,44,0.94); border-color: rgba(148,163,184,0.20); box-shadow: 0 16px 44px rgba(0,0,0,0.26); }
