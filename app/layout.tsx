@@ -8,8 +8,12 @@ export const metadata: Metadata = {
   title: "Bits3 Project Dashboard",
   description: "Client and project dashboard for Bits3",
   icons: {
-    icon: "/icon.png",
-    apple: "/apple-icon.png",
+    icon: [
+      { url: "/bits3-browser-icon.png", type: "image/png" },
+      { url: "/bits3-browser-favicon.ico", rel: "icon" },
+    ],
+    shortcut: "/bits3-browser-favicon.ico",
+    apple: "/bits3-browser-apple.png",
   },
   openGraph: {
     title: "Bits3 Project Dashboard",
