@@ -3,16 +3,9 @@ import { createClient } from '@supabase/supabase-js'
 import { getSupabaseUrl } from '../../../lib/supabase/config'
 import { sendGmailMessage } from '../../../lib/email/gmail'
 import { buildPaymentReceivedEmail } from '../../../lib/email/payment-notifications'
+import { getClientLoginUrl } from '../../../lib/email/client-links'
 
 const PROJECT_VALUE_PAYMENT_TERM = '__PROJECT_VALUE__'
-
-const getClientDashboardLink = () => {
-  const explicitUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL
-  const vercelUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : ''
-  const baseUrl = explicitUrl || vercelUrl || 'http://localhost:3000'
-
-  return `${baseUrl.replace(/\/$/, '')}/client-dashboard`
-}
 
 const parseMoneyValue = (value: unknown) => {
   const parsed = Number(String(value || '').replace(/,/g, '').replace(/[^\d.-]/g, ''))
@@ -111,7 +104,7 @@ export async function POST(request: Request) {
       paymentAmount: formatMoney(paymentAmount),
       paymentDate,
       remainingBalance: formatMoney(remainingBalance),
-      clientDashboardLink: getClientDashboardLink(),
+      clientDashboardLink: getClientLoginUrl(),
     })
 
     await sendGmailMessage({

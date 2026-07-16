@@ -3,14 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 import { getSupabaseUrl } from '../../../lib/supabase/config'
 import { sendGmailMessage } from '../../../lib/email/gmail'
 import { buildSupportContractApprovalEmail } from '../../../lib/email/support-contract-notifications'
-
-const getClientSupportLink = () => {
-  const explicitUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL
-  const vercelUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : ''
-  const baseUrl = explicitUrl || vercelUrl || 'http://localhost:3000'
-
-  return `${baseUrl.replace(/\/$/, '')}/client-support`
-}
+import { getClientLoginUrl } from '../../../lib/email/client-links'
 
 const formatNumber = (value: unknown) => {
   return new Intl.NumberFormat('en-US', {
@@ -73,7 +66,7 @@ export async function POST(request: Request) {
       monthlySupportFee: formatNumber(contract.monthly_support_fee),
       includedHours: `${formatNumber(contract.included_hours_per_month)} hours`,
       durationDays: `${formatNumber(contract.duration_days)} days`,
-      approvalLink: getClientSupportLink(),
+      approvalLink: getClientLoginUrl(),
     })
 
     await sendGmailMessage({

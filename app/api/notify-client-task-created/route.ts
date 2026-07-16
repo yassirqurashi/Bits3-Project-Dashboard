@@ -3,14 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 import { getSupabaseUrl } from '../../../lib/supabase/config'
 import { sendGmailMessage } from '../../../lib/email/gmail'
 import { buildClientTaskCreatedEmail } from '../../../lib/email/client-task-notifications'
-
-const getClientTaskLink = () => {
-  const explicitUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL
-  const vercelUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : ''
-  const baseUrl = explicitUrl || vercelUrl || 'http://localhost:3000'
-
-  return `${baseUrl.replace(/\/$/, '')}/client-tasks`
-}
+import { getClientLoginUrl } from '../../../lib/email/client-links'
 
 const formatDate = (date: string | null | undefined) => {
   if (!date) return 'Not set'
@@ -71,7 +64,7 @@ export async function POST(request: Request) {
       creationDate: formatDate(task.creation_date),
       dueDate: formatDate(task.due_date),
       status: task.status || 'Not Started',
-      taskLink: getClientTaskLink(),
+      taskLink: getClientLoginUrl(),
     })
 
     await sendGmailMessage({

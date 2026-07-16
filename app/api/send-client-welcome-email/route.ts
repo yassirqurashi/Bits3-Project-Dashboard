@@ -3,14 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 import { getSupabaseUrl } from '../../../lib/supabase/config'
 import { sendGmailMessage } from '../../../lib/email/gmail'
 import { buildClientWelcomeEmail } from '../../../lib/email/client-welcome-notifications'
-
-const getClientDashboardLink = () => {
-  const explicitUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL
-  const vercelUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : ''
-  const baseUrl = explicitUrl || vercelUrl || 'http://localhost:3000'
-
-  return `${baseUrl.replace(/\/$/, '')}/client-login`
-}
+import { getClientLoginUrl } from '../../../lib/email/client-links'
 
 export async function POST(request: Request) {
   try {
@@ -48,7 +41,7 @@ export async function POST(request: Request) {
       clientName: client.name || 'Client',
       username: client.email,
       password,
-      clientDashboardLink: getClientDashboardLink(),
+      clientDashboardLink: getClientLoginUrl(),
     })
 
     await sendGmailMessage({

@@ -3,14 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 import { getSupabaseUrl } from '../../../lib/supabase/config'
 import { buildDeliverableCompletedEmail } from '../../../lib/email/deliverable-notifications'
 import { sendGmailMessage } from '../../../lib/email/gmail'
-
-const getClientDashboardLink = () => {
-  const explicitUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL
-  const vercelUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : ''
-  const baseUrl = explicitUrl || vercelUrl || 'http://localhost:3000'
-
-  return `${baseUrl.replace(/\/$/, '')}/client-dashboard`
-}
+import { getClientLoginUrl } from '../../../lib/email/client-links'
 
 const calculateProgress = async (
   supabaseAdmin: any,
@@ -121,7 +114,7 @@ export async function POST(request: Request) {
       deliverableName: deliverable.title || 'Deliverable',
       completionDate,
       progressPercentage,
-      clientDashboardLink: getClientDashboardLink(),
+      clientDashboardLink: getClientLoginUrl(),
     })
 
     await sendGmailMessage({

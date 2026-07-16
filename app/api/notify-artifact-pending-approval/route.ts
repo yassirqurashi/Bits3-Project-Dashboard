@@ -3,14 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 import { getSupabaseUrl } from '../../../lib/supabase/config'
 import { sendGmailMessage } from '../../../lib/email/gmail'
 import { buildArtifactPendingApprovalEmail } from '../../../lib/email/artifact-notifications'
-
-const getClientArtifactsLink = () => {
-  const explicitUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL
-  const vercelUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : ''
-  const baseUrl = explicitUrl || vercelUrl || 'http://localhost:3000'
-
-  return `${baseUrl.replace(/\/$/, '')}/client-artifacts`
-}
+import { getClientLoginUrl } from '../../../lib/email/client-links'
 
 const formatDate = (date: string | null | undefined) => {
   if (!date) return 'Not set'
@@ -73,7 +66,7 @@ export async function POST(request: Request) {
       artifactDescription: artifact.description || '',
       creationDate: formatDate(artifact.creation_date),
       fileName: artifact.file_name || '',
-      artifactLink: getClientArtifactsLink(),
+      artifactLink: getClientLoginUrl(),
     })
 
     await sendGmailMessage({
